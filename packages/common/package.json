@@ -1,20 +1,17 @@
 {
-  "name": "browser",
+  "name": "common",
   "version": "0.0.1",
-  "description": "A lib for browser",
-  "keywords": [
-    "lib"
-  ],
+  "description": "> TODO: description",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
-  "main": "lib/browser.js",
+  "main": "dist/index.js",
   "directories": {
-    "lib": "lib",
+    "dist": "dist",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -25,10 +22,5 @@
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"
-  },
-  "dependencies": {
-    "@types/node": "^15.3.0",
-    "common": "^0.0.1",
-    "typescript": "^4.2.4"
   }
 }
