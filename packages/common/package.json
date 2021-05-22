@@ -1,11 +1,19 @@
 {
-  "name": "common",
+  "name": "@hadeshe93/lib-common",
   "version": "0.0.1",
   "description": "> TODO: description",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
-  "main": "dist/index.js",
+  "main": "index.js",
+  "buildOptions": {
+    "name": "common",
+    "formats": [
+      "cjs",
+      "esm",
+      "iife"
+    ]
+  },
   "directories": {
     "dist": "dist",
     "test": "__tests__"

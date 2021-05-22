@@ -1,5 +1,5 @@
 {
-  "name": "browser",
+  "name": "@hadeshe93/lib-browser",
   "version": "0.0.1",
   "description": "A lib for browser",
   "keywords": [
@@ -8,7 +8,15 @@
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
-  "main": "lib/browser.js",
+  "main": "index.js",
+  "buildOptions": {
+    "name": "browser",
+    "formats": [
+      "cjs",
+      "esm",
+      "iife"
+    ]
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -27,8 +35,6 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@types/node": "^15.3.0",
-    "common": "^0.0.1",
-    "typescript": "^4.2.4"
+    "@hadeshe93/lib-common": "^0.0.1"
   }
 }

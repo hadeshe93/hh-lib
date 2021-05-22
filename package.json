@@ -1,5 +1,5 @@
 {
-  "name": "hh-lib",
+  "name": "@hadeshe93/lib",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -13,7 +13,18 @@
   "author": "hadeshe",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "@types/node": "^15.6.0",
+    "chalk": "^4.1.1",
+    "execa": "^5.0.0",
+    "fs-extra": "^10.0.0",
     "lerna": "^4.0.0",
+    "minimist": "^1.2.5",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   }
 }
