@@ -1,5 +1,52 @@
-var browser = (function (exports, libCommon) {
+var hdsLibBrowser = (function (exports) {
   'use strict';
+
+  var index_cjs = {};
+
+  Object.defineProperty(index_cjs, '__esModule', { value: true });
+
+  var EVariabelType;
+  (function (EVariabelType) {
+      EVariabelType["undefined"] = "undefined";
+      EVariabelType["null"] = "null";
+      EVariabelType["symbol"] = "symbol";
+      EVariabelType["string"] = "string";
+      EVariabelType["number"] = "number";
+      EVariabelType["boolean"] = "boolean";
+      EVariabelType["object"] = "object";
+      EVariabelType["array"] = "array";
+      EVariabelType["function"] = "function";
+      EVariabelType["error"] = "error";
+      EVariabelType["regexp"] = "regexp";
+      EVariabelType["unknown"] = "unknown";
+  })(EVariabelType || (EVariabelType = {}));
+  var EVariabelTypeMap;
+  (function (EVariabelTypeMap) {
+      EVariabelTypeMap["[object Undefined]"] = "undefined";
+      EVariabelTypeMap["[object Null]"] = "null";
+      EVariabelTypeMap["[object Symbol]"] = "symbol";
+      EVariabelTypeMap["[object Number]"] = "number";
+      EVariabelTypeMap["[object Boolean]"] = "boolean";
+      EVariabelTypeMap["[object String]"] = "string";
+      EVariabelTypeMap["[object Object]"] = "object";
+      EVariabelTypeMap["[object Array]"] = "array";
+      EVariabelTypeMap["[object Function]"] = "function";
+      EVariabelTypeMap["[object Error]"] = "error";
+      EVariabelTypeMap["[object RegExp]"] = "regexp";
+  })(EVariabelTypeMap || (EVariabelTypeMap = {}));
+  const getTypeOf = (variable) => {
+      const oriType = Object.prototype.toString.call(variable);
+      return (EVariabelTypeMap[oriType] || EVariabelType.unknown);
+  };
+
+  var index$1 = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    getTypeOf: getTypeOf
+  });
+
+  index_cjs.typeModule = index$1;
+
+  var common = index_cjs;
 
   /**
    * 插入js脚本
@@ -31,7 +78,7 @@ var browser = (function (exports, libCommon) {
   });
 
   // 分模块导出，减小包体积
-  console.log(libCommon.getTypeOf.getTypeOf('x'));
+  console.log(common.typeModule.getTypeOf('x'));
 
   exports.script = index;
 
@@ -39,4 +86,4 @@ var browser = (function (exports, libCommon) {
 
   return exports;
 
-}({}, common));
+}({}));

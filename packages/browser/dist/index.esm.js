@@ -1,4 +1,4 @@
-import { getTypeOf } from '@hadeshe93/lib-common';
+import { typeModule } from '@hadeshe93/lib-common';
 
 /**
  * 插入js脚本
@@ -30,6 +30,6 @@ var index = /*#__PURE__*/Object.freeze({
 });
 
 // 分模块导出，减小包体积
-console.log(getTypeOf.getTypeOf('x'));
+console.log(typeModule.getTypeOf('x'));
 
 export { index as script };

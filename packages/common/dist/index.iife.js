@@ -1,4 +1,4 @@
-var common = (function (exports) {
+var hdsLibCommon = (function (exports) {
   'use strict';
 
   var EVariabelType;
@@ -23,6 +23,7 @@ var common = (function (exports) {
       EVariabelTypeMap["[object Symbol]"] = "symbol";
       EVariabelTypeMap["[object Number]"] = "number";
       EVariabelTypeMap["[object Boolean]"] = "boolean";
+      EVariabelTypeMap["[object String]"] = "string";
       EVariabelTypeMap["[object Object]"] = "object";
       EVariabelTypeMap["[object Array]"] = "array";
       EVariabelTypeMap["[object Function]"] = "function";
@@ -39,7 +40,7 @@ var common = (function (exports) {
     getTypeOf: getTypeOf
   });
 
-  exports.getTypeOf = index;
+  exports.typeModule = index;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -5,6 +5,8 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "cross-env NODE_ENV=development node scripts/build.js",
+    "build:prod": "cross-env NODE_ENV=production node scripts/build.js",
     "save": "git add --all && git commit -m 'feat: 更新代码' && git push origin main"
   },
   "version": "0.0.1",
@@ -13,16 +15,19 @@
   "author": "hadeshe",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/node": "^15.6.0",
     "chalk": "^4.1.1",
+    "cross-env": "^7.0.3",
     "execa": "^5.0.0",
     "fs-extra": "^10.0.0",
     "lerna": "^4.0.0",
     "minimist": "^1.2.5",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"

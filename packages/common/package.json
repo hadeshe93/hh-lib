@@ -5,9 +5,10 @@
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
+  "module": "dist/index.esm.js",
   "main": "index.js",
   "buildOptions": {
-    "name": "common",
+    "name": "hdsLibCommon",
     "formats": [
       "cjs",
       "esm",

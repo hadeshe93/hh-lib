@@ -1,1 +1,1 @@
-export * as getTypeOf from './get-type-of/index';
+export * as typeModule from './type-module/index';

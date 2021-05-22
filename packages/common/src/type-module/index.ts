@@ -19,6 +19,7 @@ enum EVariabelTypeMap {
   '[object Symbol]' = EVariabelType.symbol,
   '[object Number]' = EVariabelType.number,
   '[object Boolean]' = EVariabelType.boolean,
+  '[object String]' = EVariabelType.string,
   '[object Object]' = EVariabelType.object,
   '[object Array]' = EVariabelType.array,
   '[object Function]' = EVariabelType.function,

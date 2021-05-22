@@ -24,6 +24,7 @@ var EVariabelTypeMap;
     EVariabelTypeMap["[object Symbol]"] = "symbol";
     EVariabelTypeMap["[object Number]"] = "number";
     EVariabelTypeMap["[object Boolean]"] = "boolean";
+    EVariabelTypeMap["[object String]"] = "string";
     EVariabelTypeMap["[object Object]"] = "object";
     EVariabelTypeMap["[object Array]"] = "array";
     EVariabelTypeMap["[object Function]"] = "function";
@@ -40,4 +41,4 @@ var index = /*#__PURE__*/Object.freeze({
   getTypeOf: getTypeOf
 });
 
-exports.getTypeOf = index;
+exports.typeModule = index;

@@ -2,6 +2,10 @@ import path from 'path';
 import chalk from 'chalk';
 import ts from 'rollup-plugin-typescript2';
 import json from '@rollup/plugin-json';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import { terser } from 'rollup-plugin-terser';
+
 
 // 枚举类型
 const EBuildFormat = {
@@ -47,14 +51,19 @@ const outputConfigs = {
 };
 const defaultFormats = ['cjs', 'esm'];
 const packageFormats = packageOptions.formats || defaultFormats;
-const packageConfigs = packageFormats.map(format => createConfig(format, outputConfigs[format]));
+const packageConfigs = ENV_NODE_ENV === 'production'
+  ? packageFormats.map((format) => {
+      const createFn = format === 'iife' ? createMinifiedConfig : createConfig;
+      return createFn(format, outputConfigs[format]);
+    })
+  : packageFormats.map(format => createConfig(format, outputConfigs[format]));
 
 // 工具函数
 function resolve(p) {
   return path.resolve(packageDir, p);
 };
 
-// 创建配置
+// 创建普通配置
 function createConfig(format, outputConfig, plugins = []) {
   if (!outputConfig) {
     console.log(chalk.yellow(`invalid format: "${format}"`));
@@ -65,12 +74,13 @@ function createConfig(format, outputConfig, plugins = []) {
     name: packageOptions.name,
     exports: 'auto',
     globals: {
-      '@hadeshe93/lib-common': 'common'
+      '@hadeshe93/lib-common': require(path.resolve(__dirname, 'packages/common/package.json')).buildOptions.name || 'hdsLibCommon',
     },
     sourcemap: ENV_SOURCE_MAP,
   };
 
   const isProductionBuild = ENV_NODE_ENV === 'production';
+  const isGlobalBuild = format === 'iife';
   const tsPlugin = ts({
     check: true,
     tsconfig: resolve('tsconfig.json'),
@@ -88,7 +98,7 @@ function createConfig(format, outputConfig, plugins = []) {
   return {
     input: resolve('src/index.ts'),
     output,
-    external: [
+    external: isGlobalBuild ? [] : [
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {}),
     ],
@@ -97,6 +107,8 @@ function createConfig(format, outputConfig, plugins = []) {
         namedExports: false
       }),
       tsPlugin,
+      commonjs(),
+      nodeResolve(),
       ...plugins,
     ],
     onwarn: (msg, warn) => {
@@ -109,5 +121,19 @@ function createConfig(format, outputConfig, plugins = []) {
     }
   };
 };
+
+// 在普通配置基础上，创建压缩配置
+function createMinifiedConfig(format, outputConfig) {
+  return createConfig(format, outputConfig, [
+    terser({
+      ecma: 5,
+      module: /^esm/.test(format),
+      compress: {
+        pure_getters: true
+      },
+      safari10: true
+    })
+  ]);
+}
 
 export default packageConfigs;

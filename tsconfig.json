@@ -5,8 +5,8 @@
     "sourceMap": false,
     // 生成声明文件
     "declaration": true,
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
     "allowJs": false,
     // "strict": true,
@@ -17,7 +17,6 @@
     // "allowSyntheticDefaultImports": true,
     "removeComments": false,
     "jsx": "preserve",
-    "lib": ["esnext", "dom"],
     "types": ["node"],
     // "rootDir": ".",
     "paths": {

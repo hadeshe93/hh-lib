@@ -34,6 +34,6 @@ var index = /*#__PURE__*/Object.freeze({
 });
 
 // 分模块导出，减小包体积
-console.log(libCommon.getTypeOf.getTypeOf('x'));
+console.log(libCommon.typeModule.getTypeOf('x'));
 
 exports.script = index;
