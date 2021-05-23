@@ -18,6 +18,9 @@
       "iife"
     ]
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "index.js",
     "dist"
@@ -35,5 +38,5 @@
   "dependencies": {
     "@hadeshe93/lib-common": "^0.1.2"
   },
-  "gitHead": "1f136071402cb8e93830b6943b277732eb80da30"
+  "gitHead": "843db7a3f2fa32881acb1121d4f20a86628829e9"
 }
