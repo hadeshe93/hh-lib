@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/lib-browser",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A lib for browser to make programming more easily",
   "keywords": [
     "lib"
@@ -33,7 +33,7 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "^0.1.1"
+    "@hadeshe93/lib-common": "^0.1.2"
   },
   "gitHead": "1f136071402cb8e93830b6943b277732eb80da30"
 }
