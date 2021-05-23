@@ -15,11 +15,8 @@
       "iife"
     ]
   },
-  "directories": {
-    "dist": "dist",
-    "test": "__tests__"
-  },
   "files": [
+    "index.js",
     "dist"
   ],
   "repository": {
