@@ -10,7 +10,7 @@ export interface IParsedCallStack {
  * 解析调用栈信息
  * @param error 错误对象
  * @param skipIndex 从第几行调用栈信息开始解析
- * @returns 
+ * @returns
  */
 export function parseCallStack(error: Error = new Error(), skipIndex = 1): IParsedCallStack {
   const skipIdx = skipIndex;

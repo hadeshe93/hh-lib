@@ -7,7 +7,20 @@
   "scripts": {
     "build": "cross-env NODE_ENV=development node scripts/build.js",
     "build:prod": "cross-env NODE_ENV=production node scripts/build.js",
+    "lint": "eslint ./ --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
     "save": "git add --all && git commit -m 'feat: 更新代码' && git push origin main"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "version": "0.0.1",
   "description": "A lib",
@@ -19,12 +32,21 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/node": "^15.6.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "chalk": "^4.1.1",
     "cross-env": "^7.0.3",
+    "eslint": "^7.27.0",
+    "eslint-config-alloy": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "execa": "^5.0.0",
     "fs-extra": "^10.0.0",
+    "husky": "^6.0.0",
     "lerna": "^4.0.0",
+    "lint-staged": "^11.0.0",
     "minimist": "^1.2.5",
+    "prettier": "^2.3.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",

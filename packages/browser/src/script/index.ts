@@ -2,7 +2,7 @@
  * 插入js脚本
  * @param {string} src 插入js地址
  */
- export function insertJs(src: string = '') {
+export function insertJs(src = ''): Promise<any> {
   if (typeof src !== 'string' || !src) {
     console.error('Please pass effective src string');
     return Promise.resolve(null);
@@ -19,7 +19,7 @@
       head = null;
       reject(...args);
     });
-    
+
     head.appendChild(tag);
   });
 }
