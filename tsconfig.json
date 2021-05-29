@@ -15,18 +15,19 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     // "allowSyntheticDefaultImports": true,
-    "removeComments": false,
+    "removeComments": true,
     "jsx": "preserve",
-    "types": ["node"],
+    // 默认会查找 node_modules/@types 下的，不需要配置白名单
+    // "types": ["node", "jest"],
     "rootDir": ".",
     "paths": {
       // "@vue/*": ["packages/*/src"],
       // "vue": ["packages/vue/src"]
     }
   },
-  "include": [
-    // "packages/global.d.ts",
-    // "packages/*/src",
-    // "packages/*/__tests__"
-  ]
+  // "include": [
+  //   // "packages/global.d.ts",
+  //   // "packages/*/src",
+  //   // "packages/*/__tests__"
+  // ]
 }

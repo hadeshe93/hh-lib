@@ -8,7 +8,7 @@
     // jquery: true
   },
   "globals": {},
-  "ignorePatterns": ["dist/"],
+  "ignorePatterns": ["dist/", "jest.config.js", "jest.init.js", "rollup.config.js", "prettier.config.js"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 6,

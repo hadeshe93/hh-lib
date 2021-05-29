@@ -89,7 +89,9 @@ function createConfig(format, outputConfig, plugins = []) {
       compilerOptions: {
         sourceMap: output.sourcemap,
         declaration: true,
-        declarationMap: false
+        declarationMap: false,
+        // override 掉 rootDir
+        rootDir: './src',
       },
       exclude: ['**/__tests__', '**/tests']
     }
