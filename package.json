@@ -7,6 +7,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=development node scripts/build.js",
     "build:prod": "cross-env NODE_ENV=production node scripts/build.js",
+    "publish": "lerna publish",
     "lint": "eslint ./ --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "save": "git add --all && git commit -m 'feat: 更新代码' && git push origin main"
