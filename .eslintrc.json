@@ -8,12 +8,12 @@
     // jquery: true
   },
   "globals": {},
-  "ignorePatterns": ["dist/", "jest.config.js", "jest.init.js", "rollup.config.js", "prettier.config.js"],
+  "ignorePatterns": ["dist/"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
-    "project": ["./packages/**/tsconfig.json"]
+    "project": ["./packages/**/tsconfig.json", "./tsconfig.json"]
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
