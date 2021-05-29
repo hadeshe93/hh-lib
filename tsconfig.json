@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    // "baseUrl": ".",
+    "baseUrl": ".",
     // "outDir": "dist",
     "sourceMap": false,
     // 生成声明文件
@@ -18,15 +18,15 @@
     "removeComments": false,
     "jsx": "preserve",
     "types": ["node"],
-    // "rootDir": ".",
+    "rootDir": ".",
     "paths": {
       // "@vue/*": ["packages/*/src"],
       // "vue": ["packages/vue/src"]
     }
   },
-  // "include": [
-  //   // "packages/global.d.ts",
-  //   "packages/*/src",
-  //   "packages/*/__tests__"
-  // ]
+  "include": [
+    // "packages/global.d.ts",
+    // "packages/*/src",
+    // "packages/*/__tests__"
+  ]
 }
