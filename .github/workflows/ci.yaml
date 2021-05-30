@@ -30,4 +30,6 @@ jobs:
           git config --global user.name "$GITHUB_ACTOR"
       - name: Publish to npm
         run: npx lerna publish --conventional-commits --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
