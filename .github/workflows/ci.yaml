@@ -25,5 +25,5 @@ jobs:
       - name: Run unit tests
         run: yarn test --ci
       - name: Publish to npm
-        run: npx lerna publish --yes
+        run: npx lerna publish --conventional-commits --yes
 
