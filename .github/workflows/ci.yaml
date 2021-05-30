@@ -24,6 +24,10 @@ jobs:
         run: yarn install
       - name: Run unit tests
         run: yarn test --ci
+      - name: Configure git info
+        run: |
+          git config --global user.email "$GITHUB_ACTOR@gmail.com"
+          git config --global user.name "$GITHUB_ACTOR"
       - name: Publish to npm
         run: npx lerna publish --conventional-commits --yes
 
