@@ -1,0 +1,34 @@
+{
+  "name": "@hadeshe93/lib-node",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/hh-lib#readme",
+  "license": "ISC",
+  "module": "dist/index.esm.js",
+  "main": "index.js",
+  "buildOptions": {
+    "name": "hdsLibNode",
+    "formats": [
+      "cjs",
+      "esm"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/hh-lib.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/hh-lib/issues"
+  }
+}
