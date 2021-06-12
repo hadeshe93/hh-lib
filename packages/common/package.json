@@ -7,6 +7,7 @@
   "license": "ISC",
   "module": "dist/index.esm.js",
   "main": "index.js",
+  "types": "dist/index.d.ts",
   "buildOptions": {
     "name": "hdsLibCommon",
     "formats": [
