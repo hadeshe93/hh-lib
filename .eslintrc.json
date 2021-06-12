@@ -15,7 +15,7 @@
     "ecmaVersion": 8,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [],
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "overrides": [
     {
