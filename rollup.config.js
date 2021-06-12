@@ -6,13 +6,12 @@ import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 
-
 // 枚举类型
 const EBuildFormat = {
   cjs: 'cjs',
   esm: 'esm',
-  iife: 'iife'
-}
+  iife: 'iife',
+};
 
 // 环境变量
 const {
@@ -38,30 +37,31 @@ const name = packageOptions.filename || path.basename(packageDir);
 const outputConfigs = {
   cjs: {
     file: resolve(`dist/index.cjs.js`),
-    format: EBuildFormat.cjs
+    format: EBuildFormat.cjs,
   },
   esm: {
     file: resolve(`dist/index.esm.js`),
-    format: EBuildFormat.esm
+    format: EBuildFormat.esm,
   },
   iife: {
     file: resolve(`dist/index.iife.js`),
-    format: EBuildFormat.iife
+    format: EBuildFormat.iife,
   },
 };
 const defaultFormats = ['cjs', 'esm'];
 const packageFormats = packageOptions.formats || defaultFormats;
-const packageConfigs = ENV_NODE_ENV === 'production'
-  ? packageFormats.map((format) => {
-      const createFn = format === 'iife' ? createMinifiedConfig : createConfig;
-      return createFn(format, outputConfigs[format]);
-    })
-  : packageFormats.map(format => createConfig(format, outputConfigs[format]));
+const packageConfigs =
+  ENV_NODE_ENV === 'production'
+    ? packageFormats.map((format) => {
+        const createFn = format === 'iife' ? createMinifiedConfig : createConfig;
+        return createFn(format, outputConfigs[format]);
+      })
+    : packageFormats.map((format) => createConfig(format, outputConfigs[format]));
 
 // 工具函数
 function resolve(p) {
   return path.resolve(packageDir, p);
-};
+}
 
 // 创建普通配置
 function createConfig(format, outputConfig, plugins = []) {
@@ -74,12 +74,13 @@ function createConfig(format, outputConfig, plugins = []) {
     name: packageOptions.name,
     exports: 'auto',
     globals: {
-      '@hadeshe93/lib-common': require(path.resolve(__dirname, 'packages/common/package.json')).buildOptions.name || 'hdsLibCommon',
+      '@hadeshe93/lib-common':
+        require(path.resolve(__dirname, 'packages/common/package.json')).buildOptions.name || 'hdsLibCommon',
     },
     sourcemap: ENV_SOURCE_MAP,
   };
 
-  const isProductionBuild = ENV_NODE_ENV === 'production';
+  // const isProductionBuild = ENV_NODE_ENV === 'production';
   const isGlobalBuild = format === 'iife';
   const tsPlugin = ts({
     check: true,
@@ -93,20 +94,17 @@ function createConfig(format, outputConfig, plugins = []) {
         // override 掉 rootDir
         rootDir: './src',
       },
-      exclude: ['**/__tests__', '**/tests']
-    }
+      exclude: ['**/__tests__', '**/tests'],
+    },
   });
 
   return {
     input: resolve('src/index.ts'),
     output,
-    external: isGlobalBuild ? [] : [
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-    ],
+    external: isGlobalBuild ? [] : [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       json({
-        namedExports: false
+        namedExports: false,
       }),
       tsPlugin,
       commonjs(),
@@ -115,14 +113,14 @@ function createConfig(format, outputConfig, plugins = []) {
     ],
     onwarn: (msg, warn) => {
       if (!/Circular/.test(msg)) {
-        warn(msg)
+        warn(msg);
       }
     },
     treeshake: {
-      moduleSideEffects: false
-    }
+      moduleSideEffects: false,
+    },
   };
-};
+}
 
 // 在普通配置基础上，创建压缩配置
 function createMinifiedConfig(format, outputConfig) {
@@ -131,10 +129,10 @@ function createMinifiedConfig(format, outputConfig) {
       ecma: 5,
       module: /^esm/.test(format),
       compress: {
-        pure_getters: true
+        pure_getters: true,
       },
-      safari10: true
-    })
+      safari10: true,
+    }),
   ]);
 }
 

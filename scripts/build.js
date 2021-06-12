@@ -8,9 +8,7 @@ const { getAllTargets, getTargets } = require('./target');
 const rootCacheDir = path.resolve(__dirname, '../.cache');
 
 // 环境变量
-const {
-  NODE_ENV: ENV_NODE_ENV = 'development',
-} = process.env;
+const { NODE_ENV: ENV_NODE_ENV = 'development' } = process.env;
 
 // 主入口函数
 async function main() {
@@ -53,34 +51,29 @@ async function build(target) {
       '--config',
       'rollup.config.js',
       '--environment',
-      [
-        `NODE_ENV:${env}`,
-        `TARGET:${target}`,
-      ]
-        .filter(Boolean)
-        .join(',')
+      [`NODE_ENV:${env}`, `TARGET:${target}`].filter(Boolean).join(','),
     ],
-    { stdio: 'inherit' }
-  )
+    { stdio: 'inherit' },
+  );
 }
 
 // 并发运行
 async function runParallel(maxConcurrency, targets, iteratorFn) {
-  const ret = []
-  const executing = []
+  const ret = [];
+  const executing = [];
   for (const item of targets) {
-    const p = Promise.resolve().then(() => iteratorFn(item, targets))
-    ret.push(p)
+    const p = Promise.resolve().then(() => iteratorFn(item, targets));
+    ret.push(p);
 
     if (maxConcurrency <= targets.length) {
-      const e = p.then(() => executing.splice(executing.indexOf(e), 1))
-      executing.push(e)
+      const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+      executing.push(e);
       if (executing.length >= maxConcurrency) {
-        await Promise.race(executing)
+        await Promise.race(executing);
       }
     }
   }
-  return Promise.all(ret)
+  return Promise.all(ret);
 }
 
 main();

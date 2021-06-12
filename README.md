@@ -13,6 +13,13 @@ $ yarn install
 $ npx lerna bootstrap
 ```
 
+如果有需要给整个项目安装依赖的话，需要使用 `yarn` 命令在根目录单独安装，例如：
+```bash
+# 安装 --save-dev 依赖
+# 项目单独安装依赖，需要加上 -W 标志位
+$ yarn add @babel/eslint-parser --dev -W
+```
+
 ## 创建新包
 
 依旧使用 `lerna` 工具来创建新包：

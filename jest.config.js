@@ -21,7 +21,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/.*(.mock.(js|ts))$'],
   testURL: 'http://localhost/',
   collectCoverage: false,
-  collectCoverageFrom: ['<rootDir>/packages/*/src/**/*.ts', , '!<rootDir>/src/**/*.mock.(js | ts)'],
+  collectCoverageFrom: ['<rootDir>/packages/*/src/**/*.ts', '!<rootDir>/src/**/*.mock.(js | ts)'],
   coverageDirectory: '<rootDir>/coverage/',
   coverageReporters: ['html', 'lcov', 'json', 'text-summary', 'clover'],
   reporters: [
