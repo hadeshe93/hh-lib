@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2021-08-14)
+
+
+### Features
+
+* 导出 string 模块 ([0f1bedf](https://github.com/hadeshe93/hh-lib/commit/0f1bedfd9591f7ceee4b51ea8579b94c2845c2ed))
+
+
+
+
+
 ## 0.2.4 (2021-08-14)
 
 **Note:** Version bump only for package @hadeshe93/lib-common
