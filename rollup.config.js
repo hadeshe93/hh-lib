@@ -5,6 +5,7 @@ import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import babel from '@rollup/plugin-babel';
 
 // 枚举类型
 const EBuildFormat = {
@@ -53,7 +54,7 @@ const packageFormats = packageOptions.formats || defaultFormats;
 const packageConfigs =
   ENV_NODE_ENV === 'production'
     ? packageFormats.map((format) => {
-        const createFn = format === 'iife' ? createMinifiedConfig : createConfig;
+        const createFn = format === 'iife' ? createConfigWithTerser : createConfig;
         return createFn(format, outputConfigs[format]);
       })
     : packageFormats.map((format) => createConfig(format, outputConfigs[format]));
@@ -82,6 +83,7 @@ function createConfig(format, outputConfig, plugins = []) {
 
   // const isProductionBuild = ENV_NODE_ENV === 'production';
   const isGlobalBuild = format === 'iife';
+  const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
   const tsPlugin = ts({
     check: true,
     tsconfig: resolve('tsconfig.json'),
@@ -97,6 +99,26 @@ function createConfig(format, outputConfig, plugins = []) {
       exclude: ['**/__tests__', '**/tests'],
     },
   });
+  const babelPlugin = babel({
+    extensions,
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          modules: false,
+          useBuiltIns: 'usage',
+          corejs: 3,
+          targets: ['defaults', 'ie 11', 'iOS 10'],
+        },
+      ],
+      [
+        '@babel/preset-typescript',
+        {
+          allExtensions: true,
+        },
+      ],
+    ],
+  });
 
   return {
     input: resolve('src/index.ts'),
@@ -106,9 +128,12 @@ function createConfig(format, outputConfig, plugins = []) {
       json({
         namedExports: false,
       }),
-      tsPlugin,
       commonjs(),
-      nodeResolve(),
+      nodeResolve({
+        extensions,
+      }),
+      // iife 格式产物需要 babel
+      isGlobalBuild ? babelPlugin : tsPlugin,
       ...plugins,
     ],
     onwarn: (msg, warn) => {
@@ -123,7 +148,7 @@ function createConfig(format, outputConfig, plugins = []) {
 }
 
 // 在普通配置基础上，创建压缩配置
-function createMinifiedConfig(format, outputConfig) {
+function createConfigWithTerser(format, outputConfig) {
   return createConfig(format, outputConfig, [
     terser({
       ecma: 5,
