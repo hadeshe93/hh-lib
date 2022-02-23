@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=development node scripts/build.js",
+    "build": "cross-env NODE_ENV=development esno scripts/build.ts",
     "build:prod": "cross-env NODE_ENV=production node scripts/build.js",
     "publish": "lerna publish",
     "lint": "eslint ./ --ext .ts,.js",
@@ -49,6 +49,7 @@
     "eslint-config-alloy": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "esno": "^0.14.1",
     "execa": "^5.0.0",
     "husky": "4.3.0",
     "jest": "^27.0.1",

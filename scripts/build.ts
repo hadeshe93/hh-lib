@@ -1,19 +1,30 @@
-const os = require('os');
-const path = require('path');
-const execa = require('execa');
-const fs = require('fs-extra');
-const { getAllTargets, getTargets } = require('./target');
+/*
+ * @Description   : 构建脚本
+ * @usage         :
+ * @Date          : 2022-02-23 10:48:24
+ * @Author        : hadeshe93<hadeshe93@gmail.com>
+ * @LastEditors   : hadeshe93<hadeshe93@gmail.com>
+ * @LastEditTime  : 2022-02-23 12:10:39
+ * @FilePath      : /hh-lib/scripts/build.ts
+ */
+import os from 'os';
+import path from 'path';
+import execa from 'execa';
+import fs from 'fs-extra';
+import { getTargets, getAllTargets } from './target';
 
 // 路径常量
-const rootCacheDir = path.resolve(__dirname, '../.cache');
-
+const ROOT_CACHE_DIR = path.resolve(__dirname, '../.cache');
 // 环境变量
 const { NODE_ENV: ENV_NODE_ENV = 'development' } = process.env;
 
+// 执行入口函数
+main();
+
 // 主入口函数
 async function main() {
-  await fs.remove(rootCacheDir);
-  await fs.mkdir(rootCacheDir);
+  await fs.remove(ROOT_CACHE_DIR);
+  await fs.mkdir(ROOT_CACHE_DIR);
 
   const targets = getTargets();
   let targetList;
@@ -23,7 +34,7 @@ async function main() {
     targetList = getAllTargets();
   }
 
-  console.log(targetList);
+  console.log('构建目标列表：', targetList);
 
   await buildAll(targetList);
 }
@@ -75,5 +86,3 @@ async function runParallel(maxConcurrency, targets, iteratorFn) {
   }
   return Promise.all(ret);
 }
-
-main();
