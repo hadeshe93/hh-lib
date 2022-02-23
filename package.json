@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "build": "cross-env NODE_ENV=development esno scripts/build.ts",
     "build:prod": "cross-env NODE_ENV=production node scripts/build.js",
     "publish": "lerna publish",

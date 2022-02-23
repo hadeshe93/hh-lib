@@ -32,6 +32,8 @@ jobs:
           git config --global user.name "$GITHUB_ACTOR"
       - name: Build
         run: yarn run build
+      # --conventional-commits: 表示自动根据 git 提交历史的 type 来决定升级哪部分版本号，参考 https://github.com/lerna/lerna/blob/main/commands/version/README.md#--conventional-commits
+      # --yes: 表示默认以 yes 跳过所有交互式问答，在 CI/CD 自动化中使用
       - name: Publish to npm
         run: |
           npm whoami

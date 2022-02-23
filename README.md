@@ -1,4 +1,5 @@
-![continous deploy action badge](https://github.com/hadeshe93/hh-lib/actions/workflows/ci-cd.yml/badge.svg)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+![continous deploy action badge](https://github.com/hadeshe93/hh-lib/actions/workflows/ci-cd.yaml/badge.svg)
 
 该项目是的 monorepo 类型的组织形式。
 
@@ -10,7 +11,9 @@
 $ yarn install
 
 # 让 lerna 接管安装各个包中的依赖
-$ npx lerna bootstrap
+$ yarn run bootstrap
+# 或者
+# $ npx lerna bootstrap
 ```
 
 如果有需要给整个项目安装依赖的话，需要使用 `yarn` 命令在根目录单独安装，例如：
