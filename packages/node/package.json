@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/lib-node",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "> TODO: description",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
@@ -33,7 +33,7 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "^0.3.4",
+    "@hadeshe93/lib-common": "^0.3.5",
     "axios": "^0.21.1"
   }
 }
