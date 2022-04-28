@@ -1,3 +1,12 @@
+/*
+ * @Description   : 字符串操作相关文件
+ * @usage         :
+ * @Date          : 2022-02-23 10:48:24
+ * @Author        : hadeshe93<hadeshe93@gmail.com>
+ * @LastEditors   : hadeshe93<hadeshe93@gmail.com>
+ * @LastEditTime  : 2022-04-28 14:26:41
+ * @FilePath      : /hh-lib/packages/common/src/string/index.ts
+ */
 import emoutils from 'emoutils';
 
 interface IGetStrInfoOpts {
@@ -87,3 +96,14 @@ export const getLimitedStr = (str: string, len: number, opts?: IGetStrInfoOpts):
  * @returns {number}
  */
 export const getStrLen = (str: string, opts?: IGetStrInfoOpts): number => getStrInfoCore(str, Infinity, opts).count;
+
+/**
+ * 过滤字符串中的零宽字符
+ * @param str 原始字符串
+ * @returns 过滤后的字符串
+ */
+export const filterZeroWidthCharsOfString = (str: string): string => {
+  // 参考： https://juejin.cn/post/6844904164057677831
+  const filteredStr = str.replace(/[\u200b-\u200f\uFEFF\u202a-\u202e]/g, '');
+  return filteredStr;
+};
