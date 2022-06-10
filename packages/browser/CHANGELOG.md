@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2022-06-10)
+
+
+### Features
+
+* 将所有 packages 内的导出进行彻底改造,以满足最小化 tree-shaking ([d5a13a5](https://github.com/hadeshe93/hh-lib/commit/d5a13a531ef45686708f45b68a7d7ab2a51ec7fd))
+
+
+
+
+
 ## 0.3.5 (2022-04-28)
 
 **Note:** Version bump only for package @hadeshe93/lib-browser
