@@ -1,3 +1,3 @@
-export * as typeModule from './type-module/index';
-export * as callStack from './call-stack/index';
-export * as string from './string/index';
+export * from './type-util';
+export * from './stack-util';
+export * from './string-util';

@@ -6,7 +6,7 @@ import { Socket } from 'net';
  * @param headers
  * @returns
  */
-export default function getUserIp(socket: Socket, headers: any) {
+export function getUserIp(socket: Socket, headers: any) {
   if (!socket || !headers) return '';
 
   let userIp: string = socket.remoteAddress || '';

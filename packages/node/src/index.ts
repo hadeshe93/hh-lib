@@ -1,2 +1,2 @@
-export * as ip from './ip/index';
-export * as download from './download/index';
+export * from './download';
+export * from './get-user-ip';

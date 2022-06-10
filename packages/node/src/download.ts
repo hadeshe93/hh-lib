@@ -1,9 +1,8 @@
-import { typeModule } from '@hadeshe93/lib-common';
-import fsExtra from 'fs-extra';
-import axios from 'axios';
-
 import fs from 'fs';
 import path from 'path';
+import axios from 'axios';
+import fsExtra from 'fs-extra';
+import { getTypeOf } from '@hadeshe93/lib-common';
 
 /**
  * 下载资源函数
@@ -15,7 +14,7 @@ export const downloadAsset = async (url: string, dest: string, extName?: string)
   const { dir: destDir } = path.parse(dest);
   const { name, ext: oriExt } = path.parse(url);
   let ext = oriExt;
-  if (typeModule.getTypeOf(extName) === 'string') {
+  if (getTypeOf(extName) === 'string') {
     ext = extName;
   }
   const destFilePath = path.join(destDir, `${name}.${ext}`);
