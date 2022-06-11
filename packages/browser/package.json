@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/lib-browser",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A lib for browser to make programming more easily",
   "keywords": [
     "lib"
@@ -11,15 +11,17 @@
   "module": "dist/index.esm.js",
   "main": "index.js",
   "types": "dist/index.d.ts",
-  "buildOptions": [{
-    "target": "browser",
-    "name": "hdsLibBrowser",
-    "format": [
-      "cjs",
-      "esm",
-      "iife"
-    ]
-  }],
+  "buildOptions": [
+    {
+      "target": "browser",
+      "name": "hdsLibBrowser",
+      "format": [
+        "cjs",
+        "esm",
+        "iife"
+      ]
+    }
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +40,7 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "^0.4.0"
+    "@hadeshe93/lib-common": "^0.4.1"
   },
   "gitHead": "843db7a3f2fa32881acb1121d4f20a86628829e9"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/lib-node",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "> TODO: description",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
@@ -8,13 +8,15 @@
   "module": "dist/index.esm.js",
   "main": "index.js",
   "types": "dist/index.d.ts",
-  "buildOptions": [{
-    "target": "node",
-    "format": [
-      "cjs",
-      "esm"
-    ]
-  }],
+  "buildOptions": [
+    {
+      "target": "node",
+      "format": [
+        "cjs",
+        "esm"
+      ]
+    }
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -33,7 +35,7 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "^0.4.0",
+    "@hadeshe93/lib-common": "^0.4.1",
     "axios": "^0.21.1"
   }
 }
