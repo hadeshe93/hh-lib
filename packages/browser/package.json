@@ -11,14 +11,15 @@
   "module": "dist/index.esm.js",
   "main": "index.js",
   "types": "dist/index.d.ts",
-  "buildOptions": {
+  "buildOptions": [{
+    "target": "browser",
     "name": "hdsLibBrowser",
-    "formats": [
+    "format": [
       "cjs",
       "esm",
       "iife"
     ]
-  },
+  }],
   "publishConfig": {
     "access": "public"
   },

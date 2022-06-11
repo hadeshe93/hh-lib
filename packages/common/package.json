@@ -8,14 +8,21 @@
   "module": "dist/index.esm.js",
   "main": "index.js",
   "types": "dist/index.d.ts",
-  "buildOptions": {
+  "buildOptions": [{
+    "target": "browser",
     "name": "hdsLibCommon",
     "formats": [
       "cjs",
       "esm",
       "iife"
     ]
-  },
+  }, {
+    "target": "node",
+    "formats": [
+      "cjs",
+      "esm"
+    ]
+  }],
   "publishConfig": {
     "access": "public"
   },

@@ -24,6 +24,12 @@ const {
   SOURCE_MAP: ENV_SOURCE_MAP,
 } = process.env;
 
+const isEnvProduction = ENV_NODE_ENV === 'production';
+// 工具函数
+function resolve(p) {
+  return path.resolve(packageDir, p);
+}
+
 // 项目根目录视角的变量
 const packageName = ENV_TARGET;
 const packagesDir = path.resolve(__dirname, 'packages');
@@ -31,48 +37,60 @@ const packageDir = path.resolve(packagesDir, packageName);
 
 // 包目录视角的变量
 const pkg = require(resolve('package.json'));
-const packageOptions = pkg.buildOptions || {};
-const name = packageOptions.filename || path.basename(packageDir);
+const pkgName = path.basename(packageDir);
+const pkgBuildOptions = pkg.buildOptions || [];
 
 // 输出配置模板
 const outputConfigs = {
   cjs: {
-    file: resolve(`dist/index.cjs.js`),
+    file: resolve(`dist/index.{target}.cjs.js`),
     format: EBuildFormat.cjs,
   },
   esm: {
-    file: resolve(`dist/index.esm.js`),
+    file: resolve(`dist/index.{target}.esm.js`),
     format: EBuildFormat.esm,
   },
   iife: {
-    file: resolve(`dist/index.iife.js`),
+    file: resolve(`dist/index.{target}.iife.js`),
     format: EBuildFormat.iife,
   },
 };
-const defaultFormats = ['cjs', 'esm'];
-const packageFormats = packageOptions.formats || defaultFormats;
-const packageConfigs =
-  ENV_NODE_ENV === 'production'
-    ? packageFormats.map((format) => {
-        const createFn = format === 'iife' ? createConfigWithTerser : createConfig;
-        return createFn(format, outputConfigs[format]);
-      })
-    : packageFormats.map((format) => createConfig(format, outputConfigs[format]));
+const getOutputConfig = (options = {}) => {
+  const { target, name, format } = options || {};
+  const config = outputConfigs[format];
+  const file = config.file.replace('{target}', target);
+  return {
+    ...config,
+    file,
+    name,
+  };
+};
 
-// 工具函数
-function resolve(p) {
-  return path.resolve(packageDir, p);
-}
+const defaultFormats = ['cjs', 'esm'];
+const packageConfigs = pkgBuildOptions.reduce((allConfigs, buildOptions) => {
+  const { target, name, formats = defaultFormats } = buildOptions;
+  const configs = (formats || defaultFormats).map((format) => {
+    const createFn = (isEnvProduction && format === 'iife')
+      ? createConfigWithTerser
+      : createConfig;
+    return createFn({
+      target,
+      format,
+      outputConfig: getOutputConfig({ target, name, format }),
+    });
+  });
+  return allConfigs.concat(configs);
+}, []);
 
 // 创建普通配置
-function createConfig(format, outputConfig, plugins = []) {
+function createConfig(options = {}) {
+  const { target, format, outputConfig, plugins = [] } = options || {};
   if (!outputConfig) {
     console.log(chalk.yellow(`invalid format: "${format}"`));
     process.exit(1);
   }
   const output = {
     ...outputConfig,
-    name: packageOptions.name,
     exports: 'auto',
     globals: {
       '@hadeshe93/lib-common':
@@ -81,13 +99,12 @@ function createConfig(format, outputConfig, plugins = []) {
     sourcemap: ENV_SOURCE_MAP,
   };
 
-  // const isProductionBuild = ENV_NODE_ENV === 'production';
-  const isGlobalBuild = format === 'iife';
+  const needBabelPlugin = target === 'browser';
   const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
   const tsPlugin = ts({
     check: true,
     tsconfig: resolve('tsconfig.json'),
-    cacheRoot: path.resolve(__dirname, `.cache/${name}/`),
+    cacheRoot: path.resolve(__dirname, `.cache/${pkgName}/`),
     tsconfigOverride: {
       compilerOptions: {
         sourceMap: output.sourcemap,
@@ -101,11 +118,14 @@ function createConfig(format, outputConfig, plugins = []) {
   });
   const babelPlugin = babel({
     extensions,
+    babelHelpers: format === 'iife' ? 'bundled' : 'runtime',
     presets: [
       [
         '@babel/preset-env',
         {
-          modules: false,
+          modules: format === 'esm' 
+            ? false
+            : 'auto',
           useBuiltIns: 'usage',
           corejs: 3,
           targets: ['defaults', 'ie 11', 'iOS 10'],
@@ -118,12 +138,22 @@ function createConfig(format, outputConfig, plugins = []) {
         },
       ],
     ],
+    plugins: [
+      ...(format !== 'iife'
+        ? [[
+            '@babel/plugin-transform-runtime',
+            {
+              corejs: 3,
+            }
+          ]]
+        : []),
+    ],
   });
 
   return {
     input: resolve('src/index.ts'),
     output,
-    external: isGlobalBuild ? [] : [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+    external: format === 'iife' ? [] : [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       json({
         namedExports: false,
@@ -132,8 +162,7 @@ function createConfig(format, outputConfig, plugins = []) {
       nodeResolve({
         extensions,
       }),
-      // iife 格式产物需要 babel
-      isGlobalBuild ? babelPlugin : tsPlugin,
+      needBabelPlugin ? babelPlugin : tsPlugin,
       ...plugins,
     ],
     onwarn: (msg, warn) => {
@@ -148,8 +177,9 @@ function createConfig(format, outputConfig, plugins = []) {
 }
 
 // 在普通配置基础上，创建压缩配置
-function createConfigWithTerser(format, outputConfig) {
-  return createConfig(format, outputConfig, [
+function createConfigWithTerser(options) {
+  const { target, format, outputConfig } = options
+  const plugins =  [
     terser({
       ecma: 5,
       module: /^esm/.test(format),
@@ -158,7 +188,13 @@ function createConfigWithTerser(format, outputConfig) {
       },
       safari10: true,
     }),
-  ]);
+  ];
+  return createConfig({
+    target,
+    format,
+    outputConfig,
+    plugins,
+  });
 }
 
 export default packageConfigs;

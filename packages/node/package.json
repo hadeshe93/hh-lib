@@ -8,13 +8,13 @@
   "module": "dist/index.esm.js",
   "main": "index.js",
   "types": "dist/index.d.ts",
-  "buildOptions": {
-    "name": "hdsLibNode",
-    "formats": [
+  "buildOptions": [{
+    "target": "node",
+    "format": [
       "cjs",
       "esm"
     ]
-  },
+  }],
   "publishConfig": {
     "access": "public"
   },
