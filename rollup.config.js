@@ -99,7 +99,6 @@ function createConfig(options = {}) {
     sourcemap: ENV_SOURCE_MAP,
   };
 
-  const needBabelPlugin = target === 'browser';
   const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
   const tsPlugin = ts({
     check: true,
@@ -128,7 +127,7 @@ function createConfig(options = {}) {
             : 'auto',
           useBuiltIns: 'usage',
           corejs: 3,
-          targets: ['defaults', 'ie 11', 'iOS 10'],
+          targets: target === 'node' ? { node: 12 } : ['defaults', 'ie 11', 'iOS 10'],
         },
       ],
       [
@@ -162,7 +161,8 @@ function createConfig(options = {}) {
       nodeResolve({
         extensions,
       }),
-      needBabelPlugin ? babelPlugin : tsPlugin,
+      // needBabelPlugin ? babelPlugin : tsPlugin,
+      babelPlugin,
       ...plugins,
     ],
     onwarn: (msg, warn) => {
