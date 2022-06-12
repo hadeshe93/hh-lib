@@ -8,8 +8,12 @@
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
-  "module": "dist/index.esm.js",
-  "main": "index.js",
+  "module": "dist/index.browser.esm.js",
+  "main": "ndex.js",
+  "exports": {
+    "import": "./dist/index.browser.esm.js",
+    "require": "./dist/index.browser.cjs.js"
+  },
   "types": "dist/index.d.ts",
   "buildOptions": [{
     "target": "browser",

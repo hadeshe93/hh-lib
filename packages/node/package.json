@@ -5,8 +5,12 @@
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.node.esm.js",
   "main": "index.js",
+  "exports": {
+    "import": "./dist/index.node.esm.js",
+    "require": "./dist/index.node.cjs.js"
+  },
   "types": "dist/index.d.ts",
   "buildOptions": [{
     "target": "node",

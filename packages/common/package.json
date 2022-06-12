@@ -7,6 +7,16 @@
   "license": "ISC",
   "module": "dist/index.esm.js",
   "main": "index.js",
+  "exports": {
+    "node": {
+      "import": "./dist/index.node.esm.js",
+      "require": "./dist/index.node.cjs.js"
+    },
+    "default": {
+      "import": "./dist/index.browser.esm.js",
+      "require": "./dist/index.browser.cjs.js"
+    }
+  },
   "types": "dist/index.d.ts",
   "buildOptions": [{
     "target": "browser",
@@ -18,6 +28,12 @@
     ]
   }, {
     "target": "node",
+    "formats": [
+      "cjs",
+      "esm"
+    ]
+  }, {
+    "target": "all",
     "formats": [
       "cjs",
       "esm"

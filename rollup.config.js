@@ -127,7 +127,11 @@ function createConfig(options = {}) {
             : 'auto',
           useBuiltIns: 'usage',
           corejs: 3,
-          targets: target === 'node' ? { node: 12 } : ['defaults', 'ie 11', 'iOS 10'],
+          targets: (() => {
+            if (target === 'node') return ['node 12.0'];
+            if (target === 'browser') return ['defaults', 'ie 11', 'iOS 10'];
+            return ['defaults', 'ie 11', 'iOS 10', 'node 12.0'];
+          })(),
         },
       ],
       [
@@ -152,7 +156,9 @@ function createConfig(options = {}) {
   return {
     input: resolve('src/index.ts'),
     output,
-    external: format === 'iife' ? [] : [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+    external: format === 'iife'
+      ? []
+      : [/@babel\/runtime-corejs3/, ...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     plugins: [
       json({
         namedExports: false,
