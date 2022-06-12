@@ -1,6 +1,11 @@
-// 分模块导出，减小包体积
-import { getTypeOf } from '@hadeshe93/lib-common';
-
+/*
+ * @Description   : 导出 browser 包下的所有方法
+ * @usage         :
+ * @Date          : 2022-06-10 19:29:26
+ * @Author        : hadeshe
+ * @LastEditors   : hadeshe
+ * @LastEditTime  : 2022-06-12 21:47:24
+ * @FilePath      : /hh-lib/packages/browser/src/index.ts
+ */
 export * from './script';
-
-console.log(getTypeOf('x'));
+export * from './browser';
