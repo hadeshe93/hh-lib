@@ -156,6 +156,8 @@ function createConfig(options = {}) {
   return {
     input: resolve('src/index.ts'),
     output,
+    // /@babel\/runtime-corejs3/ 加入 external 很重要，需要仔细阅读：
+    // https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
     external: format === 'iife'
       ? []
       : [/@babel\/runtime-corejs3/, ...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
@@ -167,6 +169,7 @@ function createConfig(options = {}) {
       nodeResolve({
         extensions,
       }),
+      // 无论构建什么端运行的代码，babel 应该才是一个更合适的选择
       // needBabelPlugin ? babelPlugin : tsPlugin,
       babelPlugin,
       ...plugins,
