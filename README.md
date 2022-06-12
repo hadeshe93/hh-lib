@@ -62,3 +62,20 @@ $ npx lerna add axios --scope=@hadeshe93/lib-node
 不需要关注这个两个环节，因为在 github 上配置了 action 流水线，只要提交到 `main` 主干，就会自动执行流水线，其中会进行构建和发布。
 
 综上，该项目配置了 CI 和 CD，开发者可以更专注于编码。
+
+## 代码提交规范
+
+我们提交代码时需要根据规范来执行，默认通过 `@commitlint/config-conventional` 包来进行 `commitlint`。
+
+提交类型有：
++ `build`
++ `chore`
++ `ci`
++ `docs`
++ `feat`
++ `fix`
++ `perf`
++ `refactor`
++ `revert`
++ `style`
++ `test`
