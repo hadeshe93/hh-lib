@@ -70,9 +70,7 @@ const defaultFormats = ['cjs', 'esm'];
 const packageConfigs = pkgBuildOptions.reduce((allConfigs, buildOptions) => {
   const { target, name, formats = defaultFormats } = buildOptions;
   const configs = (formats || defaultFormats).map((format) => {
-    const createFn = (isEnvProduction && format === 'iife')
-      ? createConfigWithTerser
-      : createConfig;
+    const createFn = isEnvProduction && format === 'iife' ? createConfigWithTerser : createConfig;
     return createFn({
       target,
       format,
@@ -100,6 +98,7 @@ function createConfig(options = {}) {
   };
 
   const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
+  // eslint-disable-next-line no-unused-vars
   const tsPlugin = ts({
     check: true,
     tsconfig: resolve('tsconfig.json'),
@@ -122,9 +121,7 @@ function createConfig(options = {}) {
       [
         '@babel/preset-env',
         {
-          modules: format === 'esm' 
-            ? false
-            : 'auto',
+          modules: format === 'esm' ? false : 'auto',
           useBuiltIns: 'usage',
           corejs: 3,
           targets: (() => {
@@ -143,12 +140,14 @@ function createConfig(options = {}) {
     ],
     plugins: [
       ...(format !== 'iife'
-        ? [[
-            '@babel/plugin-transform-runtime',
-            {
-              corejs: 3,
-            }
-          ]]
+        ? [
+            [
+              '@babel/plugin-transform-runtime',
+              {
+                corejs: 3,
+              },
+            ],
+          ]
         : []),
     ],
   });
@@ -158,9 +157,14 @@ function createConfig(options = {}) {
     output,
     // /@babel\/runtime-corejs3/ 加入 external 很重要，需要仔细阅读：
     // https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
-    external: format === 'iife'
-      ? []
-      : [/@babel\/runtime-corejs3/, ...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
+    external:
+      format === 'iife'
+        ? []
+        : [
+            /@babel\/runtime-corejs3/,
+            ...Object.keys(pkg.dependencies || {}),
+            ...Object.keys(pkg.peerDependencies || {}),
+          ],
     plugins: [
       json({
         namedExports: false,
@@ -187,8 +191,8 @@ function createConfig(options = {}) {
 
 // 在普通配置基础上，创建压缩配置
 function createConfigWithTerser(options) {
-  const { target, format, outputConfig } = options
-  const plugins =  [
+  const { target, format, outputConfig } = options;
+  const plugins = [
     terser({
       ecma: 5,
       module: /^esm/.test(format),
