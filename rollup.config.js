@@ -90,10 +90,6 @@ function createConfig(options = {}) {
   const output = {
     ...outputConfig,
     exports: 'auto',
-    globals: {
-      '@hadeshe93/lib-common':
-        require(path.resolve(__dirname, 'packages/common/package.json')).buildOptions.name || 'hdsLibCommon',
-    },
     sourcemap: ENV_SOURCE_MAP,
   };
 
