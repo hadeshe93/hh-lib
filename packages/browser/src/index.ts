@@ -4,8 +4,8 @@
  * @Date          : 2022-06-10 19:29:26
  * @Author        : hadeshe
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-06-12 21:47:24
+ * @LastEditTime  : 2022-06-13 14:20:46
  * @FilePath      : /hh-lib/packages/browser/src/index.ts
  */
-export * from './script';
+export * from './laod';
 export * from './browser';

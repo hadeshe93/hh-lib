@@ -19,7 +19,7 @@
     {
       "target": "browser",
       "name": "hdsLibBrowser",
-      "format": [
+      "formats": [
         "cjs",
         "esm",
         "iife"

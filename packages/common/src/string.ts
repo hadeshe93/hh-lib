@@ -3,9 +3,9 @@
  * @usage         :
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
- * @LastEditors   : hadeshe93<hadeshe93@gmail.com>
- * @LastEditTime  : 2022-04-28 14:26:41
- * @FilePath      : /hh-lib/packages/common/src/string/index.ts
+ * @LastEditors   : hadeshe
+ * @LastEditTime  : 2022-06-13 14:28:02
+ * @FilePath      : /hh-lib/packages/common/src/string-util.ts
  */
 import emoutils from 'emoutils';
 
@@ -107,3 +107,37 @@ export const filterZeroWidthCharsOfString = (str: string): string => {
   const filteredStr = str.replace(/[\u200b-\u200f\uFEFF\u202a-\u202e]/g, '');
   return filteredStr;
 };
+
+/**
+ * 编码 xss 相关的字符
+ *
+ * @export
+ * @param {string} str
+ * @return {*}  {string}
+ */
+export function encodeXssCharacters(str: string): string {
+  return `${str}`
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\x60/g, '&#96;')
+    .replace(/\x27/g, '&#39;')
+    .replace(/\x22/g, '&quot;');
+}
+
+/**
+ * 解码 xss 相关的字符
+ *
+ * @export
+ * @param {string} str
+ * @return {*}  {string}
+ */
+export function decodeXssCharacters(str: string): string {
+  return `${str}`
+    .replace(/&quot;/g, '\x22')
+    .replace(/&#0*39;/g, '\x27')
+    .replace(/&#0*96;/g, '\x60')
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&amp;/g, '&');
+}
