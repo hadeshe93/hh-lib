@@ -40,9 +40,9 @@ $ pnpm add --save-dev/--save-prod <pkgName> --filter <pkgSelector>
 
 ## 构建 & 发布包
 
-不需要关注这个两个环节，因为在 github 上配置了 action 流水线，只要提交到 `main` 主干，就会自动执行流水线，其中会进行构建和发布。
+不需要关注这个两个环节，因为该仓库配置了 [changeset-bot](https://github.com/apps/changeset-bot) 和 actions，关注于 PR 及合并时触发流水线构建。
 
-综上，该项目配置了 CI 和 CD，开发者可以更专注于编码。
+综上，开发者可以更专注于编码。
 
 ## 代码提交规范
 
