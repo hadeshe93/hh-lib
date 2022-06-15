@@ -6,9 +6,6 @@ on:
     # 也可以设置 tag 触发 ci
     # tags:
       # - 'v*'
-  pull_request:
-    branches:
-      - main
 jobs:
   publish:
     runs-on: ubuntu-latest
