@@ -27,7 +27,7 @@ jobs:
         with:
           version: 7
       - name: Install
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Run unit tests
         run: pnpm test
       - name: Configure git info
