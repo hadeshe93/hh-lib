@@ -9,8 +9,9 @@
     "buildProd": "cross-env NODE_ENV=production esno scripts/build.ts",
     "build:common": "npm run build common",
     "buildProd:common": "npm run buildProd common",
+    "turboBuild": "turbo run build",
     "changeset": "changeset",
-    "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
+    "ci:version": "echo '[ci:version] start' && changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "changeset publish",
     "lint": "eslint ./ --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix",
@@ -42,6 +43,7 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.4.1",
     "@types/node": "^15.6.0",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
@@ -68,6 +70,7 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-jest": "^27.0.1",
     "ts-node": "^9.1.1",
+    "turbo": "^1.2.16",
     "typescript": "^4.2.4"
   },
   "dependencies": {

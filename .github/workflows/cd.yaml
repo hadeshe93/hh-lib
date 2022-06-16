@@ -1,4 +1,4 @@
-name: 'ci-cd'
+name: 'cd'
 on:
   push:
     branches:
@@ -32,7 +32,7 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@gmail.com"
           git config --global user.name "$GITHUB_ACTOR"
       - name: Build
-        run: pnpm build
+        run: pnpm turboBuild
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
