@@ -3,8 +3,8 @@
  * @usage         :
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
- * @LastEditors   : hadeshe93<hadeshe93@gmail.com>
- * @LastEditTime  : 2022-02-23 12:10:39
+ * @LastEditors   : hadeshe
+ * @LastEditTime  : 2022-06-16 16:52:23
  * @FilePath      : /hh-lib/scripts/build.ts
  */
 import os from 'os';
@@ -14,7 +14,8 @@ import fs from 'fs-extra';
 import { getTargets, getAllTargets } from './target';
 
 // 路径常量
-const ROOT_CACHE_DIR = path.resolve(__dirname, '../.cache');
+const ROOT_DIR = path.resolve(__dirname, '../');
+const resolve = (...args) => path.resolve(ROOT_DIR, ...args);
 // 环境变量
 const { NODE_ENV: ENV_NODE_ENV = 'development' } = process.env;
 
@@ -23,9 +24,6 @@ main();
 
 // 主入口函数
 async function main() {
-  await fs.remove(ROOT_CACHE_DIR);
-  await fs.mkdir(ROOT_CACHE_DIR);
-
   const targets = getTargets();
   let targetList;
   if (targets.length > 0) {
@@ -35,7 +33,6 @@ async function main() {
   }
 
   console.log('构建目标列表：', targetList);
-
   await buildAll(targetList);
 }
 
@@ -47,20 +44,26 @@ async function buildAll(targets) {
 // 构建任务
 async function build(target) {
   const env = ENV_NODE_ENV;
-  const pkgDir = path.resolve(`packages/${target}`);
+  const pkgDir = resolve(`packages/${target}`);
   const pkg = require(`${pkgDir}/package.json`);
+  const pkgCachePath = resolve(pkgDir, '.cache');
+  const isExisted = await fs.pathExists(pkgCachePath);
+
+  if (!isExisted) {
+    await fs.mkdir(pkgCachePath);
+  }
 
   if (pkg.private) {
     return;
   }
 
-  await fs.remove(path.resolve(pkgDir, 'dist/'));
+  // await fs.remove(resolve(pkgDir, 'dist/'));
 
   await execa(
     'rollup',
     [
       '--config',
-      'rollup.config.js',
+      `${resolve('rollup.config.js')}`,
       '--environment',
       [`NODE_ENV:${env}`, `TARGET:${target}`].filter(Boolean).join(','),
     ],
