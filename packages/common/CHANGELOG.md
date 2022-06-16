@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.10
+
+### Patch Changes
+
+- [#15](https://github.com/hadeshe93/hh-lib/pull/15) [`ed7a84e`](https://github.com/hadeshe93/hh-lib/commit/ed7a84e92b991e3df6b88eeee3295d338bb7a36e) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 完善 action 构建配置
+
 ## 0.4.9
 
 ### Patch Changes
