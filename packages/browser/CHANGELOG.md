@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.4.10
+
+### Patch Changes
+
+- [#13](https://github.com/hadeshe93/hh-lib/pull/13) [`170ea7c`](https://github.com/hadeshe93/hh-lib/commit/170ea7cce7daaa9c4018c82ab4b10a7fd0c97a64) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 接入 turbo 进行构建改造
+
+- Updated dependencies [[`170ea7c`](https://github.com/hadeshe93/hh-lib/commit/170ea7cce7daaa9c4018c82ab4b10a7fd0c97a64)]:
+  - @hadeshe93/lib-common@0.4.9
+
 ## 0.4.9
 
 ### Patch Changes
