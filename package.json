@@ -11,7 +11,7 @@
     "buildProd:common": "npm run buildProd common",
     "changeset": "changeset",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
-    "ci:publsh": "changeset publish",
+    "ci:publish": "changeset publish",
     "lint": "eslint ./ --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix",
     "save": "git add --all && git commit -m 'feat: 更新代码' && git push origin main",
