@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.4.10
+
+### Patch Changes
+
+- [#19](https://github.com/hadeshe93/hh-lib/pull/19) [`df1f264`](https://github.com/hadeshe93/hh-lib/commit/df1f264a6a25c6030e4bb27a8b8ce729ef44211b) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 修复 action 配置中构建错误命令
+
+* [#15](https://github.com/hadeshe93/hh-lib/pull/15) [`ed7a84e`](https://github.com/hadeshe93/hh-lib/commit/ed7a84e92b991e3df6b88eeee3295d338bb7a36e) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 完善 action 构建配置
+
 ## 0.4.9
 
 ### Patch Changes
