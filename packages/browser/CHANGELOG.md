@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.9
+
+### Patch Changes
+
+- [#11](https://github.com/hadeshe93/hh-lib/pull/11) [`b27b96c`](https://github.com/hadeshe93/hh-lib/commit/b27b96ce7518c8244c097ff80a69ef9c75a27fb1) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 完善代码
+
 ## 0.4.8
 
 ### Patch Changes
