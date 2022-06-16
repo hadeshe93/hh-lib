@@ -8,7 +8,7 @@
 export function insertJs(src = ''): Promise<any> {
   if (typeof src !== 'string' || !src) {
     console.error('Please pass effective src string');
-    return Promise.resolve(null);
+    return Promise.resolve();
   }
   return new Promise((resolve, reject) => {
     const tag = document.createElement('script');
@@ -19,7 +19,7 @@ export function insertJs(src = ''): Promise<any> {
     tag.addEventListener('load', resolve);
     tag.addEventListener('error', (...args) => {
       head.removeChild(tag);
-      head = null;
+      head = undefined;
       reject(...args);
     });
 
@@ -37,7 +37,7 @@ export function insertJs(src = ''): Promise<any> {
 export function insertCss(src = ''): Promise<any> {
   if (typeof src !== 'string' || !src) {
     console.error('Please pass effective src string');
-    return Promise.resolve(null);
+    return Promise.resolve();
   }
   return new Promise((resolve, reject) => {
     const tag = document.createElement('link');
@@ -48,7 +48,7 @@ export function insertCss(src = ''): Promise<any> {
     tag.addEventListener('load', resolve);
     tag.addEventListener('error', (...args) => {
       head.removeChild(tag);
-      head = null;
+      head = undefined;
       reject(...args);
     });
 
