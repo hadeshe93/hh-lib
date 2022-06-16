@@ -9,7 +9,7 @@
     "buildProd": "cross-env NODE_ENV=production esno scripts/build.ts",
     "build:common": "npm run build common",
     "buildProd:common": "npm run buildProd common",
-    "turboBuild": "turbo run build",
+    "turbo:build": "turbo run build",
     "changeset": "changeset",
     "ci:version": "echo '[versionInCi] start' && changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "changeset publish",
