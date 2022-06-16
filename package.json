@@ -10,7 +10,7 @@
     "build:common": "npm run build common",
     "buildProd:common": "npm run buildProd common",
     "changeset": "changeset",
-    "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
+    "ci:version": "echo '[ci:version] start' && changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "changeset publish",
     "lint": "eslint ./ --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix",
