@@ -97,7 +97,7 @@ importers:
 
   packages/browser:
     specifiers:
-      '@hadeshe93/lib-common': ^0.4.8
+      '@hadeshe93/lib-common': ^0.4.9
     dependencies:
       '@hadeshe93/lib-common': link:../common
 
@@ -109,7 +109,7 @@ importers:
 
   packages/node:
     specifiers:
-      '@hadeshe93/lib-common': ^0.4.8
+      '@hadeshe93/lib-common': ^0.4.9
       axios: ^0.21.1
     dependencies:
       '@hadeshe93/lib-common': link:../common
