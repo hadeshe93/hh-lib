@@ -44,5 +44,6 @@ jobs:
       - name: Upload to coveralls
         uses: coverallsapp/github-action@v1.1.2 
         with:
+          # 无需自定义的 token，直接写就好，是官方给内置的 token
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
