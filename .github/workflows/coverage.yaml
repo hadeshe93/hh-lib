@@ -1,18 +1,11 @@
-name: 'cd'
-on:
-  push:
-    branches:
-      - main
-    # 也可以设置 tag 触发 ci
-    # tags:
-      # - 'v*'
+name: 'coverage'
+on: ['push', 'pull_request']
+
 jobs:
-  publish:
+  coverage:
     runs-on: ubuntu-latest
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -40,20 +33,4 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Run unit tests
         run: pnpm test
-      - name: Configure git info
-        run: |
-          git config --global user.email "$GITHUB_ACTOR@gmail.com"
-          git config --global user.name "$GITHUB_ACTOR"
-      - name: Build
-        run: pnpm turbo:build
-      - name: Create Release Pull Request or Publish to npm
-        uses: changesets/action@v1
-        with:
-          version: pnpm ci:version
-          publish: pnpm ci:publish
-          title: 'chore: release verison'
-          commit: 'chore: version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 

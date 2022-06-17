@@ -1,4 +1,4 @@
-import { getTypeOf } from '../../../src/misc';
+import { getTypeOf } from '@/misc';
 
 describe('针对 getTypeOf 方法的测试集', () => {
   test('getTypeOf 能够准确测试空字符串', () => {

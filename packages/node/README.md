@@ -1,11 +1,27 @@
-# `node`
+A convenient js lib for Node.js.
 
-> TODO: description
+## Installation
+
+```sh
+$ npm install @hadeshe93/lib-node --save
+```
 
 ## Usage
 
-```
-const node = require('node');
+Use it in `CJS` format:
 
-// TODO: DEMONSTRATE API
+```js
+const { downloadAsset } = require('@hadeshe93/lib-node');
+
+// your application code
+// ...
+```
+
+Use it in `ESM` format:
+
+```js
+import { downloadAsset } from '@hadeshe93/lib-node';
+
+// your application code
+// ...
 ```

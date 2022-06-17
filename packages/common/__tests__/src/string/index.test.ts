@@ -1,4 +1,4 @@
-import { getStrLen, getLimitedStr } from '../../../src/string';
+import { getStrLen, getLimitedStr } from '@/string';
 
 describe('针对 getStrLen 方法的测试集', () => {
   test('getStrLen 能够准确测试空字符串', () => {

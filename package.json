@@ -17,6 +17,7 @@
     "lint:fix": "npm run lint -- --fix",
     "save": "git add --all && git commit -m 'feat: 更新代码' && git push origin main",
     "test": "jest",
+    "coverage": "jest --coverage",
     "prepare": "husky install"
   },
   "lint-staged": {
