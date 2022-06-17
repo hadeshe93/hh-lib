@@ -39,6 +39,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm turbo:build
-      - name: Run unit tests
-        run: pnpm test
+      - name: Run unit tests coverage
+        run: pnpm coverage
 
