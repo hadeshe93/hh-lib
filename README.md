@@ -1,4 +1,4 @@
-![continous deploy action badge](https://github.com/hadeshe93/hh-lib/actions/workflows/ci-cd.yaml/badge.svg)
+![continous deploy action badge](https://github.com/hadeshe93/hh-lib/actions/workflows/cicd.yaml/badge.svg)
 
 该项目是的 monorepo 类型的组织形式，并采用了当下最先进和快速的工作流方案：
 1. 通过 `pnpm` 来进行包的依赖管理；

@@ -1,4 +1,4 @@
-name: 'cd'
+name: 'cicd'
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
     # tags:
       # - 'v*'
 jobs:
-  publish:
+  cicd:
     runs-on: ubuntu-latest
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
