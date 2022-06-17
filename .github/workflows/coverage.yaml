@@ -1,5 +1,11 @@
 name: 'coverage'
-on: ['push', 'pull_request']
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   coverage:
@@ -31,6 +37,8 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install
         run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm turbo:build
       - name: Run unit tests
         run: pnpm test
 
