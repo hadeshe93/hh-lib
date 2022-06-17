@@ -44,5 +44,5 @@ jobs:
       - name: Upload to coveralls
         uses: coverallsapp/github-action@v1.1.2
         with:
-          github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          github-token: ${{ secrets.COVERALLS_TOKEN }}
 
