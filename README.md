@@ -1,5 +1,4 @@
 ![continous deploy action badge](https://github.com/hadeshe93/hh-lib/actions/workflows/cicd.yaml/badge.svg)
-
 [![Coverage Status](https://coveralls.io/repos/github/hadeshe93/hh-lib/badge.svg?branch=main)](https://coveralls.io/github/hadeshe93/hh-lib?branch=main)
 
 该项目是的 monorepo 类型的组织形式，并采用了当下最先进和快速的工作流方案：
