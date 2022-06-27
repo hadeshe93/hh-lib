@@ -1,0 +1,52 @@
+{
+  "name": "@hadeshe93/webpack-config",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/hh-lib#readme",
+  "license": "ISC",
+  "module": "dist/index.node.esm.js",
+  "main": "index.js",
+  "exports": {
+    "import": "./dist/index.node.esm.js",
+    "require": "./dist/index.node.cjs.js"
+  },
+  "types": "dist/index.d.ts",
+  "buildOptions": [
+    {
+      "target": "node",
+      "formats": [
+        "cjs",
+        "esm"
+      ]
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/hh-lib.git"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=development esno ../../scripts/build.ts webpack-config",
+    "buildProd": "cross-env NODE_ENV=production esno ../../scripts/build.ts webpack-config",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/hh-lib/issues"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "tapable": "^2.2.1",
+    "vue": "^3.2.37",
+    "vue-loader": "^17.0.0",
+    "webpack": "^5.73.0",
+    "webpack-merge": "^5.8.0"
+  }
+}

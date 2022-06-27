@@ -4,7 +4,7 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-06-16 16:52:23
+ * @LastEditTime  : 2022-06-25 10:34:46
  * @FilePath      : /hh-lib/scripts/build.ts
  */
 import os from 'os';
@@ -57,13 +57,14 @@ async function build(target) {
     return;
   }
 
-  // await fs.remove(resolve(pkgDir, 'dist/'));
-
+  // 删除 dist 文件夹
+  await fs.remove(resolve(pkgDir, 'dist/'));
+  // 执行构建
   await execa(
     'rollup',
     [
       '--config',
-      `${resolve('rollup.config.js')}`,
+      `${resolve('build-configs/rollup.config.js')}`,
       '--environment',
       [`NODE_ENV:${env}`, `TARGET:${target}`].filter(Boolean).join(','),
     ],

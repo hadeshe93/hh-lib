@@ -4,6 +4,7 @@
     "outDir": "dist",
     "sourceMap": false,
     // 生成声明文件
+    // "emitDeclarationOnly": true,
     "declaration": true,
     "target": "esnext",
     "module": "esnext",
@@ -12,7 +13,7 @@
     "allowJs": true,
     "checkJs": true,
     // "strict": true,
-    // "noUnusedLocals": true,
+    "noUnusedLocals": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
