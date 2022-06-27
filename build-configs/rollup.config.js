@@ -1,4 +1,3 @@
-import path from 'path';
 import chalk from 'chalk';
 import ts from 'rollup-plugin-typescript2';
 import json from '@rollup/plugin-json';
@@ -7,76 +6,58 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import babel from '@rollup/plugin-babel';
 
-// 枚举类型
-const EBuildFormat = {
-  cjs: 'cjs',
-  esm: 'esm',
-  iife: 'iife',
-};
+import { checkIsDevEnv } from './utils/env';
+import { getOutputConfig } from './utils/output';
+import { BUILD_FORMATS } from './constants';
+import { getPkgResolve } from './utils/resolver';
+import { rollupPluginDelete } from './plugins/rollup-plugin-delete';
 
 // 环境变量
 const {
   // 构建目标 package 名
   TARGET: ENV_TARGET,
-  // node 环境
-  NODE_ENV: ENV_NODE_ENV = 'development',
   // 是否需要 source map
   SOURCE_MAP: ENV_SOURCE_MAP,
 } = process.env;
 
-const isEnvProduction = ENV_NODE_ENV === 'production';
-// 工具函数
-function resolve(p) {
-  return path.resolve(packageDir, p);
-}
+const isEnvProduction = checkIsDevEnv();
 
 // 项目根目录视角的变量
 const packageName = ENV_TARGET;
-const packagesDir = path.resolve(__dirname, 'packages');
-const packageDir = path.resolve(packagesDir, packageName);
+const pkgResolve = getPkgResolve(packageName);
 
 // 包目录视角的变量
-const pkg = require(resolve('package.json'));
-const pkgName = path.basename(packageDir);
+const pkg = require(pkgResolve('package.json'));
 const pkgBuildOptions = pkg.buildOptions || [];
 
-// 输出配置模板
-const outputConfigs = {
-  cjs: {
-    file: resolve(`dist/index.{target}.cjs.js`),
-    format: EBuildFormat.cjs,
-  },
-  esm: {
-    file: resolve(`dist/index.{target}.esm.js`),
-    format: EBuildFormat.esm,
-  },
-  iife: {
-    file: resolve(`dist/index.{target}.iife.js`),
-    format: EBuildFormat.iife,
-  },
-};
-const getOutputConfig = (options = {}) => {
-  const { target, name, format } = options || {};
-  const config = outputConfigs[format];
-  const file = config.file.replace('{target}', target);
-  return {
-    ...config,
-    file,
-    name,
-  };
-};
-
-const defaultFormats = ['cjs', 'esm'];
+const defaultFormats = [BUILD_FORMATS.CJS, BUILD_FORMATS.ESM];
 const packageConfigs = pkgBuildOptions.reduce((allConfigs, buildOptions) => {
   const { target, name, formats = defaultFormats } = buildOptions;
   const configs = (formats || defaultFormats).map((format) => {
-    const createFn = isEnvProduction && format === 'iife' ? createConfigWithTerser : createConfig;
+    const createFn = isEnvProduction && format === BUILD_FORMATS.IIFE ? createConfigWithTerser : createConfig;
     return createFn({
       target,
       format,
-      outputConfig: getOutputConfig({ target, name, format }),
+      outputConfig: getOutputConfig({ target, pkgResolve, name, format }),
     });
   });
+  const REDUNDANT_FILE_PATH = pkgResolve('dist/__empty_tsc_declaration__.js');
+  configs.push(
+    createDeclarationConfig({
+      target,
+      outputConfig: {
+        name,
+        file: REDUNDANT_FILE_PATH,
+      },
+      plugins: [
+        rollupPluginDelete({
+          post: {
+            globPattern: REDUNDANT_FILE_PATH,
+          },
+        }),
+      ],
+    }),
+  );
   return allConfigs.concat(configs);
 }, []);
 
@@ -97,10 +78,11 @@ function createConfig(options = {}) {
   // eslint-disable-next-line no-unused-vars
   const tsPlugin = ts({
     check: true,
-    tsconfig: resolve('tsconfig.json'),
-    cacheRoot: path.resolve(__dirname, `.cache/${pkgName}/`),
+    tsconfig: pkgResolve('tsconfig.json'),
+    cacheRoot: pkgResolve(`.ts-cache/`),
     tsconfigOverride: {
       compilerOptions: {
+        emitDeclarationOnly: true,
         sourceMap: output.sourcemap,
         declaration: true,
         declarationMap: false,
@@ -117,7 +99,7 @@ function createConfig(options = {}) {
       [
         '@babel/preset-env',
         {
-          modules: format === 'esm' ? false : 'auto',
+          modules: format === BUILD_FORMATS.ESM ? false : 'auto',
           useBuiltIns: 'usage',
           corejs: 3,
           targets: (() => {
@@ -135,7 +117,7 @@ function createConfig(options = {}) {
       ],
     ],
     plugins: [
-      ...(format !== 'iife'
+      ...(format !== BUILD_FORMATS.IIFE
         ? [
             [
               '@babel/plugin-transform-runtime',
@@ -149,12 +131,12 @@ function createConfig(options = {}) {
   });
 
   return {
-    input: resolve('src/index.ts'),
+    input: pkgResolve('src/index.ts'),
     output,
     // /@babel\/runtime-corejs3/ 加入 external 很重要，需要仔细阅读：
     // https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
     external:
-      format === 'iife'
+      format === BUILD_FORMATS.IIFE
         ? []
         : [
             /@babel\/runtime-corejs3/,
@@ -169,9 +151,10 @@ function createConfig(options = {}) {
       nodeResolve({
         extensions,
       }),
-      // 无论构建什么端运行的代码，babel 应该才是一个更合适的选择
-      // needBabelPlugin ? babelPlugin : tsPlugin,
       babelPlugin,
+      // 2022.06.25 官方已合并代码，但是还未发版
+      // - feat: support emitDeclarationOnly #366: https://github.com/ezolenko/rollup-plugin-typescript2/pull/366
+      // tsPlugin,
       ...plugins,
     ],
     onwarn: (msg, warn) => {
@@ -204,6 +187,63 @@ function createConfigWithTerser(options) {
     outputConfig,
     plugins,
   });
+}
+
+// 创建编译出 d.ts 声明文件的配置
+function createDeclarationConfig(options = {}) {
+  const { format, outputConfig, plugins = [] } = options || {};
+  if (!outputConfig) {
+    console.log(chalk.yellow(`invalid format: "${format}"`));
+    process.exit(1);
+  }
+  const output = {
+    ...outputConfig,
+    exports: 'auto',
+    sourcemap: ENV_SOURCE_MAP,
+  };
+
+  const extensions = ['.ts', '.tsx', 'd.ts', '.js', '.jsx', '.json', '.mjs'];
+  // eslint-disable-next-line no-unused-vars
+  const tsPlugin = ts({
+    check: true,
+    tsconfig: pkgResolve('tsconfig.json'),
+    cacheRoot: pkgResolve(`.ts-cache/`),
+    tsconfigOverride: {
+      compilerOptions: {
+        emitDeclarationOnly: true,
+        sourceMap: output.sourcemap,
+        declaration: true,
+        declarationMap: false,
+        // override 掉 rootDir
+        rootDir: './src',
+      },
+      exclude: ['**/__tests__', '**/tests'],
+    },
+  });
+
+  return {
+    input: pkgResolve('src/index.ts'),
+    output,
+    plugins: [
+      json({
+        namedExports: false,
+      }),
+      commonjs(),
+      nodeResolve({
+        extensions,
+      }),
+      tsPlugin,
+      ...(plugins || []),
+    ],
+    onwarn: (msg, warn) => {
+      if (!/Circular/.test(msg)) {
+        warn(msg);
+      }
+    },
+    treeshake: {
+      moduleSideEffects: false,
+    },
+  };
 }
 
 export default packageConfigs;

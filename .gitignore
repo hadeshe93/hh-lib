@@ -9,3 +9,5 @@ coverage/
 jest_html_reporters.html
 
 .turbo
+
+.ts-cache
