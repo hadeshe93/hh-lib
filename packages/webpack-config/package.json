@@ -44,9 +44,14 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
     "tapable": "^2.2.1",
-    "vue": "^3.2.37",
     "vue-loader": "^17.0.0",
     "webpack": "^5.73.0",
     "webpack-merge": "^5.8.0"
+  },
+  "devDependencies": {
+    "vue": "^3.2.37"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.37"
   }
 }
