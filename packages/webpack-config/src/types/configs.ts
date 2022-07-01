@@ -37,9 +37,11 @@ export interface GetConfigOptions {
 
 export interface CustomedHooks {
   pluginName: string;
-  beforeAll?: (CustomedWebpackConfigs) => Promise<CustomedWebpackConfigs>;
-  afterAll?: (CustomedWebpackConfigs) => Promise<CustomedWebpackConfigs>;
-  context?: (string) => Promise<string>;
-  mode?: (string) => Promise<string>;
-  entry?: (Entry) => Promise<Entry>;
+  hooks: {
+    beforeAll?: (CustomedWebpackConfigs) => Promise<CustomedWebpackConfigs>;
+    afterAll?: (CustomedWebpackConfigs) => Promise<CustomedWebpackConfigs>;
+    context?: (string) => Promise<string>;
+    mode?: (string) => Promise<string>;
+    entry?: (Entry) => Promise<Entry>;
+  };
 }
