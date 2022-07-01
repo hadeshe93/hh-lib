@@ -4,8 +4,8 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-06-13 14:28:02
- * @FilePath      : /hh-lib/packages/common/src/string-util.ts
+ * @LastEditTime  : 2022-06-28 12:57:40
+ * @FilePath      : /hh-lib/packages/common/src/string.ts
  */
 import emoutils from 'emoutils';
 
@@ -140,4 +140,15 @@ export function decodeXssCharacters(str: string): string {
     .replace(/&gt;/g, '>')
     .replace(/&lt;/g, '<')
     .replace(/&amp;/g, '&');
+}
+
+/**
+ * kebab-case 转 camelCase
+ *
+ * @export
+ * @param {string} str
+ * @return {*}  {string}
+ */
+export function camelize(str: string): string {
+  return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''));
 }
