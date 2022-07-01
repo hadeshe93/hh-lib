@@ -1,8 +1,8 @@
 import type { Entry, Module, Cache, Stats } from 'webpack';
 import { AsyncSeriesWaterfallHook } from 'tapable';
+import { AsyncHooksManager } from '@hadeshe93/lib-node';
 import type {
   CustomedWebpackConfigs,
-  CustomedHooks,
   Outputs,
   Resolve,
   Optimization,
@@ -21,57 +21,33 @@ const logger = console;
 const INNER_PLUGIN_NAME = 'WebpackConfigHookManager';
 const HOOK_PARAM = 'value';
 
-class WebpackConfigHookManager {
+class WebpackConfigHookManager extends AsyncHooksManager {
   public hooks = {
     // 全局前置钩子
-    beforeAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs, CustomedWebpackConfigs>([HOOK_PARAM]),
+    beforeAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
     // 全局后置钩子
-    afterAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs, CustomedWebpackConfigs>([HOOK_PARAM]),
+    afterAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
 
-    context: new AsyncSeriesWaterfallHook<string, string>([HOOK_PARAM]),
-    mode: new AsyncSeriesWaterfallHook<string, string>([HOOK_PARAM]),
-    entry: new AsyncSeriesWaterfallHook<Entry, Entry>([HOOK_PARAM]),
-    output: new AsyncSeriesWaterfallHook<Outputs, Outputs>([HOOK_PARAM]),
-    module: new AsyncSeriesWaterfallHook<Module, Module>([HOOK_PARAM]),
-    resolve: new AsyncSeriesWaterfallHook<Resolve, Resolve>([HOOK_PARAM]),
-    optimization: new AsyncSeriesWaterfallHook<Optimization, Optimization>([HOOK_PARAM]),
-    plugins: new AsyncSeriesWaterfallHook<Plugins, Plugins>([HOOK_PARAM]),
-    devServer: new AsyncSeriesWaterfallHook<DevServer, DevServer>([HOOK_PARAM]),
-    cache: new AsyncSeriesWaterfallHook<Cache, Cache>([HOOK_PARAM]),
-    devtool: new AsyncSeriesWaterfallHook<DevTool, DevTool>([HOOK_PARAM]),
-    target: new AsyncSeriesWaterfallHook<Target, Target>([HOOK_PARAM]),
-    watch: new AsyncSeriesWaterfallHook<Watch, Watch>([HOOK_PARAM]),
-    watchOptions: new AsyncSeriesWaterfallHook<WatchOptions, WatchOptions>([HOOK_PARAM]),
-    externals: new AsyncSeriesWaterfallHook<Externals, Externals>([HOOK_PARAM]),
-    performance: new AsyncSeriesWaterfallHook<Performance, Performance>([HOOK_PARAM]),
-    node: new AsyncSeriesWaterfallHook<Node, Node>([HOOK_PARAM]),
-    stats: new AsyncSeriesWaterfallHook<Stats, Stats>([HOOK_PARAM]),
+    context: new AsyncSeriesWaterfallHook<string>([HOOK_PARAM]),
+    mode: new AsyncSeriesWaterfallHook<string>([HOOK_PARAM]),
+    entry: new AsyncSeriesWaterfallHook<Entry>([HOOK_PARAM]),
+    output: new AsyncSeriesWaterfallHook<Outputs>([HOOK_PARAM]),
+    module: new AsyncSeriesWaterfallHook<Module>([HOOK_PARAM]),
+    resolve: new AsyncSeriesWaterfallHook<Resolve>([HOOK_PARAM]),
+    optimization: new AsyncSeriesWaterfallHook<Optimization>([HOOK_PARAM]),
+    plugins: new AsyncSeriesWaterfallHook<Plugins>([HOOK_PARAM]),
+    devServer: new AsyncSeriesWaterfallHook<DevServer>([HOOK_PARAM]),
+    cache: new AsyncSeriesWaterfallHook<Cache>([HOOK_PARAM]),
+    devtool: new AsyncSeriesWaterfallHook<DevTool>([HOOK_PARAM]),
+    target: new AsyncSeriesWaterfallHook<Target>([HOOK_PARAM]),
+    watch: new AsyncSeriesWaterfallHook<Watch>([HOOK_PARAM]),
+    watchOptions: new AsyncSeriesWaterfallHook<WatchOptions>([HOOK_PARAM]),
+    externals: new AsyncSeriesWaterfallHook<Externals>([HOOK_PARAM]),
+    performance: new AsyncSeriesWaterfallHook<Performance>([HOOK_PARAM]),
+    node: new AsyncSeriesWaterfallHook<Node>([HOOK_PARAM]),
+    stats: new AsyncSeriesWaterfallHook<Stats>([HOOK_PARAM]),
   };
-  public customedHooks = {
-    pluginName: '',
-  };
-
-  /**
-   * 加载用户自定义的 hooks 配置文件
-   *
-   * @param {*} hooksFilePath
-   * @return {*}  {Promise<CustomedHooks>}
-   * @memberof WebpackConfigHookManager
-   */
-  public async loadHooksFile(hooksFilePath): Promise<CustomedHooks> {
-    this.customedHooks = require(hooksFilePath) as CustomedHooks;
-    const { pluginName = '', ...customedHooks } = this.customedHooks;
-    Object.keys(customedHooks).forEach((hookName) => {
-      const hook = this.hooks[hookName];
-      if (hook) {
-        hook.tapPromise(pluginName, async function (...args) {
-          // 封装用户自定义钩子函数，以兼容 sync 或 async 的方法
-          return await customedHooks[hookName].apply(this, args);
-        });
-      }
-    });
-    return this.customedHooks;
-  }
+  public customedPlugins = [];
 
   /**
    * 运行所有钩子，获取最终的配置

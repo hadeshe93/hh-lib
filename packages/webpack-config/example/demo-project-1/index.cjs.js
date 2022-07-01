@@ -6,7 +6,7 @@ async function test() {
   const devConfig = getDevConfig({
     projectRootPath: path.resolve(__dirname, './'),
   });
-  hookManager.loadHooksFile(path.resolve(__dirname, './webpack.config.hooks.js'));
+  hookManager.loadPlugin(path.resolve(__dirname, './webpack.config.hooks.js'));
   const lastConfig = await hookManager.run(devConfig);
   console.log('devConfig: ', devConfig);
   console.log();

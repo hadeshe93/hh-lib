@@ -1,7 +1,9 @@
 module.exports = {
   pluginName: 'hadeshe',
-  context(path) {
-    console.log('old context', path);
-    return '123';
+  hooks: {
+    context(path) {
+      console.log('old context', path);
+      return '123';
+    },
   },
 };
