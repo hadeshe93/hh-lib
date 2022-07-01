@@ -1,0 +1,60 @@
+{
+  "name": "@hadeshe93/vice-cli",
+  "version": "0.1.0",
+  "description": "A convenient scaffold",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/hh-lib#readme",
+  "license": "ISC",
+  "bin": {
+    "vice": "dist/bin/vice.js"
+  },
+  "module": "dist/index.node.esm.js",
+  "main": "index.js",
+  "exports": {
+    "import": "./dist/index.node.esm.js",
+    "require": "./dist/index.node.cjs.js"
+  },
+  "types": "dist/index.d.ts",
+  "buildOptions": [
+    {
+      "target": "node",
+      "formats": [
+        "cjs",
+        "esm"
+      ]
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/hh-lib.git"
+  },
+  "scripts": {
+    "showconfig": "ts-node -P ./tsconfig.json --showConfig",
+    "dev": "cross-env DEBUG=vice* ts-node -P ./tsconfig.json ./src/index.ts",
+    "devx": "cross-env NODE_ENV=development TS_NODE_PROJECT=./tsconfig.json node -r ts-node/register src/index.ts",
+    "build": "cross-env NODE_ENV=development esno ../../scripts/build.ts vice-cli",
+    "buildProd": "cross-env NODE_ENV=production esno ../../scripts/build.ts vice-cli",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/hh-lib/issues"
+  },
+  "dependencies": {
+    "@hadeshe93/lib-common": "workspace:^0.5.0",
+    "@hadeshe93/lib-node": "workspace:^0.4.0",
+    "@types/inquirer": "^8.2.1",
+    "commander": "^9.3.0",
+    "debug": "^4.3.4",
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^10.1.0",
+    "inquirer": "^8.2.1",
+    "tapable": "^2.2.1"
+  }
+}
