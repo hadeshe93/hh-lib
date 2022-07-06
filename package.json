@@ -4,7 +4,7 @@
   "scripts": {
     "xx": "esno scripts/git-precommit-hook.ts",
     "build": "cross-env NODE_ENV=production esno scripts/build.ts",
-    "turbo": "turbo run build",
+    "turbo": "turbo run build --filter=!./apps/*",
     "turbo:force": "npm run turbo -- --force --no-cache",
     "changeset": "changeset",
     "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
