@@ -21,7 +21,7 @@ const logger = console;
 const INNER_PLUGIN_NAME = 'WebpackConfigHookManager';
 const HOOK_PARAM = 'value';
 
-class WebpackConfigHookManager extends AsyncHooksManager {
+export class WebpackConfigHookManager extends AsyncHooksManager {
   public hooks = {
     // 全局前置钩子
     beforeAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
@@ -53,7 +53,7 @@ class WebpackConfigHookManager extends AsyncHooksManager {
    * 运行所有钩子，获取最终的配置
    *
    * @param {CustomedWebpackConfigs} defaultConfig 内置默认配置
-   * @return {*}  {Promise<CustomedWebpackConfigs>}
+   * @returns webpack 配置
    * @memberof WebpackConfigHookManager
    */
   public async run(defaultConfig: CustomedWebpackConfigs): Promise<CustomedWebpackConfigs> {
@@ -86,5 +86,3 @@ class WebpackConfigHookManager extends AsyncHooksManager {
     return webpackConfig;
   }
 }
-
-export { WebpackConfigHookManager };

@@ -1,17 +1,13 @@
 {
   "name": "@hadeshe93/lib",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "build": "cross-env NODE_ENV=development esno scripts/build.ts",
-    "buildProd": "cross-env NODE_ENV=production esno scripts/build.ts",
-    "build:common": "npm run build common",
-    "buildProd:common": "npm run buildProd common",
-    "turbo:build": "turbo run build",
+    "xx": "esno scripts/git-precommit-hook.ts",
+    "build": "cross-env NODE_ENV=production esno scripts/build.ts",
+    "turbo": "turbo run build",
+    "turbo:force": "npm run turbo -- --force --no-cache",
     "changeset": "changeset",
-    "ci:version": "echo '[versionInCi] start' && changeset version && pnpm install --no-frozen-lockfile && git add .",
+    "ci:version": "changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "changeset publish",
     "lint": "eslint ./ --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix",
@@ -40,6 +36,8 @@
     "@changesets/cli": "^2.23.0",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@microsoft/api-documenter": "^7.18.0",
+    "@microsoft/api-extractor": "^7.28.2",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -55,6 +53,7 @@
     "eslint-config-alloy": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-tsdoc": "^0.2.16",
     "esno": "^0.14.1",
     "execa": "^5.0.0",
     "husky": "^8.0.0",
@@ -81,5 +80,6 @@
   },
   "engines": {
     "node": ">=14"
-  }
+  },
+  "packageManager": "pnpm@7.3.0"
 }

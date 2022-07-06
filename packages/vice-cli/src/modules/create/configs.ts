@@ -15,7 +15,7 @@ interface CreateFuncReturn {
  * 获取配置列表
  *
  * @export
- * @return {*}  {CreateOptions[]}
+ * @returns 配置列表
  */
 export function getCreateOptionsList(): CreateOptions[] {
   return [
@@ -42,7 +42,7 @@ export function getCreateOptionsList(): CreateOptions[] {
  * 获取 prompt 交互问题列表
  *
  * @export
- * @return {*}  {QuestionCollection[]}
+ * @returns 交互问题列表
  */
 export function getPromptQuestionsList(): QuestionCollection[] {
   return [
@@ -67,7 +67,7 @@ export function getPromptQuestionsList(): QuestionCollection[] {
  *
  * @param {string} sourceUrl
  * @param {string} appName
- * @return {*}  {Promise<CreateFuncReturn>}
+ * @returns 下载结果
  */
 async function downloadRepo(sourceUrl: string, appName: string): Promise<CreateFuncReturn> {
   const sourceUrlSegs = sourceUrl.split('/');

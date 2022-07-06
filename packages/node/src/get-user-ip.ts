@@ -2,9 +2,11 @@ import { Socket } from 'net';
 
 /**
  * 获取请求 ip 地址
- * @param socket
- * @param headers
- * @returns
+ *
+ * @export
+ * @param {Socket} socket
+ * @param {*} headers
+ * @returns ip 地址
  */
 export function getUserIp(socket: Socket, headers: any) {
   if (!socket || !headers) return '';

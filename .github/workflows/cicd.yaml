@@ -43,8 +43,9 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@gmail.com"
           git config --global user.name "$GITHUB_ACTOR"
       - name: Build
-        run: pnpm turbo:build
+        run: pnpm turbo
       - name: Create Release Pull Request or Publish to npm
+        id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm ci:version
@@ -55,3 +56,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Publish api reference docs if a publish happens
+        if: steps.changesets.outputs.published == 'true'
+        id: deploy
+        uses: hadeshe93/gh-action-aliyun-oss@v0.0.1
+        with:
+          access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+          bucket: 'hadeshe-prod'
+          region: 'oss-cn-shenzhen'
+          dest-path: '/lib-docs/'
+          local-path: './apps/docs/docs/.vuepress/dist'

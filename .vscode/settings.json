@@ -1,0 +1,4 @@
+{
+  "docthis.returnsTag": true,
+  "files.associations": { "*.json": "jsonc" }
+}

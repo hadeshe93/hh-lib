@@ -213,7 +213,7 @@ function createDeclarationConfig(options = {}) {
         emitDeclarationOnly: true,
         sourceMap: output.sourcemap,
         declaration: true,
-        declarationMap: false,
+        declarationMap: true,
         // override 掉 rootDir
         rootDir: './src',
       },

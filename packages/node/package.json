@@ -33,9 +33,8 @@
     "url": "git+https://github.com/hadeshe93/hh-lib.git"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=development esno ../../scripts/build.ts node",
-    "buildProd": "cross-env NODE_ENV=production esno ../../scripts/build.ts node",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts node",
+    "buildDocsMeta": "cross-env NODE_ENV=production esno ../../scripts/build-docs-meta.ts node"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"

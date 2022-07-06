@@ -26,6 +26,18 @@
         "create",
         "app-pages"
       ]
+    },
+    {
+      "name": "[vice-cli] Debug Docs",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@hadeshe93/lib-docs",
+        "dev"
+      ]
     }
   ]
 }

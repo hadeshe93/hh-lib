@@ -29,7 +29,14 @@ const EVariabelTypeMap = {
 
 type GetTypeOfReturn = keyof typeof EVariabelType;
 
-export const getTypeOf = (variable: any): GetTypeOfReturn => {
+/**
+ * 获取变量的类型
+ *
+ * @export
+ * @param {*} variable 变量
+ * @returns 入参变量的类型
+ */
+export function getTypeOf(variable: any): GetTypeOfReturn {
   const oriType = Object.prototype.toString.call(variable);
   return EVariabelTypeMap[oriType] || EVariabelType.unknown;
-};
+}

@@ -6,7 +6,7 @@ import glob from 'glob';
  *
  * @export
  * @param {*} [options={}]
- * @return {*} 返回插件相关的配置
+ * @returns {*} 返回插件相关的配置
  */
 export function rollupPluginDelete(options = {}) {
   const { pre, post } = options || {};
