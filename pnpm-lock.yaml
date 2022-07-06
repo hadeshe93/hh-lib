@@ -124,7 +124,7 @@ importers:
 
   packages/browser:
     specifiers:
-      '@hadeshe93/lib-common': ^0.5.0
+      '@hadeshe93/lib-common': ^0.6.0
     dependencies:
       '@hadeshe93/lib-common': link:../common
 
@@ -136,7 +136,7 @@ importers:
 
   packages/node:
     specifiers:
-      '@hadeshe93/lib-common': ^0.5.0
+      '@hadeshe93/lib-common': ^0.6.0
       axios: ^0.21.1
       download-git-repo: ^3.0.2
       fs-extra: ^10.1.0
@@ -153,8 +153,8 @@ importers:
 
   packages/vice-cli:
     specifiers:
-      '@hadeshe93/lib-common': workspace:^0.5.0
-      '@hadeshe93/lib-node': workspace:^0.4.0
+      '@hadeshe93/lib-common': workspace:^0.6.0
+      '@hadeshe93/lib-node': workspace:^0.5.0
       '@types/inquirer': ^8.2.1
       commander: ^9.3.0
       debug: ^4.3.4
@@ -175,7 +175,7 @@ importers:
 
   packages/webpack-config:
     specifiers:
-      '@hadeshe93/lib-node': workspace:^0.4.0
+      '@hadeshe93/lib-node': workspace:^0.5.0
       html-webpack-plugin: ^5.5.0
       mini-css-extract-plugin: ^2.6.1
       tapable: ^2.2.1
