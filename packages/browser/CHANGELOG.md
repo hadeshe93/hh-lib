@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.6.0
+
+### Minor Changes
+
+- [#35](https://github.com/hadeshe93/hh-lib/pull/35) [`387c690`](https://github.com/hadeshe93/hh-lib/commit/387c690cc857da2463c43ad1356e81e577e7dc73) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 新增方法
+
 ## 0.5.1
 
 ### Patch Changes
