@@ -4,7 +4,7 @@
  * @Date          : 2022-06-12 19:20:44
  * @Author        : hadeshe
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-07-05 17:28:13
+ * @LastEditTime  : 2022-07-06 14:45:14
  * @FilePath      : /hh-lib/packages/browser/src/browser/index.ts
  */
 
@@ -182,4 +182,26 @@ export function getAppTypeMap(rawUA = ''): GetAppTypeMapReturn {
     // 最后判断 QQBrowser，因为很多 app 的 ua 里都带有 MQQBrowser！！！
     QQBrowser: isQQBrowser,
   };
+}
+
+type GetExplorerType = 'IE' | 'Firefox' | 'Chrome' | 'Opera' | 'Safari' | 'unknown';
+
+/**
+ * 获取浏览器厂商类型名称
+ *
+ * @export
+ * @param {string} rawUA ua 字符串
+ * @returns 浏览器厂商名称
+ */
+export function getExplorerType(rawUA: string): GetExplorerType {
+  const ua = getUA(rawUA);
+  const isExplorer = (exp) => {
+    return ua.indexOf(exp) > -1;
+  };
+  if (isExplorer('MSIE')) return 'IE';
+  else if (isExplorer('Firefox')) return 'Firefox';
+  else if (isExplorer('Chrome')) return 'Chrome';
+  else if (isExplorer('Opera')) return 'Opera';
+  else if (isExplorer('Safari')) return 'Safari';
+  return 'unknown';
 }
