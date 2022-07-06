@@ -1,5 +1,11 @@
 # @hadeshe93/lib-docs
 
+## 0.1.2
+
+### Patch Changes
+
+- [#33](https://github.com/hadeshe93/hh-lib/pull/33) [`4456693`](https://github.com/hadeshe93/hh-lib/commit/44566937c714a30142b09ced2791270241cbaddb) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 更新文档构建机制
+
 ## 0.1.1
 
 ### Patch Changes
