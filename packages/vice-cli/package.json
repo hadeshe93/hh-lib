@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/vice-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A convenient scaffold",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
@@ -46,8 +46,8 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "workspace:^0.5.0",
-    "@hadeshe93/lib-node": "workspace:^0.4.0",
+    "@hadeshe93/lib-common": "workspace:^0.6.0",
+    "@hadeshe93/lib-node": "workspace:^0.5.0",
     "@types/inquirer": "^8.2.1",
     "commander": "^9.3.0",
     "debug": "^4.3.4",
