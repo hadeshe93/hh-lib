@@ -25,5 +25,11 @@
     "glob": "^8.0.3",
     "vitepress": "1.0.0-alpha.4",
     "vue": "^3.2.37"
+  },
+  "dependencies": {
+    "@algolia/client-search": "^4.9.1",
+    "@types/react": ">= 16.8.0 < 19.0.0",
+    "react": ">= 16.8.0 < 19.0.0",
+    "react-dom": ">= 16.8.0 < 19.0.0"
   }
 }
