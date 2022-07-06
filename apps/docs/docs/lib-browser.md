@@ -10,6 +10,7 @@
 |  --- | --- |
 |  [checkIsMobile(rawUA)](./lib-browser.checkismobile.md) | <p>判断是否为移动端</p> |
 |  [getAppTypeMap(rawUA)](./lib-browser.getapptypemap.md) | <p>获取当前所处 app 信息映射</p> |
+|  [getExplorerType(rawUA)](./lib-browser.getexplorertype.md) | <p>获取浏览器厂商类型名称</p> |
 |  [getMobileOSTypeMap(rawUA)](./lib-browser.getmobileostypemap.md) | <p>获取移动端操作系统类型</p> |
 |  [getMobileOsVersion(rawUA)](./lib-browser.getmobileosversion.md) | <p>获取移动端操作系统版本</p> |
 |  [getMobileTypeMap(rawUA)](./lib-browser.getmobiletypemap.md) | <p>获取移动端类型映射</p> |
