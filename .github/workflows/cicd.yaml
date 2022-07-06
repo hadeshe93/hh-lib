@@ -68,4 +68,4 @@ jobs:
           bucket: 'hadeshe-prod'
           region: 'oss-cn-shenzhen'
           dest-path: '/lib-docs/'
-          local-path: './apps/docs/docs/.vuepress/dist'
+          local-path: './apps/docs/docs/.vitepress/dist'
