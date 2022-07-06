@@ -15,4 +15,5 @@
 |  [getMobileTypeMap(rawUA)](./lib-browser.getmobiletypemap.md) | <p>获取移动端类型映射</p> |
 |  [insertCss(src)](./lib-browser.insertcss.md) | <p>插入 css</p> |
 |  [insertJs(src)](./lib-browser.insertjs.md) | <p>插入 js 脚本</p> |
+|  [loadEruda()](./lib-browser.loaderuda.md) | <p>动态加载 eruda 脚本</p> |
 
