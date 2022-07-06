@@ -1,0 +1,29 @@
+{
+  "name": "@hadeshe93/lib-docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A docs app for @hadeshe93/lib",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/hh-lib#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/hh-lib.git"
+  },
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "buildDocs": "cross-env NODE_ENV=production esno ../../scripts/build-docs.ts && vitepress build docs",
+    "build:docs": "vitepress build docs",
+    "serve:docs": "vitepress serve docs"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/hh-lib/issues"
+  },
+  "gitHead": "843db7a3f2fa32881acb1121d4f20a86628829e9",
+  "devDependencies": {
+    "glob": "^8.0.3",
+    "vitepress": "1.0.0-alpha.4",
+    "vue": "^3.2.37"
+  }
+}

@@ -3,7 +3,7 @@
  *
  * @export
  * @param {string} [src=''] js 脚本地址
- * @return {*}  {Promise<any>}
+ * @returns promise 实例
  */
 export function insertJs(src = ''): Promise<any> {
   if (typeof src !== 'string' || !src) {
@@ -31,10 +31,10 @@ export function insertJs(src = ''): Promise<any> {
  * 插入 css
  *
  * @export
- * @param {string} [src=''] css 文件地址
- * @return {*}  {Promise<any>}
+ * @param {string} [src=''] css 地址
+ * @returns promise 实例
  */
-export function insertCss(src = ''): Promise<any> {
+export async function insertCss(src = ''): Promise<any> {
   if (typeof src !== 'string' || !src) {
     console.error('Please pass effective src string');
     return Promise.resolve();

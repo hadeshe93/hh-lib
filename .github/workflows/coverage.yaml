@@ -1,5 +1,5 @@
 name: 'coverage'
-on: ["push", "pull_request"]
+on: ["pull_request"]
 
 jobs:
   coverage:
@@ -34,7 +34,7 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
       - name: Build
-        run: pnpm turbo:build
+        run: pnpm turbo
       - name: Run unit tests coverage
         run: pnpm coverage
       - name: Upload to coveralls

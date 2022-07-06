@@ -4,13 +4,14 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-06-25 10:34:46
+ * @LastEditTime  : 2022-07-06 11:09:49
  * @FilePath      : /hh-lib/scripts/build.ts
  */
 import os from 'os';
 import path from 'path';
 import execa from 'execa';
 import fs from 'fs-extra';
+import { runParallel } from './util';
 import { getTargets, getAllTargets } from './target';
 
 // 路径常量
@@ -38,6 +39,7 @@ async function main() {
 
 // 构建入口
 async function buildAll(targets) {
+  // 执行并行产物构建
   await runParallel(os.cpus().length, targets, build);
 }
 
@@ -59,7 +61,7 @@ async function build(target) {
 
   // 删除 dist 文件夹
   await fs.remove(resolve(pkgDir, 'dist/'));
-  // 执行构建
+  // 执行代码构建
   await execa(
     'rollup',
     [
@@ -70,23 +72,4 @@ async function build(target) {
     ],
     { stdio: 'inherit' },
   );
-}
-
-// 并发运行
-async function runParallel(maxConcurrency, targets, iteratorFn) {
-  const ret = [];
-  const executing = [];
-  for (const item of targets) {
-    const p = Promise.resolve().then(() => iteratorFn(item, targets));
-    ret.push(p);
-
-    if (maxConcurrency <= targets.length) {
-      const e = p.then(() => executing.splice(executing.indexOf(e), 1));
-      executing.push(e);
-      if (executing.length >= maxConcurrency) {
-        await Promise.race(executing);
-      }
-    }
-  }
-  return Promise.all(ret);
 }

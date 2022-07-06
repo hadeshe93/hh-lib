@@ -3,7 +3,16 @@
   "baseBranch": "origin/main",
   "pipeline": {
     "build": {
+      "dependsOn": ["^build"],
       "outputs": ["dist/**"]
+    },
+    "buildDocsMeta": {
+      "dependsOn": ["build"],
+      "outputs": ["dist-api-report/**", "dist-temp-api-report/**"]
+    },
+    "@hadeshe93/lib-docs#buildDocs": {
+      "dependsOn": ["buildDocsMeta"],
+      "outputs": ["apps/docs/docs/**"]
     }
   }
 }

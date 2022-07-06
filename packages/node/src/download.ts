@@ -17,7 +17,7 @@ interface DownloadGitRepoOpts extends DownloadOpts {
  * @param {string} repoFullName
  * @param {string} dest
  * @param {DownloadGitRepoOpts} [rawOpts]
- * @return {*}  {(Promise<undefined | Error>)}
+ * @returns undefined 为成功，Error 为异常
  */
 export async function downloadGitRepo(
   repoFullName: string,
@@ -52,11 +52,14 @@ export async function downloadGitRepo(
 
 /**
  * 下载资源函数
- * @param url 资源地址
- * @param dest 本地目标地址
- * @param extName 选填，可以重新指定后缀名
+ *
+ * @export
+ * @param {string} url
+ * @param {string} dest
+ * @param {string} [extName]
+ * @returns promise 实例
  */
-export const downloadAsset = async (url: string, dest: string, extName?: string): Promise<void> => {
+export async function downloadAsset(url: string, dest: string, extName?: string): Promise<void> {
   const { dir: destDir } = path.parse(dest);
   const { name, ext: oriExt } = path.parse(url);
   let ext = oriExt;
@@ -66,14 +69,16 @@ export const downloadAsset = async (url: string, dest: string, extName?: string)
   const destFilePath = path.join(destDir, `${name}.${ext}`);
   await fsExtra.ensureDir(destDir);
   await downloadCore(url, destFilePath);
-};
+}
 
 /**
  * 核心下载逻辑
- * @param src 资源源地址
- * @param dest 本地目标地址
+ *
+ * @param {string} src
+ * @param {string} dest
+ * @returns promise 实例
  */
-async function downloadCore(src: string, dest: string) {
+async function downloadCore(src: string, dest: string): Promise<void> {
   if (!/^http(s)?:\/\//.test(src)) {
     throw new Error(`Error occurred when download asset: ${src} is not a effective link`);
   }

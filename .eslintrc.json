@@ -26,7 +26,7 @@
         "sourceType": "module",
         "project": ["./packages/**/tsconfig.json", "./tsconfig.json"]
       },
-      "plugins": ["@typescript-eslint"],
+      "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
       "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off",

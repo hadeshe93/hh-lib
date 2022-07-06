@@ -2,10 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "sourceMap": false,
+    "sourceMap": true,
     // 生成声明文件
     // "emitDeclarationOnly": true,
     "declaration": true,
+    "declarationMap": true,
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext", "dom"],
@@ -18,7 +19,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "removeComments": true,
+    "removeComments": false,
     "jsx": "preserve",
     // 默认会查找 node_modules/@types 下的，不需要配置白名单
     // "types": ["node", "jest"],

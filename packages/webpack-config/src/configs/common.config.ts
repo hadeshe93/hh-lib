@@ -6,6 +6,13 @@ import { getResolve } from '../utils/resolver';
 import { checkIsEnvDevMode } from '../utils/env';
 import type { GetConfigOptions, CustomedWebpackConfigs } from '../types/configs';
 
+/**
+ * 获取公用配置
+ *
+ * @export
+ * @param {GetConfigOptions} options
+ * @returns webpack 配置
+ */
 export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfigs {
   const resolve = getResolve(options.projectRootPath);
   const isEnvDevMode = checkIsEnvDevMode();

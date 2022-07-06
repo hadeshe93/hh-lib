@@ -4,16 +4,15 @@
  * @Date          : 2022-06-12 19:20:44
  * @Author        : hadeshe
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-06-12 21:46:50
+ * @LastEditTime  : 2022-07-05 17:28:13
  * @FilePath      : /hh-lib/packages/browser/src/browser/index.ts
  */
 
 /**
  * 获取 UA
- * 内部使用
  *
  * @param {string} [rawUA=''] 可以用来兼容 SSR 时传入请求带过来的相关信息
- * @return {*}  {string}
+ * @returns 获取 ua
  */
 const getUA = (rawUA = ''): string => {
   if (rawUA) return rawUA;
@@ -32,7 +31,7 @@ interface GetMobileTypeMapReturn {
  *
  * @export
  * @param {string} [rawUA='']
- * @return {*}  {GetMobileTypeMapReturn}
+ * @returns 获取移动端类型 map 信息
  */
 export function getMobileTypeMap(rawUA = ''): GetMobileTypeMapReturn {
   const ua = getUA(rawUA);
@@ -60,7 +59,7 @@ interface GetMobileOSTypeMapReturn {
  *
  * @export
  * @param {string} [rawUA='']
- * @return {*}  {GetMobileOSTypeMapReturn}
+ * @returns 获取移动端系统 map 信息
  */
 export function getMobileOSTypeMap(rawUA = ''): GetMobileOSTypeMapReturn {
   const { iPad, iPhone, iPod, android, wp } = getMobileTypeMap(rawUA);
@@ -76,7 +75,7 @@ export function getMobileOSTypeMap(rawUA = ''): GetMobileOSTypeMapReturn {
  *
  * @export
  * @param {string} [rawUA='']
- * @return {*}  {boolean}
+ * @returns 是否为移动端
  */
 export function checkIsMobile(rawUA = ''): boolean {
   const { iPad, iPhone, iPod, android, wp } = getMobileTypeMap(rawUA);
@@ -92,7 +91,7 @@ interface GetMobileOsVersionReturn {
  *
  * @export
  * @param {string} [rawUA='']
- * @return {*}  {GetMobileOsVersionReturn}
+ * @returns 移动端操作系统版本信息
  */
 export function getMobileOsVersion(rawUA = ''): GetMobileOsVersionReturn {
   let tmp;
@@ -142,7 +141,7 @@ type GetAppTypeMapReturn = Record<GetAppTypeMapReturnKey, boolean>;
  *
  * @export
  * @param {string} [rawUA='']
- * @return {*}  {GetAppTypeMapReturn}
+ * @returns 当前所处 app 信息映射
  */
 export function getAppTypeMap(rawUA = ''): GetAppTypeMapReturn {
   const ua = getUA(rawUA);

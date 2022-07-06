@@ -4,7 +4,7 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-06-28 12:57:40
+ * @LastEditTime  : 2022-07-05 17:32:07
  * @FilePath      : /hh-lib/packages/common/src/string.ts
  */
 import emoutils from 'emoutils';
@@ -33,10 +33,11 @@ const REGX_COMMON_SYMBOLS = /[\u01-\u007E]|[\uFF60-\uFF9F]/g;
 
 /**
  * 获取字符串的相关信息
+ *
  * @param str 字符串
  * @param length 需要截取的长度
  * @param opts 一些附加指定的配置
- * @returns {IStrInfo}
+ * @returns 字符串的相关信息
  */
 export const getStrInfoCore = (str: string, length: number, opts?: IGetStrInfoOpts): IStrInfo => {
   const options = {
@@ -81,24 +82,27 @@ export const getStrInfoCore = (str: string, length: number, opts?: IGetStrInfoOp
 
 /**
  * 截取字符串
+ *
  * @param str 字符串
  * @param len 需要截取的长度
  * @param opts 一些附加指定的配置
- * @returns {string}
+ * @returns 截取后的字符串
  */
 export const getLimitedStr = (str: string, len: number, opts?: IGetStrInfoOpts): string =>
   getStrInfoCore(str, len, opts).str;
 
 /**
  * 获取字符串长度
+ *
  * @param str 字符串
  * @param opts 一些附加指定的配置
- * @returns {number}
+ * @returns 字符串长度
  */
 export const getStrLen = (str: string, opts?: IGetStrInfoOpts): number => getStrInfoCore(str, Infinity, opts).count;
 
 /**
  * 过滤字符串中的零宽字符
+ *
  * @param str 原始字符串
  * @returns 过滤后的字符串
  */
@@ -113,7 +117,7 @@ export const filterZeroWidthCharsOfString = (str: string): string => {
  *
  * @export
  * @param {string} str
- * @return {*}  {string}
+ * @returns 编码后的字符串
  */
 export function encodeXssCharacters(str: string): string {
   return `${str}`
@@ -130,7 +134,7 @@ export function encodeXssCharacters(str: string): string {
  *
  * @export
  * @param {string} str
- * @return {*}  {string}
+ * @returns 解码后的字符串
  */
 export function decodeXssCharacters(str: string): string {
   return `${str}`
@@ -147,7 +151,7 @@ export function decodeXssCharacters(str: string): string {
  *
  * @export
  * @param {string} str
- * @return {*}  {string}
+ * @returns 转换命名格式后的字符串
  */
 export function camelize(str: string): string {
   return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''));

@@ -39,9 +39,8 @@
     "showconfig": "ts-node -P ./tsconfig.json --showConfig",
     "dev": "cross-env DEBUG=vice* ts-node -P ./tsconfig.json ./src/index.ts",
     "devx": "cross-env NODE_ENV=development TS_NODE_PROJECT=./tsconfig.json node -r ts-node/register src/index.ts",
-    "build": "cross-env NODE_ENV=development esno ../../scripts/build.ts vice-cli",
-    "buildProd": "cross-env NODE_ENV=production esno ../../scripts/build.ts vice-cli",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build.ts vice-cli",
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts vice-cli"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"

@@ -1,6 +1,14 @@
-node_modules/
-
 .cache/
+
+.turbo
+
+.ts-cache
+
+.temp
+
+.temp-docs
+
+node_modules/
 
 dist/
 
@@ -8,6 +16,6 @@ coverage/
 
 jest_html_reporters.html
 
-.turbo
+dist-api-report
 
-.ts-cache
+dist-temp-api-report

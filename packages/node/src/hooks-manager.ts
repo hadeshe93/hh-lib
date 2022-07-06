@@ -8,7 +8,14 @@ export type CustomedPlugin = {
   }>;
 };
 
-abstract class AsyncHooksManager {
+/**
+ * AsyncHook 抽象管理类
+ *
+ * @export
+ * @abstract
+ * @class AsyncHooksManager
+ */
+export abstract class AsyncHooksManager {
   public abstract hooks: Record<string, AsyncHook<any, any>>;
   public abstract customedPlugins: CustomedPlugin[];
 
@@ -17,7 +24,7 @@ abstract class AsyncHooksManager {
    *
    * @abstract
    * @param {...any[]} args
-   * @return {*}  {Promise<any>}
+   * @returns Promise 实例
    * @memberof AsyncHooksManager
    */
   public abstract run(...args: any[]): Promise<any>;
@@ -26,8 +33,8 @@ abstract class AsyncHooksManager {
    * 加载插件文件，可被子类重载
    *
    * @protected
-   * @param {*} pluginFilePath
-   * @return {*}  {Promise<CustomedPlugin>}
+   * @param {string} pluginFilePath
+   * @returns CustomedPlugin 配置
    * @memberof AsyncHooksManager
    */
   protected async loadPluginFile(pluginFilePath: string): Promise<CustomedPlugin> {
@@ -37,8 +44,9 @@ abstract class AsyncHooksManager {
   /**
    * 加载用户自定义的插件
    *
-   * @param {*} pluginFilePath
-   * @return {*}  {Promise<CustomedPlugin[]>}
+   * @param {string} pluginFilePath
+   * @param {(pluginFilePath: string) => Promise<CustomedPlugin>} [loadPluginConfigs]
+   * @returns CustomedPlugin 配置数组
    * @memberof AsyncHooksManager
    */
   public async loadPlugin(
@@ -64,5 +72,3 @@ abstract class AsyncHooksManager {
     return this.customedPlugins;
   }
 }
-
-export { AsyncHooksManager };

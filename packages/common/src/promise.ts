@@ -6,7 +6,7 @@
  * @param {() => Promise<T>} promiseFn
  * @param {number} [maxRetryCnt=3]
  * @param {number} [curRetryCnt=0]
- * @return {*}  {Promise<T>}
+ * @returns 异步方法的返回值
  */
 export async function retryPromiseFn<T>(promiseFn: () => Promise<T>, maxRetryCnt = 3, curRetryCnt = 0): Promise<T> {
   let retryCnt = curRetryCnt;
