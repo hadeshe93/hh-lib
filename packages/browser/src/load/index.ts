@@ -55,3 +55,14 @@ export async function insertCss(src = ''): Promise<any> {
     head.appendChild(tag);
   });
 }
+
+/**
+ * 动态加载 eruda 脚本
+ *
+ * @export
+ * @returns promsie 实例
+ */
+export function loadEruda(): Promise<any> {
+  const src = 'https://cdn.bootcdn.net/ajax/libs/eruda/2.4.1/eruda.min.js';
+  return insertJs(src);
+}
