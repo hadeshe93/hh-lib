@@ -1,5 +1,11 @@
 # @hadeshe93/lib-docs
 
+## 0.3.0
+
+### Minor Changes
+
+- [#37](https://github.com/hadeshe93/hh-lib/pull/37) [`2d89623`](https://github.com/hadeshe93/hh-lib/commit/2d8962309ea99cca6feffeb54a202d0619fad9b3) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 新增 getExplorerType 方法 & 调整文档构建目录
+
 ## 0.2.0
 
 ### Minor Changes
