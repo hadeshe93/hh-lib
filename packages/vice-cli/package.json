@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/vice-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A convenient scaffold named vice",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
@@ -48,7 +48,7 @@
   "dependencies": {
     "@hadeshe93/lib-common": "workspace:^0.6.0",
     "@hadeshe93/lib-node": "workspace:^0.5.0",
-    "@hadeshe93/webpack-config": "workspace:^0.1.1",
+    "@hadeshe93/webpack-config": "workspace:^0.2.0",
     "@types/inquirer": "^8.2.1",
     "chalk": "^4.1.1",
     "commander": "^9.3.0",
