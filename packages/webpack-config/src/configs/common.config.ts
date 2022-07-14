@@ -1,3 +1,4 @@
+import fs from 'fs-extra';
 import { VueLoaderPlugin } from 'vue-loader';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -17,11 +18,17 @@ export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfi
   const resolve = getResolve(options.projectRootPath);
   const isEnvDevMode = checkIsEnvDevMode();
   const styleLoader = isEnvDevMode ? 'style-loader' : MiniCssExtractPlugin.loader;
+  const targetPage = options.pageName || '';
+  const appEntryWithoutExt = targetPage ? resolve(`src/pages/${options.pageName}/main`) : 'src/main';
+  const appEntryExt = ['.ts', '.js'].find((ext) => fs.pathExistsSync(`${appEntryWithoutExt}${ext}`));
 
   return {
     mode: options.mode,
     entry: {
-      app: resolve('src/main.js'),
+      app: `${appEntryWithoutExt}${appEntryExt}`,
+    },
+    output: {
+      path: resolve(`dist/${targetPage}`),
     },
     module: {
       rules: [
@@ -34,9 +41,35 @@ export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfi
           ],
         },
         {
-          test: /\.js$/,
+          test: /\.(j|t)sx?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                // 启用缓存机制以防止在重新打包未更改的模块时进行二次编译
+                cacheDirectory: true,
+                presets: [
+                  [
+                    '@babel/preset-env',
+                    {
+                      useBuiltIns: 'usage',
+                      corejs: 3,
+                      // 将 ES6 Module 的语法交给 Webpack 本身处理
+                      modules: false,
+                    },
+                  ],
+                  [
+                    '@babel/preset-typescript',
+                    {
+                      allExtensions: true,
+                    },
+                  ],
+                ],
+                plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
+              },
+            },
+          ],
         },
         {
           test: /\.css$/,
@@ -61,6 +94,11 @@ export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfi
           type: 'javascript/auto',
         },
       ],
+    },
+    resolve: {
+      alias: {
+        '@': resolve(`src/`),
+      },
     },
     plugins: [
       new VueLoaderPlugin(),

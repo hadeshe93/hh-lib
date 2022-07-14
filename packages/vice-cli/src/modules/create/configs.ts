@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import { QuestionCollection } from 'inquirer';
 import { downloadGitRepo } from '@hadeshe93/lib-node';
-import { logger } from '../../libs/logger';
+import logger from '../../libs/logger';
 import { CreateOptions } from './type';
 import { getViceCliTplsUserConfigDir } from '../../configs';
 
@@ -85,7 +85,7 @@ async function downloadRepo(sourceUrl: string, appName: string): Promise<CreateF
   // 检查是否存在指定的项目目录
   if (fs.pathExistsSync(dest)) {
     const message = `创建项目失败，已存在指定文件 ${dest}`;
-    logger(message);
+    logger.error(message);
     return getFormattedCreateFuncReturnJson({
       isSuccess: false,
       message,
@@ -102,7 +102,7 @@ async function downloadRepo(sourceUrl: string, appName: string): Promise<CreateF
       message,
     });
   }
-  logger('创建项目成功！');
+  logger.success('创建项目成功！');
   return getFormattedCreateFuncReturnJson();
 }
 

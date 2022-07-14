@@ -21,7 +21,6 @@ export function getProdConfig(options: GetConfigOptions): CustomedWebpackConfigs
   return merge(commonConfig, {
     output: {
       clean: true,
-      path: resolve('dist/assets'),
     },
   });
 }

@@ -4,26 +4,56 @@ import commander from 'commander';
 // import { camelize } from '@hadeshe93/lib-common';
 import { getResolve } from '@hadeshe93/lib-node';
 
-import { logger } from './libs/logger';
+import logger from './libs/logger';
 import { createProject } from './modules/create';
+import { webpackPage } from './modules/webpack';
 
+const CLI_NAME = 'vice';
 const program = new commander.Command();
 const rootResolve = getResolve(path.resolve(__dirname, '../'));
 const packageJson = fs.readJsonSync(rootResolve('package.json'));
 
-program.version(packageJson.version).usage('<command> [options]');
+program.name(CLI_NAME).usage('<command> [options]').version(packageJson.version);
 
 program
   .command('create <app-name>')
-  .description('Create a new project powered by vice')
+  .description(`Create a new project powered by ${CLI_NAME}`)
   .action(async (appName) => {
     logger('arguments: ', appName);
     await createProject({ appName });
   });
 
+/**
+ * 运行场景：
+ * 1. 工程项目根目录下
+ * 2. 工程项目指定页面目录下
+ * 3. 其他无关路径下启动工程项目
+ */
+program
+  .command('dev')
+  .option('--cwd <path>', 'current working directory path')
+  .description(`Dev page powered by ${CLI_NAME}`)
+  .action(async (options = {}) => {
+    await webpackPage({
+      ...options,
+      cmd: 'dev',
+    });
+  });
+
+program
+  .command('build')
+  .option('--cwd <path>', 'current working directory path')
+  .description(`Build page powered by ${CLI_NAME}`)
+  .action(async (options = {}) => {
+    await webpackPage({
+      ...options,
+      cmd: 'build',
+    });
+  });
+
 program.on('--help', () => {
   console.log('');
-  console.log('  Run vice <command> --help for detailed usage of given command.');
+  console.log(`  Run ${CLI_NAME} <command> --help for detailed usage of given command.`);
 });
 
 process.on('beforeExit', (code) => {
