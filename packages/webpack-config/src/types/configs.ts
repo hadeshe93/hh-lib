@@ -33,6 +33,7 @@ export interface CustomedWebpackConfigs extends Configuration {
 export interface GetConfigOptions {
   mode: CustomedWebpackConfigs['mode'];
   projectRootPath: string;
+  pageName: string;
 }
 
 export interface CustomedHooks {

@@ -15,5 +15,6 @@ export interface GetConfigOptions
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
 |  [mode](./webpack-config.getconfigoptions.mode.md) |  | [CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md)<!-- -->\['mode'\] |  |
+|  [pageName](./webpack-config.getconfigoptions.pagename.md) |  | string |  |
 |  [projectRootPath](./webpack-config.getconfigoptions.projectrootpath.md) |  | string |  |
 

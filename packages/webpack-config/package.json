@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@hadeshe93/lib-node": "workspace:^0.5.0",
+    "fs-extra": "^10.1.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
     "tapable": "^2.2.1",
@@ -49,9 +50,23 @@
     "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.18.2",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime-corejs3": "^7.18.3",
+    "babel-loader": "^8.2.5",
+    "core-js": "^3",
     "vue": "^3.2.37"
   },
   "peerDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.18.2",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime-corejs3": "^7.18.3",
+    "babel-loader": "^8.2.5",
+    "core-js": "^3",
     "vue": "^3.2.37"
   }
 }

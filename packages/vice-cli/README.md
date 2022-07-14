@@ -1,27 +1,35 @@
-A convenient js lib for Node.js.
+A convenient scaffold named vice.
 
 ## Installation
 
 ```sh
-$ npm install @hadeshe93/lib-node --save
+$ npm install @hadeshe93/vice-cli -g
 ```
 
 ## Usage
 
-Use it in `CJS` format:
+```sh
+# get instructions
+$ vice --help
 
-```js
-const { downloadAsset } = require('@hadeshe93/lib-node');
+# create a new project according to preset template
+$ vice create
 
-// your application code
-// ...
+# start to dev project created by vice
+$ vice dev
+
+# start to build project created by vice
+$ vice build
 ```
 
-Use it in `ESM` format:
+## Development Vice
 
-```js
-import { downloadAsset } from '@hadeshe93/lib-node';
+For example:
 
-// your application code
-// ...
+```sh
+# start to development dev command
+$ pnpm --filter @hadeshe93/vice-cli dev dev --cwd /cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts
+
+# start to development build command
+$ pnpm --filter @hadeshe93/vice-cli dev build --cwd /cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts
 ```
