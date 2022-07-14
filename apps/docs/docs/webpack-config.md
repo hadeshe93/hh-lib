@@ -16,7 +16,10 @@
 |  --- | --- |
 |  [getCommonConfig(options)](./webpack-config.getcommonconfig.md) | <p>获取公用配置</p> |
 |  [getDevConfig(options)](./webpack-config.getdevconfig.md) | <p>获取开发环境配置</p> |
+|  [getDllFilePathMap(options)](./webpack-config.getdllfilepathmap.md) | <p>获取 dll 文件名与路径的映射 map</p> |
 |  [getProdConfig(options)](./webpack-config.getprodconfig.md) | <p>获取生成环境配置</p> |
+|  [getProdDllConfig(options)](./webpack-config.getproddllconfig.md) | <p>获取生产环境使用的 Dll 构建配置</p> |
+|  [getProdDllOutputPath(options)](./webpack-config.getproddlloutputpath.md) | <p>获取构建产物目录</p> |
 
 ## Interfaces
 
