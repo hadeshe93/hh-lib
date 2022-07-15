@@ -6,7 +6,7 @@
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
   "license": "ISC",
   "bin": {
-    "vice": "./bin/vice.cjs.js"
+    "vice": "./bin.js"
   },
   "module": "dist/index.node.esm.js",
   "main": "index.js",
