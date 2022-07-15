@@ -1,5 +1,11 @@
 # @hadeshe93/vice-cli
 
+## 0.3.3
+
+### Patch Changes
+
+- [#45](https://github.com/hadeshe93/hh-lib/pull/45) [`07148ec`](https://github.com/hadeshe93/hh-lib/commit/07148eceb19a62a415d377b5cc0737c7635b44b2) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 更新版本
+
 ## 0.3.2
 
 ### Patch Changes
