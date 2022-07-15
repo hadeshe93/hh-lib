@@ -17,11 +17,10 @@
   "types": "dist/index.d.ts",
   "buildOptions": [
     {
-      "name": "vice",
       "target": "node",
       "formats": [
-        "cjsBin",
-        "esmBin"
+        "cjs",
+        "esm"
       ]
     }
   ],
@@ -29,9 +28,9 @@
     "access": "public"
   },
   "files": [
+    "bin.js",
     "index.js",
-    "dist",
-    "bin"
+    "dist"
   ],
   "repository": {
     "type": "git",
