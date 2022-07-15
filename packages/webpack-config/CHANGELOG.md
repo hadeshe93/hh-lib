@@ -1,5 +1,11 @@
 # @hadeshe93/webpack-config
 
+## 0.2.1
+
+### Patch Changes
+
+- [#41](https://github.com/hadeshe93/hh-lib/pull/41) [`3eba225`](https://github.com/hadeshe93/hh-lib/commit/3eba22542b332a3439065b840440a194c622a8db) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 更新版本
+
 ## 0.2.0
 
 ### Minor Changes
