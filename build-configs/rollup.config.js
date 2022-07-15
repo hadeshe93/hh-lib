@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import fs from 'fs-extra';
 import ts from 'rollup-plugin-typescript2';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
@@ -32,10 +33,11 @@ const pkgBuildOptions = pkg.buildOptions || [];
 
 const defaultFormats = [BUILD_FORMATS.CJS, BUILD_FORMATS.ESM];
 const packageConfigs = pkgBuildOptions.reduce((allConfigs, buildOptions) => {
-  const { target, name, formats = defaultFormats } = buildOptions;
+  const { input, target, name, formats = defaultFormats } = buildOptions;
   const configs = (formats || defaultFormats).map((format) => {
     const createFn = isEnvProduction && format === BUILD_FORMATS.IIFE ? createConfigWithTerser : createConfig;
     return createFn({
+      input,
       target,
       format,
       outputConfig: getOutputConfig({ target, pkgResolve, name, format }),
@@ -63,7 +65,7 @@ const packageConfigs = pkgBuildOptions.reduce((allConfigs, buildOptions) => {
 
 // 创建普通配置
 function createConfig(options = {}) {
-  const { target, format, outputConfig, plugins = [] } = options || {};
+  const { input: rawInput, target, format, outputConfig, plugins = [] } = options || {};
   if (!outputConfig) {
     console.log(chalk.yellow(`invalid format: "${format}"`));
     process.exit(1);
@@ -130,8 +132,17 @@ function createConfig(options = {}) {
     ],
   });
 
+  // 默认入口
+  let input = pkgResolve('src/index.ts');
+  if (rawInput && typeof rawInput === 'string') {
+    input = pkgResolve(rawInput);
+  }
+  if (!fs.pathExistsSync(input)) {
+    console.error(`构建入口 ${input} 不存在，无法进行构建`);
+    process.exit(1);
+  }
   return {
-    input: pkgResolve('src/index.ts'),
+    input,
     output,
     // /@babel\/runtime-corejs3/ 加入 external 很重要，需要仔细阅读：
     // https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
@@ -170,7 +181,7 @@ function createConfig(options = {}) {
 
 // 在普通配置基础上，创建压缩配置
 function createConfigWithTerser(options) {
-  const { target, format, outputConfig } = options;
+  const { input, target, format, outputConfig } = options;
   const plugins = [
     terser({
       ecma: 5,
@@ -182,6 +193,7 @@ function createConfigWithTerser(options) {
     }),
   ];
   return createConfig({
+    input,
     target,
     format,
     outputConfig,

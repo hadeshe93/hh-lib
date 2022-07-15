@@ -22,6 +22,15 @@ export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfi
   const appEntryWithoutExt = targetPage ? resolve(`src/pages/${options.pageName}/main`) : 'src/main';
   const appEntryExt = ['.ts', '.js'].find((ext) => fs.pathExistsSync(`${appEntryWithoutExt}${ext}`));
 
+  const publicTemplatePath = resolve('public/index.html');
+  const pageTemplatePath = resolve(`src/pages/${options.pageName}/index.html`);
+  const templatePath = fs.pathExistsSync(pageTemplatePath) ? pageTemplatePath : publicTemplatePath;
+  if (templatePath !== pageTemplatePath && !fs.pathExistsSync(templatePath)) {
+    throw new Error(
+      '请确保 <projectRootPath>/public/ 下或者 <projectRootPath>/src/pages/<pageName>/ 下存在 index.html 模板',
+    );
+  }
+
   return {
     mode: options.mode,
     entry: {
@@ -105,7 +114,7 @@ export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfi
       ...(isEnvDevMode ? [] : [new MiniCssExtractPlugin()]),
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: resolve('public/index.html'),
+        template: templatePath,
       }),
     ],
   };

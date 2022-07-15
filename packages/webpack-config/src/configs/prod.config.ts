@@ -1,6 +1,5 @@
 import merge from 'webpack-merge';
 
-import { getResolve } from '../utils/resolver';
 import { getCommonConfig } from './common.config';
 import type { GetConfigOptions, CustomedWebpackConfigs } from '../types/configs';
 
@@ -12,7 +11,6 @@ import type { GetConfigOptions, CustomedWebpackConfigs } from '../types/configs'
  * @returns webpack 配置
  */
 export function getProdConfig(options: GetConfigOptions): CustomedWebpackConfigs {
-  const resolve = getResolve(options.projectRootPath);
   const commonConfig = getCommonConfig({
     ...options,
     mode: 'production',
