@@ -1,17 +1,17 @@
 import merge from 'webpack-merge';
 
 import { getCommonConfig } from './common.config';
-import type { GetConfigOptions, CustomedWebpackConfigs } from '../types/configs';
+import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
 
 /**
  * 获取生成环境配置
  *
  * @export
- * @param {GetConfigOptions} options
+ * @param {OptionsForGetWebpackConfigs} options
  * @returns webpack 配置
  */
-export function getProdConfig(options: GetConfigOptions): CustomedWebpackConfigs {
-  const commonConfig = getCommonConfig({
+export async function getProdConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
+  const commonConfig = await getCommonConfig({
     ...options,
     mode: 'production',
   });
