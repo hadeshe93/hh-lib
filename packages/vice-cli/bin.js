@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-require('./');
+const { run } = require('./index.js');
+run();

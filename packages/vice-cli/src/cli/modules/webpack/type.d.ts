@@ -1,10 +1,9 @@
-import { CustomedWebpackConfigs } from '@hadeshe93/webpack-config';
+import { OptionsForRunWebpackConfigHookManager } from '@hadeshe93/webpack-config';
 
 export interface DevOptions {
   // 页面名称
   pageName: string;
-  // webpack 配置
-  webpackConfigs: CustomedWebpackConfigs;
+  optionsForRun: OptionsForRunWebpackConfigHookManager;
 }
 
 export interface DevReuslt {
@@ -16,8 +15,7 @@ export interface DevReuslt {
 export interface BuildOptions {
   // 页面名称
   pageName: string;
-  // webpack 配置
-  webpackConfigs: CustomedWebpackConfigs | CustomedWebpackConfigs[];
+  optionsForRun: OptionsForRunWebpackConfigHookManager | OptionsForRunWebpackConfigHookManager[];
 }
 
 export interface BuildReuslt {

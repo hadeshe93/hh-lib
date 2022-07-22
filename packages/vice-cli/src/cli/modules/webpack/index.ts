@@ -1,5 +1,10 @@
 import { createPromptModule } from 'inquirer';
-import { getDevConfig, getProdConfig, getProdDllConfig } from '@hadeshe93/webpack-config';
+import {
+  getDevConfig,
+  getProdConfig,
+  getProdDllConfig,
+  OptionsForRunWebpackConfigHookManager,
+} from '@hadeshe93/webpack-config';
 import { WebpackPageHookManager } from './hooks-manager';
 import { getCustomedPlugin } from './plugins';
 import logger from '../../libs/logger';
@@ -60,31 +65,44 @@ async function startWebpack(options: StartWebpackOptions): Promise<DevReuslt> {
     throw new Error(`[vise ${cmd}] pageName 无效`);
   }
 
-  let webpackConfigs;
+  let optionsForRun: undefined | OptionsForRunWebpackConfigHookManager | OptionsForRunWebpackConfigHookManager[];
   if (cmd === 'dev') {
-    webpackConfigs = getDevConfig({
-      mode: 'development',
-      projectRootPath: getProjectRootPath(),
-      pageName,
-    });
+    optionsForRun = {
+      scene: 'dev',
+      getDefaultConfig: getDevConfig,
+      options: {
+        mode: 'development',
+        projectRootPath: getProjectRootPath(),
+        pageName,
+      },
+    };
   } else if (cmd === 'build') {
-    const prodConfig = getProdConfig({
-      mode: 'production',
-      projectRootPath: getProjectRootPath(),
-      pageName,
-    });
-    const prodDllConfig = getProdDllConfig({
-      mode: 'production',
-      projectRootPath: getProjectRootPath(),
-      pageName,
-    });
-    webpackConfigs = [prodDllConfig, prodConfig];
+    optionsForRun = [
+      {
+        scene: 'build',
+        getDefaultConfig: getProdConfig,
+        options: {
+          mode: 'production',
+          projectRootPath: getProjectRootPath(),
+          pageName,
+        },
+      },
+      {
+        scene: 'build',
+        getDefaultConfig: getProdDllConfig,
+        options: {
+          mode: 'production',
+          projectRootPath: getProjectRootPath(),
+          pageName,
+        },
+      },
+    ];
   }
 
   const hookManager = new WebpackPageHookManager();
   await hookManager.loadPlugin('', async () => getCustomedPlugin());
   return await hookManager.run(cmd, {
     pageName,
-    webpackConfigs,
+    optionsForRun,
   });
 }
