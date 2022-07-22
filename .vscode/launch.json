@@ -13,6 +13,14 @@
       "runtimeArgs": ["run", "build", "common"]
     },
     {
+      "name": "[webpack-config] Debug",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["packages/webpack-config/example/demo-project-1/index.cjs.js"]
+    },
+    {
       "name": "[vice-cli] Debug Create",
       "type": "node",
       "request": "launch",

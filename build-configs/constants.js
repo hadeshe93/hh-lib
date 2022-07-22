@@ -4,3 +4,6 @@ export const BUILD_FORMATS = {
   ESM: 'esm',
   IIFE: 'iife',
 };
+
+// 默认构建入口
+export const DEFAULT_INPUT_RELATIVE_PATH = 'src/index.ts';
