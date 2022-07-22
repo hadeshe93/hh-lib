@@ -25,24 +25,34 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [CustomedHooks](./webpack-config.customedhooks.md) |  |
+|  [CustomedWebpackConfigHooksPlugin](./webpack-config.customedwebpackconfighooksplugin.md) |  |
 |  [CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md) |  |
 |  [DevServer](./webpack-config.devserver.md) |  |
-|  [GetConfigOptions](./webpack-config.getconfigoptions.md) |  |
 |  [Optimization](./webpack-config.optimization.md) |  |
+|  [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) |  |
 |  [Outputs](./webpack-config.outputs.md) |  |
-|  [Plugins](./webpack-config.plugins.md) |  |
 |  [Resolve](./webpack-config.resolve.md) |  |
 |  [WatchOptions](./webpack-config.watchoptions.md) |  |
+|  [WebpackConfigHooks](./webpack-config.webpackconfighooks.md) |  |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [BeforeNewPluginOptions](./webpack-config.beforenewpluginoptions.md) |  |
+|  [CustomedWebpackScene](./webpack-config.customedwebpackscene.md) |  |
 |  [DevTool](./webpack-config.devtool.md) |  |
+|  [DllEntryMap](./webpack-config.dllentrymap.md) |  |
 |  [Externals](./webpack-config.externals.md) |  |
+|  [GetWebpackConfigs](./webpack-config.getwebpackconfigs.md) |  |
 |  [Node\_2](./webpack-config.node_2.md) |  |
+|  [OptionsForRunWebpackConfigHookManager](./webpack-config.optionsforrunwebpackconfighookmanager.md) |  |
 |  [Performance\_2](./webpack-config.performance_2.md) |  |
+|  [Plugin\_2](./webpack-config.plugin_2.md) |  |
+|  [PluginClass](./webpack-config.pluginclass.md) |  |
+|  [Plugins](./webpack-config.plugins.md) |  |
+|  [ProxyCreatingPlugin](./webpack-config.proxycreatingplugin.md) |  |
 |  [Target](./webpack-config.target.md) |  |
 |  [Watch](./webpack-config.watch.md) |  |
+|  [WebpackManagerHookStartInfo](./webpack-config.webpackmanagerhookstartinfo.md) |  |
 

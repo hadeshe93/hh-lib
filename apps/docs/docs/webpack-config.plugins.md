@@ -2,12 +2,10 @@
 
 [Home](./index.md) &gt; [@hadeshe93/webpack-config](./webpack-config.md) &gt; [Plugins](./webpack-config.plugins.md)
 
-## Plugins interface
+## Plugins type
 
 <b>Signature:</b>
 
 ```typescript
-export interface Plugins extends Required<Configuration['plugins']> 
+export declare type Plugins = Required<Configuration['plugins']>;
 ```
-<b>Extends:</b> Required&lt;Configuration
-

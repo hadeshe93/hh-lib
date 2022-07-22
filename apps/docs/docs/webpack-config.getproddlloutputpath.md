@@ -10,14 +10,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getProdDllOutputPath(options: GetConfigOptions): string;
+export declare function getProdDllOutputPath(options: OptionsForGetWebpackConfigs): string;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [GetConfigOptions](./webpack-config.getconfigoptions.md) | 配置参数 |
+|  options | [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) | 配置参数 |
 
 <b>Returns:</b>
 

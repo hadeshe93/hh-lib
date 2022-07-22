@@ -10,14 +10,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getDllFilePathMap(options: GetConfigOptions): Map<string, string>;
+export declare function getDllFilePathMap(options: OptionsForGetWebpackConfigs): Map<string, string>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [GetConfigOptions](./webpack-config.getconfigoptions.md) | 配置参数 |
+|  options | [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) | 配置参数 |
 
 <b>Returns:</b>
 

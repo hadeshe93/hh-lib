@@ -8,8 +8,10 @@
 
 ```typescript
 hooks: {
-        beforeAll: AsyncSeriesWaterfallHook<CustomedWebpackConfigs, import("tapable").UnsetAdditionalOptions>;
-        afterAll: AsyncSeriesWaterfallHook<CustomedWebpackConfigs, import("tapable").UnsetAdditionalOptions>;
+        start: AsyncParallelHook<WebpackManagerHookStartInfo, import("tapable").UnsetAdditionalOptions>;
+        beforeNewPlugin: AsyncSeriesWaterfallHook<BeforeNewPluginOptions, import("tapable").UnsetAdditionalOptions>;
+        beforeMerge: AsyncSeriesWaterfallHook<CustomedWebpackConfigs, import("tapable").UnsetAdditionalOptions>;
+        afterMerge: AsyncSeriesWaterfallHook<CustomedWebpackConfigs, import("tapable").UnsetAdditionalOptions>;
         context: AsyncSeriesWaterfallHook<string, import("tapable").UnsetAdditionalOptions>;
         mode: AsyncSeriesWaterfallHook<string, import("tapable").UnsetAdditionalOptions>;
         entry: AsyncSeriesWaterfallHook<Entry, import("tapable").UnsetAdditionalOptions>;
@@ -17,7 +19,7 @@ hooks: {
         module: AsyncSeriesWaterfallHook<Module, import("tapable").UnsetAdditionalOptions>;
         resolve: AsyncSeriesWaterfallHook<Resolve, import("tapable").UnsetAdditionalOptions>;
         optimization: AsyncSeriesWaterfallHook<Optimization, import("tapable").UnsetAdditionalOptions>;
-        plugins: AsyncSeriesWaterfallHook<Plugins, import("tapable").UnsetAdditionalOptions>;
+        plugins: AsyncSeriesWaterfallHook<(((this: import("webpack").Compiler, compiler: import("webpack").Compiler) => void) | import("webpack").WebpackPluginInstance)[], import("tapable").UnsetAdditionalOptions>;
         devServer: AsyncSeriesWaterfallHook<DevServer, import("tapable").UnsetAdditionalOptions>;
         cache: AsyncSeriesWaterfallHook<Cache, import("tapable").UnsetAdditionalOptions>;
         devtool: AsyncSeriesWaterfallHook<DevTool, import("tapable").UnsetAdditionalOptions>;

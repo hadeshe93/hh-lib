@@ -34,5 +34,6 @@
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [TUnarray](./lib-common.tunarray.md) |  |
 |  [TUnpromise](./lib-common.tunpromise.md) |  |
 

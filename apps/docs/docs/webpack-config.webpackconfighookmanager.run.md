@@ -9,14 +9,14 @@
 <b>Signature:</b>
 
 ```typescript
-run(defaultConfig: CustomedWebpackConfigs): Promise<CustomedWebpackConfigs>;
+run(optionsForRun: OptionsForRunWebpackConfigHookManager): Promise<CustomedWebpackConfigs>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  defaultConfig | [CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md) | 内置默认配置 |
+|  optionsForRun | [OptionsForRunWebpackConfigHookManager](./webpack-config.optionsforrunwebpackconfighookmanager.md) |  |
 
 <b>Returns:</b>
 
