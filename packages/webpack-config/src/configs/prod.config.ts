@@ -12,8 +12,8 @@ import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../typ
  */
 export async function getProdConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
   const commonConfig = await getCommonConfig({
-    ...options,
     mode: 'production',
+    ...options,
   });
 
   return merge(commonConfig, {
