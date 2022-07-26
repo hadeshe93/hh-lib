@@ -7,9 +7,17 @@ import { getResolve } from '../utils/resolver';
 import { checkIsEnvDevMode } from '../utils/env';
 import type { ProxyCreatingPlugin, OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
 
-const defaultWebpackPluginHook: ProxyCreatingPlugin = (pluginClass, args = []) => {
+/**
+ * 默认的 webpack plugin 钩子函数
+ *
+ * @export
+ * @param {*} pluginClass
+ * @param {*} [args=[]]
+ * @returns 创建 webpack plugin 实例的代理方法
+ */
+export function defaultWebpackPluginHook(pluginClass, args = []): ProxyCreatingPlugin {
   return Reflect.construct(pluginClass, args || []);
-};
+}
 
 /**
  * 获取公用配置

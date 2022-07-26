@@ -1,7 +1,9 @@
+import assert from 'assert';
 import webpack from 'webpack';
 import { resolve as pathResolve } from 'path';
 import { getResolve } from '../utils/resolver';
 import { generateStringTpl } from '../utils/template';
+import { defaultWebpackPluginHook } from './common.config';
 import { getProdDllOutputPath, getProdDllManifestOutputPath } from '../core/index';
 
 import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
@@ -18,10 +20,14 @@ import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../typ
  * @param {OptionsForGetWebpackConfigs} options 配置参数
  * @returns 用户 webpack 配置
  */
-export async function getProdDllConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
-  const { dllEntryMap = {}, projectRootPath } = options;
+export async function getProdDllConfig(options: Partial<OptionsForGetWebpackConfigs>): Promise<CustomedWebpackConfigs> {
+  assertOptions(options);
+
+  const { dllEntryMap, projectRootPath } = options;
   const resolve = getResolve(projectRootPath);
   const OUTPUT_PATH = getProdDllOutputPath({ resolve });
+  const proxyCreatingPlugin = options.proxyCreatingPlugin ?? defaultWebpackPluginHook;
+
   return await {
     mode: 'production',
     entry: {
@@ -32,10 +38,12 @@ export async function getProdDllConfig(options: OptionsForGetWebpackConfigs): Pr
       filename: '[name]_[hash:8].js',
     },
     plugins: [
-      new webpack.DllPlugin({
-        name: '[name]_[hash:8]',
-        path: getProdDllManifestOutputPath({ resolve }),
-      }),
+      await proxyCreatingPlugin(webpack.DllPlugin.bind(webpack), [
+        {
+          name: '[name]_[hash:8]',
+          path: getProdDllManifestOutputPath({ resolve }),
+        },
+      ]),
     ],
   };
 }
@@ -47,8 +55,10 @@ export async function getProdDllConfig(options: OptionsForGetWebpackConfigs): Pr
  * @param {OptionsForGetWebpackConfigs} options 配置参数
  * @returns dll 文件名与路径的映射 map
  */
-export function getDllFilePathMap(options: OptionsForGetWebpackConfigs): Map<string, string> {
-  const { dllEntryMap = {}, projectRootPath } = options;
+export function getDllFilePathMap(options: Partial<OptionsForGetWebpackConfigs>): Map<string, string> {
+  assertOptions(options);
+
+  const { dllEntryMap, projectRootPath } = options;
   const resolve = getResolve(projectRootPath);
   const OUTPUT_PATH = getProdDllOutputPath({ resolve });
   const keys = Object.keys(dllEntryMap || {});
@@ -60,4 +70,11 @@ export function getDllFilePathMap(options: OptionsForGetWebpackConfigs): Map<str
     map.set(key, pathResolve(OUTPUT_PATH, `${manifestJson.name}.js`));
   }
   return map;
+}
+
+function assertOptions(options: Partial<OptionsForGetWebpackConfigs>) {
+  const { dllEntryMap, projectRootPath } = options;
+  const msgPrefix = '[dll config for weboack]';
+  assert.ok(dllEntryMap, `${msgPrefix} dllEntryMap 无效`);
+  assert.ok(projectRootPath, `${msgPrefix} projectRootPath 无效`);
 }

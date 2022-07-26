@@ -6,3 +6,6 @@ export * from './configs/dev.config';
 export * from './configs/prod.config';
 export * from './configs/prod.dll.config';
 export * from './hooks-manager/index';
+export * from './utils/env';
+export * from './utils/resolver';
+export * from './utils/template';
