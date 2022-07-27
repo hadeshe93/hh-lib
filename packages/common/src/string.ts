@@ -4,7 +4,7 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-07-05 17:32:07
+ * @LastEditTime  : 2022-07-23 17:54:17
  * @FilePath      : /hh-lib/packages/common/src/string.ts
  */
 import emoutils from 'emoutils';
@@ -155,4 +155,15 @@ export function decodeXssCharacters(str: string): string {
  */
 export function camelize(str: string): string {
   return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''));
+}
+
+/**
+ * 生成字符串模板替换的方法
+ *
+ * @export
+ * @param {(string | RegExp)} pattern
+ * @returns 字符串模板替换的方法
+ */
+export function generateStringTpl(pattern: string | RegExp) {
+  return (str: string, val = '') => str.replace(pattern, val || '');
 }
