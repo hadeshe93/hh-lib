@@ -34,11 +34,12 @@ export async function getProdDllConfig(options: Partial<OptionsForGetWebpackConf
       ...(dllEntryMap || {}),
     },
     output: {
+      clean: true,
       path: OUTPUT_PATH,
       filename: '[name]_[hash:8].js',
     },
     plugins: [
-      await proxyCreatingPlugin(webpack.DllPlugin.bind(webpack), [
+      await proxyCreatingPlugin(webpack.DllPlugin, [
         {
           name: '[name]_[hash:8]',
           path: getProdDllManifestOutputPath({ resolve }),

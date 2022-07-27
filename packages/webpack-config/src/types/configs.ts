@@ -23,7 +23,7 @@ export interface DevServer extends Required<WebpackOptionsNormalized['devServer'
 export type Plugins = Required<Configuration['plugins']>;
 export type Plugin = Plugins extends Array<infer U> ? U : any;
 export type PluginClass = {
-  new (): Plugin;
+  new (...args: any[]): Plugin;
   prototype: Plugin;
 };
 export type DevTool = Required<WebpackOptionsNormalized['devtool']>;
