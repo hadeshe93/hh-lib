@@ -36,6 +36,7 @@ export async function getProdDllConfig(options: Partial<OptionsForGetWebpackConf
     output: {
       clean: true,
       path: OUTPUT_PATH,
+      library: '[name]_[hash:8]',
       filename: '[name]_[hash:8].js',
     },
     plugins: [
