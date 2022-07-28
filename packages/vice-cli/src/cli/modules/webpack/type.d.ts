@@ -1,4 +1,4 @@
-import { OptionsForRunWebpackConfigHookManager } from '@hadeshe93/webpack-config';
+import type { OptionsForRunWebpackConfigHookManager } from '@hadeshe93/webpack-config';
 
 export interface DevOptions {
   // 页面名称

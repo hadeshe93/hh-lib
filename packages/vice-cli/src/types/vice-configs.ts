@@ -9,8 +9,9 @@ export interface ViceConfigs {
     description?: string;
     // 是否注入 flexible 响应式设计稿机制
     useFlexible?: boolean;
-    // 是否注入 eruda 机制
-    useEruda?: boolean;
+    // 是否注入调试器机制
+    // - 默认使用 mdebug，可以在地址栏 debuggerType 指定其他类型（eruda 或 vConsole）
+    useDebugger?: boolean;
   };
 
   // =========== 构建配置 START ===========
@@ -21,7 +22,7 @@ export interface ViceConfigs {
 
   // =========== 插件配置 START ===========
   plugins?: {
-    // webpack 配置的 hook 插件
-    webpackConfigHooks: CustomedWebpackConfigHooksPlugin | CustomedWebpackConfigHooksPlugin[];
+    // webpack 配置的 hook 插件，权重最大
+    webpackConfigHooks?: CustomedWebpackConfigHooksPlugin | CustomedWebpackConfigHooksPlugin[];
   };
 }

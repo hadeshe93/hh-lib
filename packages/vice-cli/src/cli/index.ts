@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
+import minimist from 'minimist';
 import commander from 'commander';
 // import { camelize } from '@hadeshe93/lib-common';
 import { getResolve } from '@hadeshe93/lib-node';
@@ -34,12 +35,15 @@ export function run() {
   program
     .command('dev')
     .option('--cwd <path>', 'current working directory path')
+    .allowUnknownOption()
     .description(`Dev page powered by ${CLI_NAME}`)
-    .action(async (options = {}) => {
-      await webpackPage({
-        ...options,
-        cmd: 'dev',
-      });
+    .action(async (options, cmdIns) => {
+      console.log('dev options:', options);
+      console.log('dev args:', minimist(cmdIns.args));
+      // await webpackPage({
+      //   ...options,
+      //   cmd: 'dev',
+      // });
     });
 
   program

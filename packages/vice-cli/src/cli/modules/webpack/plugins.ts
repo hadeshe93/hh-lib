@@ -1,21 +1,20 @@
-import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import { CustomedPlugin } from '@hadeshe93/lib-node';
 import { CustomedWebpackConfigs } from '@hadeshe93/webpack-config';
 import { WebpackConfigHookManager } from '@hadeshe93/webpack-config';
-import type {
-  CustomedWebpackConfigHooksPlugin,
-  OptionsForRunWebpackConfigHookManager,
-} from '@hadeshe93/webpack-config';
+import type { OptionsForRunWebpackConfigHookManager } from '@hadeshe93/webpack-config';
 
 import logger from '../../libs/logger';
-import { getProjectRootPath } from './utils';
-import { loadUserViceConfigs } from './configs';
+import { getInternalWebpackConfigHooksPlugin } from './config-hooks/internal';
+
 import type { ViceConfigs } from '../../../types/vice-configs';
 import type { DevOptions, DevReuslt, BuildOptions, BuildReuslt } from './type';
 
-export function getCustomedPlugin(): CustomedPlugin {
+interface OptionsForGetCustomedPlugin {
+  viceConfigs: ViceConfigs;
+}
+export function getCustomedPlugin(options: OptionsForGetCustomedPlugin): CustomedPlugin {
   return {
     pluginName: 'customedPlugin',
     hooks: {
@@ -24,7 +23,7 @@ export function getCustomedPlugin(): CustomedPlugin {
         pageName && logger(`开始调试 ${pageName} 页面`);
 
         // 读取配置
-        const userViceConfigs = getUserViceConfigs({ pageName });
+        const userViceConfigs = options.viceConfigs;
         const webpackConfigs = await generateWebpackConfigsFromViceConfigs(userViceConfigs, optionsForRun);
 
         let isSuccess = true;
@@ -46,17 +45,15 @@ export function getCustomedPlugin(): CustomedPlugin {
         pageName && logger(`开始构建 ${pageName} 页面`);
 
         // 读取配置
-        const userViceConfigs = getUserViceConfigs({ pageName });
+        const userViceConfigs = options.viceConfigs;
         const optionsForRun = Array.isArray(rawOptionsForRun) ? rawOptionsForRun : [rawOptionsForRun];
-        const webpackConfigs = [];
-        for (const opt of optionsForRun) {
-          webpackConfigs.push(await generateWebpackConfigsFromViceConfigs(userViceConfigs, opt));
-        }
 
         // 多项构建配置，串行执行
-        for (const configs of webpackConfigs as CustomedWebpackConfigs[]) {
+        for (const opt of optionsForRun) {
+          const webpackConfigs = await generateWebpackConfigsFromViceConfigs(userViceConfigs, opt);
           try {
-            await doBuild(configs);
+            console.log('===> webpackConfigs:', webpackConfigs);
+            await doBuild(webpackConfigs);
           } catch (err) {
             return {
               isSuccess: false,
@@ -65,6 +62,19 @@ export function getCustomedPlugin(): CustomedPlugin {
             };
           }
         }
+
+        // 多项构建配置，串行执行
+        // for (const configs of webpackConfigs as CustomedWebpackConfigs[]) {
+        //   try {
+        //     await doBuild(configs);
+        //   } catch (err) {
+        //     return {
+        //       isSuccess: false,
+        //       message: err.toString(),
+        //       options: buildOptions,
+        //     };
+        //   }
+        // }
         return {
           isSuccess: true,
           message: '',
@@ -118,25 +128,6 @@ function doDev(webpackConfigs: CustomedWebpackConfigs): Promise<void> {
   return server.start();
 }
 
-type OptionsForGetUserViceConfigs = {
-  pageName: string;
-  forceRefresh?: boolean;
-};
-let userViceConfigs;
-/**
- * 获取用户的 vice 配置
- *
- * @returns 用户的 vice 配置
- */
-function getUserViceConfigs(options: OptionsForGetUserViceConfigs) {
-  if (!options.forceRefresh && userViceConfigs) return userViceConfigs;
-
-  userViceConfigs = loadUserViceConfigs(
-    path.resolve(getProjectRootPath(), `src/pages/${options.pageName}/vice.config.js`),
-  );
-  return userViceConfigs;
-}
-
 /**
  * 从用户自定义 hooks 中生成 webpack 配置
  *
@@ -150,28 +141,9 @@ async function generateWebpackConfigsFromViceConfigs(
 ): Promise<CustomedWebpackConfigs> {
   const webpackConfigs = await (async () => {
     let webpackConfigHookManager = new WebpackConfigHookManager();
+    const { projectRootPath } = optionsForRun.options;
     // 处理预设相关的用户配置
-    const internalWebpackConfigHookPlugin: CustomedWebpackConfigHooksPlugin = (() => {
-      let scene = '';
-      return {
-        pluginName: 'InternalWebpackConfigHookPlugin',
-        hooks: {
-          async start({ scene: rawScene }) {
-            scene = rawScene;
-          },
-          async beforeNewPlugin(options) {
-            console.log('options.pluginClass: ', options.pluginClass.name);
-            if (options.pluginClass.name === 'HtmlWebpackPlugin') {
-              const [pluginOpts] = options.args;
-              const { title = '', description = '' } = viceConfigs.page || {};
-              pluginOpts.title = title || '';
-              pluginOpts.description = description || '';
-            }
-            return options;
-          },
-        },
-      };
-    })();
+    const internalWebpackConfigHooksPlugin = getInternalWebpackConfigHooksPlugin({ projectRootPath, viceConfigs });
 
     // 处理用户配置的钩子
     const { webpackConfigHooks: rawWebpackConfigHooks } = viceConfigs.plugins || {};
@@ -180,7 +152,7 @@ async function generateWebpackConfigsFromViceConfigs(
       : rawWebpackConfigHooks
       ? [rawWebpackConfigHooks]
       : [];
-    const webpackConfigHooks = [internalWebpackConfigHookPlugin].concat(userWebpackConfigHooks);
+    const webpackConfigHooks = [internalWebpackConfigHooksPlugin].concat(userWebpackConfigHooks);
     for (const hooksPlugin of webpackConfigHooks) {
       await webpackConfigHookManager.loadPlugin('', async () => hooksPlugin);
     }

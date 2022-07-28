@@ -1,3 +1,4 @@
+import path from 'path';
 import { createPromptModule } from 'inquirer';
 import {
   getDevConfig,
@@ -10,7 +11,10 @@ import { getCustomedPlugin } from './plugins';
 import logger from '../../libs/logger';
 import { getPromptQuestionsList } from './configs';
 import { getProjectRootPath } from './utils';
+import { getUserViceConfigs } from '../../../utils/vice-config-helpers';
+
 import type { DevReuslt } from './type.d';
+import { ViceConfigs } from '@/types/vice-configs';
 
 const prompt = createPromptModule();
 
@@ -22,6 +26,7 @@ interface WebpackPageOptions {
 interface StartWebpackOptions {
   cmd: 'dev' | 'build';
   pageName: string;
+  viceConfigs: ViceConfigs;
 }
 
 /**
@@ -41,9 +46,11 @@ export async function webpackPage(options: WebpackPageOptions): Promise<void> {
   const answers = await prompt(questions);
   const { pageName } = answers;
 
+  const viceConfigs = getUserViceConfigs(path.resolve(getProjectRootPath(), `src/pages/${pageName}/vice.config.js`));
   const devResult = await startWebpack({
     cmd,
     pageName,
+    viceConfigs,
   });
 
   if (devResult.isSuccess) {
@@ -60,7 +67,7 @@ export async function webpackPage(options: WebpackPageOptions): Promise<void> {
  * @returns 启动调试的结果
  */
 async function startWebpack(options: StartWebpackOptions): Promise<DevReuslt> {
-  const { cmd, pageName } = options;
+  const { cmd, pageName, viceConfigs } = options;
   if (!pageName) {
     throw new Error(`[vise ${cmd}] pageName 无效`);
   }
@@ -87,20 +94,24 @@ async function startWebpack(options: StartWebpackOptions): Promise<DevReuslt> {
           pageName,
         },
       },
-      {
-        scene: 'build',
+    ];
+    const { dllEntryMap } = viceConfigs.build;
+    if (dllEntryMap) {
+      optionsForRun.unshift({
+        scene: 'buildDll',
         getDefaultConfig: getProdDllConfig,
         options: {
           mode: 'production',
           projectRootPath: getProjectRootPath(),
           pageName,
+          dllEntryMap,
         },
-      },
-    ];
+      });
+    }
   }
 
   const hookManager = new WebpackPageHookManager();
-  await hookManager.loadPlugin('', async () => getCustomedPlugin());
+  await hookManager.loadPlugin('', async () => getCustomedPlugin({ viceConfigs }));
   return await hookManager.run(cmd, {
     pageName,
     optionsForRun,

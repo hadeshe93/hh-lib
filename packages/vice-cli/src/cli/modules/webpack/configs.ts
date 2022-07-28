@@ -1,10 +1,8 @@
 import path from 'path';
 import glob from 'glob';
-import fs from 'fs-extra';
 import { QuestionCollection } from 'inquirer';
 import logger from '../../libs/logger';
 import { getProjectRootPath } from './utils';
-import type { ViceConfigs } from '../../../types/vice-configs';
 
 interface PageInfoItem {
   pageName: string;
@@ -64,19 +62,4 @@ export function getPromptQuestionsList(): QuestionCollection[] {
       // },
     },
   ];
-}
-
-let userViceConfigs;
-/**
- * 加载用户配置
- *
- * @export
- * @param {string} configFilePath 配置文件的路径
- * @returns ViceConfigs
- */
-export function loadUserViceConfigs(configFilePath: string): ViceConfigs {
-  if (userViceConfigs) return userViceConfigs;
-  if (!fs.pathExistsSync(configFilePath)) throw new Error(`指定路径 ${configFilePath} 下的 vice 配置文件不存在`);
-  userViceConfigs = require(configFilePath);
-  return userViceConfigs;
 }
