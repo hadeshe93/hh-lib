@@ -126,7 +126,7 @@ importers:
 
   packages/browser:
     specifiers:
-      '@hadeshe93/lib-common': ^0.6.0
+      '@hadeshe93/lib-common': ^0.7.0
     dependencies:
       '@hadeshe93/lib-common': link:../common
 
@@ -138,7 +138,7 @@ importers:
 
   packages/node:
     specifiers:
-      '@hadeshe93/lib-common': ^0.6.0
+      '@hadeshe93/lib-common': ^0.7.0
       axios: ^0.21.1
       download-git-repo: ^3.0.2
       fs-extra: ^10.1.0
@@ -157,9 +157,9 @@ importers:
 
   packages/vice-cli:
     specifiers:
-      '@hadeshe93/lib-common': workspace:^0.6.0
-      '@hadeshe93/lib-node': workspace:^0.5.0
-      '@hadeshe93/webpack-config': workspace:^0.2.1
+      '@hadeshe93/lib-common': workspace:^0.7.0
+      '@hadeshe93/lib-node': workspace:^0.6.0
+      '@hadeshe93/webpack-config': workspace:^0.3.0
       '@types/inquirer': ^8.2.1
       add-asset-html-webpack-plugin: ^5.0.2
       chalk: ^4.1.1
@@ -205,7 +205,7 @@ importers:
       '@babel/preset-env': ^7.14.5
       '@babel/preset-typescript': ^7.16.7
       '@babel/runtime-corejs3': ^7.18.3
-      '@hadeshe93/lib-node': workspace:^0.5.0
+      '@hadeshe93/lib-node': workspace:^0.6.0
       babel-loader: ^8.2.5
       core-js: ^3
       fs-extra: ^10.1.0
@@ -4353,7 +4353,7 @@ packages:
   /axios/0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@4.3.4
     transitivePeerDependencies:
       - debug
     dev: false
@@ -6596,16 +6596,6 @@ packages:
   /flatted/3.2.5:
     resolution: {integrity: sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==}
     dev: true
-
-  /follow-redirects/1.15.1:
-    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
 
   /follow-redirects/1.15.1_debug@4.3.4:
     resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
