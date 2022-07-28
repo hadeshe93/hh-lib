@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+      "label": "[packages/vice-cli] debug command: dev",
+      "type": "shell",
+      "command": "./tasks/vice-cli/debug-command.sh dev",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+		{
+      "label": "[packages/vice-cli] debug command: build",
+      "type": "shell",
+      "command": "./tasks/vice-cli/debug-command.sh build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+	]
+}
