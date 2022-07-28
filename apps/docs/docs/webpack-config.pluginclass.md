@@ -8,7 +8,7 @@
 
 ```typescript
 export declare type PluginClass = {
-    new (): Plugin;
+    new (...args: any[]): Plugin;
     prototype: Plugin;
 };
 ```

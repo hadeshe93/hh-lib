@@ -10,14 +10,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getProdDllConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs>;
+export declare function getProdDllConfig(options: Partial<OptionsForGetWebpackConfigs>): Promise<CustomedWebpackConfigs>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) | 配置参数 |
+|  options | Partial&lt;[OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md)<!-- -->&gt; | 配置参数 |
 
 <b>Returns:</b>
 

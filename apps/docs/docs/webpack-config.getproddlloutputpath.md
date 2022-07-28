@@ -4,20 +4,20 @@
 
 ## getProdDllOutputPath() function
 
-获取构建产物目录
+获取 dll 构建产物路径
 
 
 <b>Signature:</b>
 
 ```typescript
-export declare function getProdDllOutputPath(options: OptionsForGetWebpackConfigs): string;
+export declare function getProdDllOutputPath(options: OptionsForGetPath): string;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) | 配置参数 |
+|  options | [OptionsForGetPath](./webpack-config.optionsforgetpath.md) | 配置参数 |
 
 <b>Returns:</b>
 
