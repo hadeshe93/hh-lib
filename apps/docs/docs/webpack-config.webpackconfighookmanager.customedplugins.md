@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-customedPlugins: any[];
+customedPlugins: CustomedWebpackConfigHooksPlugin[];
 ```

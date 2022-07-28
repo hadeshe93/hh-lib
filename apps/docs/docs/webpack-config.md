@@ -14,35 +14,68 @@
 
 |  Function | Description |
 |  --- | --- |
+|  [checkIsEnvDevMode()](./webpack-config.checkisenvdevmode.md) | <p>判断是否为开发环境</p> |
+|  [checkIsEnvProdMode()](./webpack-config.checkisenvprodmode.md) | <p>判断是否为生产环境</p> |
+|  [defaultWebpackPluginHook(pluginClass, args)](./webpack-config.defaultwebpackpluginhook.md) | <p>默认的 webpack plugin 钩子函数</p> |
+|  [generateStringTpl(pattern)](./webpack-config.generatestringtpl.md) |  |
+|  [getAppEntry(options)](./webpack-config.getappentry.md) | <p>获取构建入口</p> |
 |  [getCommonConfig(options)](./webpack-config.getcommonconfig.md) | <p>获取公用配置</p> |
 |  [getDevConfig(options)](./webpack-config.getdevconfig.md) | <p>获取开发环境配置</p> |
 |  [getDllFilePathMap(options)](./webpack-config.getdllfilepathmap.md) | <p>获取 dll 文件名与路径的映射 map</p> |
+|  [getOutputPath(options)](./webpack-config.getoutputpath.md) | <p>获取构建产物路径</p> |
 |  [getProdConfig(options)](./webpack-config.getprodconfig.md) | <p>获取生成环境配置</p> |
 |  [getProdDllConfig(options)](./webpack-config.getproddllconfig.md) | <p>获取生产环境使用的 Dll 构建配置</p> |
-|  [getProdDllOutputPath(options)](./webpack-config.getproddlloutputpath.md) | <p>获取构建产物目录</p> |
+|  [getProdDllManifestOutputPath(options)](./webpack-config.getproddllmanifestoutputpath.md) | <p>获取 dll 构建产物 manifest.json 的路径</p> |
+|  [getProdDllOutputPath(options)](./webpack-config.getproddlloutputpath.md) | <p>获取 dll 构建产物路径</p> |
+|  [getResolve(projectRootPath)](./webpack-config.getresolve.md) | <p>获取定制化的 resolve 方法</p> |
+|  [getTemplatePath(options)](./webpack-config.gettemplatepath.md) | <p>获取模板路径</p> |
 
 ## Interfaces
 
 |  Interface | Description |
 |  --- | --- |
-|  [CustomedHooks](./webpack-config.customedhooks.md) |  |
+|  [CustomedWebpackConfigHooksPlugin](./webpack-config.customedwebpackconfighooksplugin.md) |  |
 |  [CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md) |  |
 |  [DevServer](./webpack-config.devserver.md) |  |
-|  [GetConfigOptions](./webpack-config.getconfigoptions.md) |  |
 |  [Optimization](./webpack-config.optimization.md) |  |
+|  [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) |  |
 |  [Outputs](./webpack-config.outputs.md) |  |
-|  [Plugins](./webpack-config.plugins.md) |  |
 |  [Resolve](./webpack-config.resolve.md) |  |
 |  [WatchOptions](./webpack-config.watchoptions.md) |  |
+|  [WebpackConfigHooks](./webpack-config.webpackconfighooks.md) |  |
+
+## Variables
+
+|  Variable | Description |
+|  --- | --- |
+|  [BACKUP\_ENTRY\_RELATIVE\_PATH](./webpack-config.backup_entry_relative_path.md) |  |
+|  [DLL\_OUTPUT\_MANIFEST\_NAME](./webpack-config.dll_output_manifest_name.md) |  |
+|  [DLL\_OUTPUT\_RELATIVE\_PATH](./webpack-config.dll_output_relative_path.md) |  |
+|  [OUTPUT\_RELATIVE\_PATH](./webpack-config.output_relative_path.md) |  |
+|  [PAGE\_ENTRY\_RELATIVE\_PATH](./webpack-config.page_entry_relative_path.md) |  |
+|  [PAGE\_TEMPLATE\_RELATIVE\_PATH](./webpack-config.page_template_relative_path.md) |  |
+|  [PAGES\_RELATIVE\_PATH](./webpack-config.pages_relative_path.md) |  |
+|  [PUBLIC\_TEMPLATE\_RELATIVE\_PATH](./webpack-config.public_template_relative_path.md) |  |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [BeforeNewPluginOptions](./webpack-config.beforenewpluginoptions.md) |  |
+|  [CustomedWebpackScene](./webpack-config.customedwebpackscene.md) |  |
 |  [DevTool](./webpack-config.devtool.md) |  |
+|  [DllEntryMap](./webpack-config.dllentrymap.md) |  |
 |  [Externals](./webpack-config.externals.md) |  |
+|  [GetWebpackConfigs](./webpack-config.getwebpackconfigs.md) |  |
 |  [Node\_2](./webpack-config.node_2.md) |  |
+|  [OptionsForGetPath](./webpack-config.optionsforgetpath.md) |  |
+|  [OptionsForRunWebpackConfigHookManager](./webpack-config.optionsforrunwebpackconfighookmanager.md) |  |
 |  [Performance\_2](./webpack-config.performance_2.md) |  |
+|  [Plugin\_2](./webpack-config.plugin_2.md) |  |
+|  [PluginClass](./webpack-config.pluginclass.md) |  |
+|  [Plugins](./webpack-config.plugins.md) |  |
+|  [ProxyCreatingPlugin](./webpack-config.proxycreatingplugin.md) |  |
 |  [Target](./webpack-config.target.md) |  |
 |  [Watch](./webpack-config.watch.md) |  |
+|  [WebpackManagerHookStartInfo](./webpack-config.webpackmanagerhookstartinfo.md) |  |
 

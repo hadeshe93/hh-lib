@@ -10,18 +10,18 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfigs;
+export declare function getCommonConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [GetConfigOptions](./webpack-config.getconfigoptions.md) |  |
+|  options | [OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md) |  |
 
 <b>Returns:</b>
 
-[CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md)
+Promise&lt;[CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md)<!-- -->&gt;
 
 webpack 配置
 

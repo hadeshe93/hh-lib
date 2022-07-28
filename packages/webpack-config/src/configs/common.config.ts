@@ -1,43 +1,51 @@
-import fs from 'fs-extra';
 import { VueLoaderPlugin } from 'vue-loader';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+import { getAppEntry, getOutputPath, getTemplatePath } from '../core/index';
 import { getResolve } from '../utils/resolver';
 import { checkIsEnvDevMode } from '../utils/env';
-import type { GetConfigOptions, CustomedWebpackConfigs } from '../types/configs';
+import type { ProxyCreatingPlugin, OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
+
+/**
+ * 默认的 webpack plugin 钩子函数
+ *
+ * @export
+ * @param {*} pluginClass
+ * @param {*} [args=[]]
+ * @returns 创建 webpack plugin 实例的代理方法
+ */
+export function defaultWebpackPluginHook(pluginClass, args = []): ProxyCreatingPlugin {
+  return Reflect.construct(pluginClass, args || []);
+}
 
 /**
  * 获取公用配置
  *
  * @export
- * @param {GetConfigOptions} options
+ * @param {OptionsForGetWebpackConfigs} options
  * @returns webpack 配置
  */
-export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfigs {
+export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
   const resolve = getResolve(options.projectRootPath);
   const isEnvDevMode = checkIsEnvDevMode();
   const styleLoader = isEnvDevMode ? 'style-loader' : MiniCssExtractPlugin.loader;
-  const targetPage = options.pageName || '';
-  const appEntryWithoutExt = targetPage ? resolve(`src/pages/${options.pageName}/main`) : 'src/main';
-  const appEntryExt = ['.ts', '.js'].find((ext) => fs.pathExistsSync(`${appEntryWithoutExt}${ext}`));
 
-  const publicTemplatePath = resolve('public/index.html');
-  const pageTemplatePath = resolve(`src/pages/${options.pageName}/index.html`);
-  const templatePath = fs.pathExistsSync(pageTemplatePath) ? pageTemplatePath : publicTemplatePath;
-  if (templatePath !== pageTemplatePath && !fs.pathExistsSync(templatePath)) {
-    throw new Error(
-      '请确保 <projectRootPath>/public/ 下或者 <projectRootPath>/src/pages/<pageName>/ 下存在 index.html 模板',
-    );
+  const optionsForGetPath = { pageName: options.pageName, resolve };
+  const templatePath = getTemplatePath(optionsForGetPath);
+  if (!templatePath) {
+    throw new Error('请确保存在 index.html 模板');
   }
 
+  const proxyCreatingPlugin = options.proxyCreatingPlugin ?? defaultWebpackPluginHook;
+
   return {
-    mode: options.mode,
+    mode: options.mode || 'development',
     entry: {
-      app: `${appEntryWithoutExt}${appEntryExt}`,
+      app: getAppEntry(optionsForGetPath),
     },
     output: {
-      path: resolve(`dist/${targetPage}`),
+      path: getOutputPath(optionsForGetPath),
     },
     module: {
       rules: [
@@ -110,12 +118,14 @@ export function getCommonConfig(options: GetConfigOptions): CustomedWebpackConfi
       },
     },
     plugins: [
-      new VueLoaderPlugin(),
-      ...(isEnvDevMode ? [] : [new MiniCssExtractPlugin()]),
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: templatePath,
-      }),
+      await proxyCreatingPlugin(VueLoaderPlugin, []),
+      ...(isEnvDevMode ? [] : [await proxyCreatingPlugin(MiniCssExtractPlugin, [])]),
+      await proxyCreatingPlugin(HtmlWebpackPlugin, [
+        {
+          filename: 'index.html',
+          template: templatePath,
+        },
+      ]),
     ],
   };
 }

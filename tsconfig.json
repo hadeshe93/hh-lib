@@ -28,7 +28,8 @@
       "@/*": ["src/*"]
       // "@vue/*": ["packages/*/src"],
       // "vue": ["packages/vue/src"]
-    }
+    },
+    "skipLibCheck": true
   }
   // "include": [
   //   // "packages/global.d.ts",

@@ -4,7 +4,7 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-07-06 11:09:49
+ * @LastEditTime  : 2022-07-28 19:49:31
  * @FilePath      : /hh-lib/scripts/build.ts
  */
 import os from 'os';
@@ -61,6 +61,8 @@ async function build(target) {
 
   // 删除 dist 文件夹
   await fs.remove(resolve(pkgDir, 'dist/'));
+  // 执行检查
+  await execa('tsc', ['-p', resolve(pkgDir, 'tsconfig.json'), '--noEmit'], { stdio: 'inherit' });
   // 执行代码构建
   await execa(
     'rollup',

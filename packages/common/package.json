@@ -55,6 +55,7 @@
     "url": "git+https://github.com/hadeshe93/hh-lib.git"
   },
   "scripts": {
+    "check": "tsc -p tsconfig.json --noEmit",
     "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts common",
     "buildDocsMeta": "cross-env NODE_ENV=production esno ../../scripts/build-docs-meta.ts common"
   },

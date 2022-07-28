@@ -1,6 +1,13 @@
 import type { Entry, Module, Cache, Stats } from 'webpack';
-import { AsyncSeriesWaterfallHook } from 'tapable';
+import { AsyncSeriesWaterfallHook, AsyncParallelHook } from 'tapable';
 import { AsyncHooksManager } from '@hadeshe93/lib-node';
+import {
+  CustomedWebpackScene,
+  BeforeNewPluginOptions,
+  OptionsForGetWebpackConfigs,
+  GetWebpackConfigs,
+  WebpackManagerHookStartInfo,
+} from '../types/configs';
 import type {
   CustomedWebpackConfigs,
   Outputs,
@@ -15,19 +22,33 @@ import type {
   Externals,
   Performance,
   Node,
+  CustomedWebpackConfigHooksPlugin,
 } from '../types/configs';
 
 const logger = console;
 const INNER_PLUGIN_NAME = 'WebpackConfigHookManager';
 const HOOK_PARAM = 'value';
 
+export type OptionsForRunWebpackConfigHookManager = {
+  scene: CustomedWebpackScene;
+  getDefaultConfig: GetWebpackConfigs;
+  options: OptionsForGetWebpackConfigs;
+};
+
 export class WebpackConfigHookManager extends AsyncHooksManager {
   public hooks = {
-    // 全局前置钩子
-    beforeAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
-    // 全局后置钩子
-    afterAll: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
+    // 开始
+    start: new AsyncParallelHook<WebpackManagerHookStartInfo>([HOOK_PARAM]),
 
+    // 实例化插件之前的钩子
+    beforeNewPlugin: new AsyncSeriesWaterfallHook<BeforeNewPluginOptions>([HOOK_PARAM]),
+
+    // 处理 webpack 配置的前置钩子
+    beforeMerge: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
+    // 处理 webpack 配置的猴子钩子
+    afterMerge: new AsyncSeriesWaterfallHook<CustomedWebpackConfigs>([HOOK_PARAM]),
+
+    // webpack 配置下的钩子
     context: new AsyncSeriesWaterfallHook<string>([HOOK_PARAM]),
     mode: new AsyncSeriesWaterfallHook<string>([HOOK_PARAM]),
     entry: new AsyncSeriesWaterfallHook<Entry>([HOOK_PARAM]),
@@ -47,25 +68,31 @@ export class WebpackConfigHookManager extends AsyncHooksManager {
     node: new AsyncSeriesWaterfallHook<Node>([HOOK_PARAM]),
     stats: new AsyncSeriesWaterfallHook<Stats>([HOOK_PARAM]),
   };
-  public customedPlugins = [];
+  public customedPlugins: CustomedWebpackConfigHooksPlugin[] = [];
 
   /**
    * 运行所有钩子，获取最终的配置
    *
-   * @param {CustomedWebpackConfigs} defaultConfig 内置默认配置
+   * @param {OptionsForRunWebpackConfigHookManager} optionsForRun
    * @returns webpack 配置
    * @memberof WebpackConfigHookManager
    */
-  public async run(defaultConfig: CustomedWebpackConfigs): Promise<CustomedWebpackConfigs> {
-    let webpackConfig = defaultConfig;
+  public async run(optionsForRun: OptionsForRunWebpackConfigHookManager): Promise<CustomedWebpackConfigs> {
+    const { scene, getDefaultConfig, options } = optionsForRun;
+    let webpackConfig;
     try {
-      const { beforeAll, afterAll, ...otherHooks } = this.hooks;
-      // 全局前置钩子
-      if (beforeAll) {
-        webpackConfig = await beforeAll.promise(webpackConfig);
-      }
-
-      // 其他简单钩子
+      const { start, beforeNewPlugin, beforeMerge, afterMerge, ...otherHooks } = this.hooks;
+      await start.promise({ scene });
+      const defaultProxyCreatingPlugin = async (pluginClass, args) => {
+        const options = await beforeNewPlugin.promise({ pluginClass, args });
+        return Reflect.construct(options.pluginClass, options.args || []);
+      };
+      const defaultConfig = await getDefaultConfig({
+        ...options,
+        proxyCreatingPlugin: options.proxyCreatingPlugin ?? defaultProxyCreatingPlugin,
+      });
+      webpackConfig = defaultConfig;
+      webpackConfig = await beforeMerge.promise(webpackConfig);
       for (const hookName of Object.keys(otherHooks || {})) {
         const value = await otherHooks[hookName].promise(webpackConfig[hookName]);
         const iSValueUneffective = value === undefined || value === null;
@@ -75,11 +102,7 @@ export class WebpackConfigHookManager extends AsyncHooksManager {
           webpackConfig[hookName] = value;
         }
       }
-
-      // 全局后置钩子
-      if (afterAll) {
-        webpackConfig = await afterAll.promise(webpackConfig);
-      }
+      webpackConfig = await afterMerge.promise(webpackConfig);
     } catch (err) {
       logger.error(`[${INNER_PLUGIN_NAME}] 运行 hooks 异常：`, err);
     }

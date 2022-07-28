@@ -33,6 +33,7 @@
     "url": "git+https://github.com/hadeshe93/hh-lib.git"
   },
   "scripts": {
+    "check": "tsc -p tsconfig.json --noEmit",
     "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts webpack-config",
     "buildDocsMeta": "cross-env NODE_ENV=production esno ../../scripts/build-docs-meta.ts webpack-config"
   },
@@ -45,7 +46,6 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
     "tapable": "^2.2.1",
-    "vue-loader": "^17.0.0",
     "webpack": "^5.73.0",
     "webpack-merge": "^5.8.0"
   },
@@ -57,7 +57,8 @@
     "@babel/runtime-corejs3": "^7.18.3",
     "babel-loader": "^8.2.5",
     "core-js": "^3",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-loader": "^17.0.0"
   },
   "peerDependencies": {
     "@babel/core": "^7.14.5",
@@ -67,6 +68,7 @@
     "@babel/runtime-corejs3": "^7.18.3",
     "babel-loader": "^8.2.5",
     "core-js": "^3",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-loader": "^17.0.0"
   }
 }

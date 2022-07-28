@@ -1,3 +1,4 @@
+import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import ts from 'rollup-plugin-typescript2';
@@ -8,7 +9,7 @@ import { terser } from 'rollup-plugin-terser';
 import babel from '@rollup/plugin-babel';
 
 import { checkIsDevEnv } from './utils/env';
-import { getOutputConfig } from './utils/output';
+import { getInputConfig, getOutputConfig } from './utils/in-out';
 import { BUILD_FORMATS } from './constants';
 import { getPkgResolve } from './utils/resolver';
 import { rollupPluginDelete } from './plugins/rollup-plugin-delete';
@@ -33,39 +34,44 @@ const pkgBuildOptions = pkg.buildOptions || [];
 
 const defaultFormats = [BUILD_FORMATS.CJS, BUILD_FORMATS.ESM];
 const packageConfigs = pkgBuildOptions.reduce((allConfigs, buildOptions) => {
-  const { input, target, name, formats = defaultFormats } = buildOptions;
+  const { input: rawInput, target, name, formats = defaultFormats, declaration = true } = buildOptions;
+  const input = getInputConfig({ input: rawInput, pkgResolve });
   const configs = (formats || defaultFormats).map((format) => {
     const createFn = isEnvProduction && format === BUILD_FORMATS.IIFE ? createConfigWithTerser : createConfig;
     return createFn({
       input,
       target,
       format,
-      outputConfig: getOutputConfig({ target, pkgResolve, name, format }),
+      outputConfig: getOutputConfig({ input, target, pkgResolve, name, format }),
     });
   });
-  const REDUNDANT_FILE_PATH = pkgResolve('dist/__empty_tsc_declaration__.js');
-  configs.push(
-    createDeclarationConfig({
-      target,
-      outputConfig: {
-        name,
-        file: REDUNDANT_FILE_PATH,
-      },
-      plugins: [
-        rollupPluginDelete({
-          post: {
-            globPattern: REDUNDANT_FILE_PATH,
-          },
-        }),
-      ],
-    }),
-  );
+  // 默认会生成声明文件，如果不需要，可以通过 buildOptions.declaration 进行关闭
+  if (declaration) {
+    const { name } = path.parse(input);
+    const REDUNDANT_FILE_PATH = pkgResolve(`dist/__empty_tsc_declaration_${name}__.js`);
+    configs.push(
+      createDeclarationConfig({
+        input,
+        target,
+        outputConfig: {
+          file: REDUNDANT_FILE_PATH,
+        },
+        plugins: [
+          rollupPluginDelete({
+            post: {
+              globPattern: REDUNDANT_FILE_PATH,
+            },
+          }),
+        ],
+      }),
+    );
+  }
   return allConfigs.concat(configs);
 }, []);
 
 // 创建普通配置
 function createConfig(options = {}) {
-  const { input: rawInput, target, format, outputConfig, plugins = [] } = options || {};
+  const { input, target, format, outputConfig, plugins = [] } = options || {};
   if (!outputConfig) {
     console.log(chalk.yellow(`invalid format: "${format}"`));
     process.exit(1);
@@ -77,23 +83,6 @@ function createConfig(options = {}) {
   };
 
   const extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs'];
-  // eslint-disable-next-line no-unused-vars
-  const tsPlugin = ts({
-    check: true,
-    tsconfig: pkgResolve('tsconfig.json'),
-    cacheRoot: pkgResolve(`.ts-cache/`),
-    tsconfigOverride: {
-      compilerOptions: {
-        emitDeclarationOnly: true,
-        sourceMap: output.sourcemap,
-        declaration: true,
-        declarationMap: false,
-        // override 掉 rootDir
-        rootDir: './src',
-      },
-      exclude: ['**/__tests__', '**/tests'],
-    },
-  });
   const babelPlugin = babel({
     extensions,
     babelHelpers: format === 'iife' ? 'bundled' : 'runtime',
@@ -132,11 +121,6 @@ function createConfig(options = {}) {
     ],
   });
 
-  // 默认入口
-  let input = pkgResolve('src/index.ts');
-  if (rawInput && typeof rawInput === 'string') {
-    input = pkgResolve(rawInput);
-  }
   if (!fs.pathExistsSync(input)) {
     console.error(`构建入口 ${input} 不存在，无法进行构建`);
     process.exit(1);

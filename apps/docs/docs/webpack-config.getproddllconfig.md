@@ -10,18 +10,18 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getProdDllConfig(options: GetConfigOptions): CustomedWebpackConfigs;
+export declare function getProdDllConfig(options: Partial<OptionsForGetWebpackConfigs>): Promise<CustomedWebpackConfigs>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [GetConfigOptions](./webpack-config.getconfigoptions.md) | 配置参数 |
+|  options | Partial&lt;[OptionsForGetWebpackConfigs](./webpack-config.optionsforgetwebpackconfigs.md)<!-- -->&gt; | 配置参数 |
 
 <b>Returns:</b>
 
-[CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md)
+Promise&lt;[CustomedWebpackConfigs](./webpack-config.customedwebpackconfigs.md)<!-- -->&gt;
 
 用户 webpack 配置
 
