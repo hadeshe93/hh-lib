@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.8.0
+
+### Minor Changes
+
+- [#49](https://github.com/hadeshe93/hh-lib/pull/49) [`8188a58`](https://github.com/hadeshe93/hh-lib/commit/8188a5807b794d45b525813068ec15ac2259b3ac) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 更新 minor 版本
+
+### Patch Changes
+
+- Updated dependencies [[`8188a58`](https://github.com/hadeshe93/hh-lib/commit/8188a5807b794d45b525813068ec15ac2259b3ac)]:
+  - @hadeshe93/lib-common@0.7.0
+
 ## 0.7.0
 
 ### Minor Changes
