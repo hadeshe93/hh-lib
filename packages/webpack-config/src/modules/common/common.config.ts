@@ -1,23 +1,13 @@
-import { VueLoaderPlugin } from 'vue-loader';
+import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import AddAssetHtmlPlugin from 'add-asset-html-webpack-plugin';
 
-import { getAppEntry, getOutputPath, getTemplatePath } from '../core/index';
-import { getResolve } from '../utils/resolver';
-import { checkIsEnvDevMode } from '../utils/env';
-import type { ProxyCreatingPlugin, OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
-
-/**
- * 默认的 webpack plugin 钩子函数
- *
- * @export
- * @param {*} pluginClass
- * @param {*} [args=[]]
- * @returns 创建 webpack plugin 实例的代理方法
- */
-export function defaultWebpackPluginHook(pluginClass, args = []): ProxyCreatingPlugin {
-  return Reflect.construct(pluginClass, args || []);
-}
+import { getResolve } from '../../utils/resolver';
+import { checkIsEnvDevMode } from '../../utils/env';
+import { defaultWebpackPluginHook } from '../../utils/plugin';
+import { getAppEntry, getOutputPath, getTemplatePath, getDllPathMap } from '../../core/index';
+import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
 
 /**
  * 获取公用配置
@@ -49,14 +39,6 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
     },
     module: {
       rules: [
-        {
-          test: /\.vue$/,
-          use: [
-            {
-              loader: 'vue-loader',
-            },
-          ],
-        },
         {
           test: /\.(j|t)sx?$/,
           exclude: /node_modules/,
@@ -118,7 +100,6 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
       },
     },
     plugins: [
-      await proxyCreatingPlugin(VueLoaderPlugin, []),
       ...(isEnvDevMode ? [] : [await proxyCreatingPlugin(MiniCssExtractPlugin, [])]),
       await proxyCreatingPlugin(HtmlWebpackPlugin, [
         {
@@ -126,6 +107,23 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
           template: templatePath,
         },
       ]),
+      ...(options.dllEntryMap
+        ? [
+            ...[...getDllPathMap(options).values()].map(
+              (pathInfo) =>
+                new webpack.DllReferencePlugin({
+                  manifest: pathInfo.manifestJsonPath,
+                }),
+            ),
+            new AddAssetHtmlPlugin(
+              [...getDllPathMap(options).values()].map((pathInfo) => ({
+                publicPath: '../common/',
+                outputPath: '../common/',
+                filepath: pathInfo.bundleJsPath,
+              })),
+            ),
+          ]
+        : []),
     ],
   };
 }

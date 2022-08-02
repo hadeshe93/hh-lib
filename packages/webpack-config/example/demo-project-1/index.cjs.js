@@ -1,21 +1,22 @@
 const path = require('path');
-const { WebpackConfigHookManager, getDevConfig } = require('../../dist/index.node.cjs');
+const { CommonConfig, VueConfig, ReactConfig } = require('../../dist/index.node.cjs');
 
 async function test() {
-  const hookManager = new WebpackConfigHookManager();
-  await hookManager.loadPlugin(path.resolve(__dirname, './webpack.config.hooks.js'));
   const options = {
     projectRootPath: path.resolve(__dirname, './'),
     pageName: 'demo1',
   };
-  const lastConfig = await hookManager.run({
-    scene: 'dev',
-    getDefaultConfig: getDevConfig,
-    options,
-  });
-  // console.log('devConfig: ', devConfig);
-  console.log();
-  console.log('lastConfig: ', lastConfig);
+  const commonConfigIns = new CommonConfig(options);
+  const commonDevConfig = await commonConfigIns.getCommonConfig();
+  console.log(commonDevConfig);
+
+  const vueConfigIns = new VueConfig(options);
+  const vueDevConfig = await vueConfigIns.getDevConfig();
+  console.log(vueDevConfig);
+
+  const reactConfigIns = new ReactConfig(options);
+  const reactDevConfig = await reactConfigIns.getDevConfig();
+  console.log(reactDevConfig);
 }
 
 test();

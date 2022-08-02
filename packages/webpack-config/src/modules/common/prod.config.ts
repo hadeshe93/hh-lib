@@ -1,7 +1,7 @@
 import merge from 'webpack-merge';
 
 import { getCommonConfig } from './common.config';
-import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
+import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
 
 /**
  * 获取生成环境配置

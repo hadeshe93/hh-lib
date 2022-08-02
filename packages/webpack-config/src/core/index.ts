@@ -1,6 +1,9 @@
 import path from 'path';
 import fs from 'fs-extra';
+import { resolve as pathResolve } from 'path';
+import { getResolve } from '../utils/resolver';
 import { generateStringTpl } from '../utils/template';
+import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../typings/configs';
 
 export const PAGES_RELATIVE_PATH = 'src/pages';
 export const BACKUP_ENTRY_RELATIVE_PATH = 'src/main';
@@ -61,7 +64,7 @@ export function getOutputPath(options: OptionsForGetPath) {
  * @param {OptionsForGetPath} options
  * @returns 模板路径
  */
-export function getTemplatePath(options: OptionsForGetPath) {
+export function getTemplatePath(options: Required<OptionsForGetPath>) {
   const publicTemplatePath = options.resolve(PUBLIC_TEMPLATE_RELATIVE_PATH);
   const pageTemplatePath = options.resolve(pageNameTpl(PAGE_TEMPLATE_RELATIVE_PATH, options.pageName));
   const templatePath = fs.pathExistsSync(pageTemplatePath) ? pageTemplatePath : publicTemplatePath;
@@ -91,4 +94,42 @@ export function getProdDllOutputPath(options: OptionsForGetPath) {
  */
 export function getProdDllManifestOutputPath(options: OptionsForGetPath) {
   return options.resolve(getProdDllOutputPath(options), DLL_OUTPUT_MANIFEST_NAME);
+}
+
+type DllPathMap = Map<
+  string,
+  {
+    manifestJsonPath: string;
+    bundleJsPath: string;
+  }
+>;
+/**
+ * 获取 dll 文件名与路径的映射 map
+ *
+ * @export
+ * @param {OptionsForGetWebpackConfigs} options 配置参数
+ * @returns dll 文件名与路径的映射 map
+ */
+export function getDllPathMap(options: Partial<OptionsForGetWebpackConfigs>): DllPathMap {
+  const { dllEntryMap, projectRootPath } = options;
+  const resolve = getResolve(projectRootPath);
+  const OUTPUT_PATH = getProdDllOutputPath({ resolve });
+  const keys = Object.keys(dllEntryMap || {});
+  const map = new Map();
+  const autoNameTpl = generateStringTpl('[name]');
+
+  for (const key of keys) {
+    const manifestJsonPath = autoNameTpl(getProdDllManifestOutputPath({ resolve }), key);
+    const manifestJson = require(manifestJsonPath);
+    map.set(key, {
+      manifestJsonPath: manifestJsonPath,
+      bundleJsPath: pathResolve(OUTPUT_PATH, `${manifestJson.name}.js`),
+    });
+  }
+  return map;
+}
+
+export abstract class WebpackConfiguration {
+  public abstract getDevConfig(): Promise<CustomedWebpackConfigs>;
+  public abstract getProdConfig(): Promise<CustomedWebpackConfigs>;
 }

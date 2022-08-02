@@ -1,7 +1,7 @@
 import merge from 'webpack-merge';
 
 import { getCommonConfig } from './common.config';
-import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../types/configs';
+import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
 
 /**
  * 获取开发环境配置
@@ -19,6 +19,11 @@ export async function getDevConfig(options: OptionsForGetWebpackConfigs): Promis
     devServer: {
       hot: true,
       port: 3000,
+      allowedHosts: 'all',
+      client: {
+        overlay: true,
+      },
     },
+    devtool: 'inline-source-map',
   });
 }
