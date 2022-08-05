@@ -1,4 +1,4 @@
-export * from './typings/configs';
+export * from './typings/configs.d';
 
 export * from './utils/env';
 export * from './utils/resolver';

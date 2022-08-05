@@ -1,5 +1,6 @@
 import merge from 'webpack-merge';
 import { VueLoaderPlugin } from 'vue-loader';
+import { defaultWebpackPluginHook } from '../../utils/plugin';
 
 import { WebpackConfiguration } from '../../core/index';
 import { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
@@ -18,12 +19,13 @@ export class VueConfig extends WebpackConfiguration {
     }
   }
 
-  private async getVueExtraConfig(): Promise<CustomedWebpackConfigs> {
+  private async getVueExtraConfig(options?: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
+    const proxyCreatingPlugin = options.proxyCreatingPlugin ?? defaultWebpackPluginHook;
     return {
       module: {
         rules: [{ test: /\.vue$/, loader: 'vue-loader' }],
       },
-      plugins: [new VueLoaderPlugin()],
+      plugins: [await proxyCreatingPlugin(VueLoaderPlugin, [])],
     };
   }
 
@@ -32,7 +34,7 @@ export class VueConfig extends WebpackConfiguration {
       options = this.options;
     }
     const devConfig = await new CommonConfig().getDevConfig(options);
-    return merge(await this.getVueExtraConfig(), devConfig);
+    return merge(await this.getVueExtraConfig(options), devConfig);
   }
 
   public async getProdConfig(options?: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
@@ -40,6 +42,6 @@ export class VueConfig extends WebpackConfiguration {
       options = this.options;
     }
     const prodConfig = await new CommonConfig().getProdConfig(options);
-    return merge(await this.getVueExtraConfig(), prodConfig);
+    return merge(await this.getVueExtraConfig(options), prodConfig);
   }
 }

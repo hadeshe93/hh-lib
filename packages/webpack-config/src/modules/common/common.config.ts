@@ -7,7 +7,7 @@ import { getResolve } from '../../utils/resolver';
 import { checkIsEnvDevMode } from '../../utils/env';
 import { defaultWebpackPluginHook } from '../../utils/plugin';
 import { getAppEntry, getOutputPath, getTemplatePath, getDllPathMap } from '../../core/index';
-import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
+import type { Plugin, OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
 
 /**
  * 获取公用配置
@@ -109,19 +109,20 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
       ]),
       ...(options.dllEntryMap
         ? [
-            ...[...getDllPathMap(options).values()].map(
-              (pathInfo) =>
-                new webpack.DllReferencePlugin({
+            ...((await [...getDllPathMap(options).values()].map((pathInfo) =>
+              proxyCreatingPlugin(webpack.DllReferencePlugin, [
+                {
                   manifest: pathInfo.manifestJsonPath,
-                }),
-            ),
-            new AddAssetHtmlPlugin(
+                },
+              ]),
+            )) as Plugin[]),
+            await proxyCreatingPlugin(AddAssetHtmlPlugin, [
               [...getDllPathMap(options).values()].map((pathInfo) => ({
                 publicPath: '../common/',
                 outputPath: '../common/',
                 filepath: pathInfo.bundleJsPath,
               })),
-            ),
+            ]),
           ]
         : []),
     ],
