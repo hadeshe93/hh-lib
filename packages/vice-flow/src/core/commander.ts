@@ -16,6 +16,7 @@ type CommandArgumentItem = [
 type CommandOptionMap = Record<
   string,
   {
+    typeVal: 'boolean' | 'string';
     description: string;
     alias?: string;
   }
@@ -85,7 +86,9 @@ export class Commander {
     if (commandDetail.optionMap) {
       Object.entries(commandDetail.optionMap).forEach(([optionName, optionInfo]) => {
         const names = [optionInfo.alias ? `-${optionInfo.alias}` : '', `--${optionName}`].filter((str) => !!str);
-        commandDefinition.option(names.join(', '), optionInfo.description);
+        const optionDetailName = `${names.join(', ')}${optionInfo.typeVal === 'string' ? ' <string>' : ''}`;
+        console.log('optionDetailName: ', optionDetailName);
+        commandDefinition.option(optionDetailName, optionInfo.description);
       });
     }
     const disposeActionArgs = getActionArgsDisposal(commandDetail);
@@ -115,6 +118,7 @@ export function getActionArgsDisposal(commandDetail: CommandDetail) {
   const argumentNameList = (argumentList || []).map(([argumentName]) => argumentName);
   return (args: any[]) => {
     const result = minimist(args);
+    console.log('result:', result);
     const { _: argumentArgs, ...restMap } = result;
     const argumentMap = (argumentArgs || []).reduce((map, argVal, idx) => {
       map[argumentNameList[idx]] = argVal;
