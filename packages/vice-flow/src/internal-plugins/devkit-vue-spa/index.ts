@@ -1,14 +1,9 @@
 import path from 'path';
 import fsExtra from 'fs-extra';
-// import { nanoid } from 'nanoid';
 import { downloadGitRepo } from '@hadeshe93/lib-node';
 
-import { Logger } from '../../core/logger';
-import { Initiator, InitiatorManager } from '../../core/initiator';
-import { Commander } from '../../core/commander';
-import { Configuration } from '../../core/configuration';
-import { ApplyPluginContext } from '../../typings/core';
-
+import { definePluigin } from '../../core';
+import { Initiator } from '../../core/initiator';
 class VueTsSpaInitiator extends Initiator {
   async prompt(enquirer: typeof import('enquirer')): Promise<void> {
     const answerMap: { appName: string } = await enquirer.prompt([
@@ -37,8 +32,8 @@ class VueTsSpaInitiator extends Initiator {
   }
 }
 
-export default {
-  apply(ctx: ApplyPluginContext<Logger, Commander, Configuration, InitiatorManager>) {
+export default definePluigin({
+  apply(ctx) {
     ctx.initiatorManager.register({
       templateName: 'webpack5-starter-vue3-ts',
       fn: () => {
@@ -46,4 +41,4 @@ export default {
       },
     });
   },
-};
+});

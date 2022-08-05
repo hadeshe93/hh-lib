@@ -1,5 +1,5 @@
 import execa from 'execa';
-import { Logger } from './logger';
+import { logger } from './logger';
 import { Configuration } from './configuration';
 
 import { PluginDetail } from '@/typings/core';
@@ -8,20 +8,12 @@ interface InstallOptions {
   absolutePath?: string;
 }
 
-interface PluggerOptions {
-  logger: Logger;
-  configuration: Configuration;
-}
-
 export class Plugger {
   pluginsMap: Map<string, PluginDetail> = new Map();
-  logger: undefined | Logger;
-  configuration: undefined | Configuration;
+  logger = logger;
+  configuration = new Configuration();
 
-  constructor(options: PluggerOptions) {
-    this.logger = options.logger;
-    this.configuration = options.configuration;
-
+  constructor() {
     // 读取配置文件进行初始化
     const { plugins = [] } = this.configuration.data;
     plugins.forEach((pluginDetail) => {

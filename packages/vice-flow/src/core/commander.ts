@@ -1,9 +1,10 @@
 import path from 'path';
 import fs from 'fs-extra';
 import minimist from 'minimist';
-import commander from 'commander';
+import OriginalCommander from 'commander';
 import { getResolve } from '@hadeshe93/lib-node';
-import { Logger } from './logger';
+import { logger } from './logger';
+import { createSandboxInstanceCreator } from '../utils/sandbox';
 
 type CommandArgumentItem = [
   string,
@@ -29,21 +30,16 @@ interface CommandDetail {
   allowUnknownOption?: boolean;
 }
 
-interface CommanderOptions {
-  logger: undefined | Logger;
-}
-
 export class Commander {
-  logger: Logger;
+  logger = logger;
   commandsMap: Map<string, CommandDetail> = new Map();
-  program = new commander.Command();
+  program = new OriginalCommander.Command();
 
-  constructor(options: CommanderOptions) {
-    this.logger = options.logger;
-    this.initProgram();
+  constructor() {
+    this.init();
   }
 
-  initProgram() {
+  private init() {
     const CLI_NAME = 'vflow';
     const rootResolve = getResolve(path.resolve(__dirname, '../../'));
     const packageJson = fs.readJsonSync(rootResolve('package.json'));
@@ -100,42 +96,19 @@ export class Commander {
   }
 
   run() {
-    process.on('beforeExit', (code) => {
-      this.logger.log(`Code before process's exiting is ${code}`);
-    });
-    process.on('exit', (code) => {
-      if (code === 0) return;
-      this.logger.log(`'Process exit code is ${code}`);
-    });
-    process.on('uncaughtException', (err: any) => {
-      this.logger.error('Uncaught exception:', err);
-    });
-    process.on('unhandledRejection', (reason: any, promise: any) => {
-      this.logger.error('Unhandled rejection: ', promise, 'reason: ', reason);
-    });
     this.program.parse(process.argv);
   }
 }
 
-interface OptionsForGetSandboxCommander {
-  pluginName: string;
-}
-export function getSandboxCommander(commanderIns: Commander, options: OptionsForGetSandboxCommander) {
-  const sandboxCommander = Object.create(null);
-  sandboxCommander.register = (commandDetail: CommandDetail) => {
-    const { pluginName } = options || {};
-    const { command, description, fn, argumentList = [], optionMap = {} } = commandDetail || {};
+export const getSandboxCommander = createSandboxInstanceCreator<Commander, 'register', { pluginName: string }>({
+  register(commanderIns, extraOptions, commandDetail) {
+    const { pluginName } = extraOptions || {};
     commanderIns.register({
-      command,
-      description,
-      fn,
-      argumentList,
-      optionMap,
       pluginName,
+      ...commandDetail,
     });
-  };
-  return sandboxCommander;
-}
+  },
+});
 
 export function getActionArgsDisposal(commandDetail: CommandDetail) {
   const { argumentList } = commandDetail;
@@ -153,3 +126,5 @@ export function getActionArgsDisposal(commandDetail: CommandDetail) {
     };
   };
 }
+
+export const commander = new Commander();

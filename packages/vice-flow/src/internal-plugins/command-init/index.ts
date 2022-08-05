@@ -1,11 +1,7 @@
-import { Logger } from '../../core/logger';
-import { InitiatorManager } from '../../core/initiator';
-import { Commander } from '../../core/commander';
-import { Configuration } from '../../core/configuration';
-import { ApplyPluginContext } from '../../typings/core';
+import { definePluigin } from '../../core';
 
-export default {
-  apply(ctx: ApplyPluginContext<Logger, Commander, Configuration, InitiatorManager>) {
+export default definePluigin({
+  apply(ctx) {
     ctx.commander.register({
       command: 'init',
       description: 'Init a application project from templates',
@@ -14,4 +10,4 @@ export default {
       },
     });
   },
-};
+});

@@ -1,17 +1,15 @@
 import glob from 'glob';
-import { Logger } from './logger';
-import { Commander, getSandboxCommander } from './commander';
-import { InitiatorManager, getSandboxInitiatorManager } from './initiator';
-import { Configuration } from './configuration';
+import { logger, Logger } from './logger';
+import { commander, getSandboxCommander, Commander } from './commander';
+import { initiatorManager, getSandboxInitiatorManager, InitiatorManager } from './initiator';
+import { configuration, Configuration } from './configuration';
 import path from 'path';
 
 export class ViceFlow {
-  logger = new Logger();
-  commander = new Commander({
-    logger: this.logger,
-  });
-  configuration = new Configuration();
-  initiatorManager = new InitiatorManager();
+  logger = logger;
+  commander = commander;
+  configuration = configuration;
+  initiatorManager = initiatorManager;
 
   loadInternalPlugins() {
     const internalPluginsPath = path.resolve(__dirname, '../internal-plugins');
@@ -47,4 +45,17 @@ export class ViceFlow {
     // 启动 commander
     this.commander.run();
   }
+}
+
+interface UserPluginApplyContext {
+  logger: Logger;
+  commander: Commander;
+  configuration: Configuration;
+  initiatorManager: InitiatorManager;
+}
+export interface UserPlugin {
+  apply: (ctx: UserPluginApplyContext) => void | Promise<void>;
+}
+export function definePluigin(userPlugin: UserPlugin): UserPlugin {
+  return userPlugin;
 }

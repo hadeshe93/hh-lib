@@ -1,19 +1,20 @@
-import { create as memFsCreate } from 'mem-fs';
-import memFsEditor, { Editor } from 'mem-fs-editor';
 import Enquirer from 'enquirer';
+import { Editor } from 'mem-fs-editor';
 
-import { Logger } from './logger';
+import { logger } from './logger';
+import { createMemFsCreator } from '../utils/memfs';
+import { createSandboxInstanceCreator } from '../utils/sandbox';
 
+const createMemFs = createMemFsCreator();
 export interface InitiatorCtx {
   dest: string;
   [customedKey: string]: any;
 }
 
 export abstract class Initiator {
-  private fsStore = memFsCreate();
-  private fs = memFsEditor.create(this.fsStore as any);
+  private fs = createMemFs();
   private enquirer = Enquirer;
-  protected logger = new Logger();
+  protected logger = logger;
   protected ctx: InitiatorCtx = {
     dest: '',
   };
@@ -84,7 +85,7 @@ type InitiatorMap<TemplateName extends string = string> = Map<TemplateName, Init
 
 export class InitiatorManager {
   enquirer = Enquirer;
-  logger = new Logger();
+  logger = logger;
   initiatorMap: InitiatorMap = new Map();
 
   register(initiatorDetail: InitiatorDetail) {
@@ -119,16 +120,18 @@ export class InitiatorManager {
     await initiator.run();
   }
 }
+export const initiatorManager = new InitiatorManager();
 
 interface OptionsForGetSandboxInitiatorManager {
   pluginName: string;
 }
 
-export function getSandboxInitiatorManager(
+export function getSandboxInitiatorManager2(
   managerIns: InitiatorManager,
   options: OptionsForGetSandboxInitiatorManager,
 ) {
   const sandboxManager = Object.create(null);
+  // 代理 register 方法
   sandboxManager.register = (detail: InitiatorDetail) => {
     const { pluginName } = options || {};
     const { templateName, fn } = detail || {};
@@ -138,8 +141,26 @@ export function getSandboxInitiatorManager(
       fn,
     });
   };
+  // 代理 run 方法
   sandboxManager.run = () => {
     managerIns.run();
   };
   return sandboxManager;
 }
+
+export const getSandboxInitiatorManager = createSandboxInstanceCreator<
+  InitiatorManager,
+  'register' | 'run',
+  { pluginName: string }
+>({
+  register(managerIns, extraOptions, detail) {
+    const { pluginName } = extraOptions || {};
+    managerIns.register({
+      pluginName,
+      ...detail,
+    });
+  },
+  run(managerIns) {
+    managerIns.run();
+  },
+});

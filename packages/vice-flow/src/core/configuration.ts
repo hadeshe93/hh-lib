@@ -1,13 +1,11 @@
-import { create as createMemFs } from 'mem-fs';
-import memFsEditor from 'mem-fs-editor';
-
+import { createMemFsCreator } from '../utils/memfs';
 import { VICE_FLOW_CONFIGURATION_PATH } from './constants';
 
 import { ViceFlowConfiguration } from '@/typings/core';
 
+const createMemFs = createMemFsCreator();
 export class Configuration {
-  private fsStore = createMemFs();
-  private fs = memFsEditor.create(this.fsStore as any);
+  private fs = createMemFs();
 
   public data: ViceFlowConfiguration = {
     plugins: [],
@@ -40,3 +38,5 @@ export class Configuration {
     });
   }
 }
+
+export const configuration = new Configuration();
