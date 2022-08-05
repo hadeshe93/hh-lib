@@ -1,0 +1,81 @@
+{
+  "name": "@hadeshe93/vice-flow",
+  "version": "0.0.1",
+  "description": "A convenient scaffold named vice",
+  "author": "hadeshe93 <hadeshe93@gmail.com>",
+  "homepage": "https://github.com/hadeshe93/hh-lib#readme",
+  "license": "ISC",
+  "bin": {
+    "vice": "./bin.js"
+  },
+  "module": "dist/index.node.esm.js",
+  "main": "index.js",
+  "exports": {
+    "import": "./dist/index.node.esm.js",
+    "require": "./dist/index.node.cjs.js"
+  },
+  "types": "dist/index.d.ts",
+  "buildOptions": [
+    {
+      "input": "./src/index.ts",
+      "target": "node",
+      "formats": [
+        "cjs",
+        "esm"
+      ]
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "bin.js",
+    "index.js",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadeshe93/hh-lib.git"
+  },
+  "scripts": {
+    "showconfig": "ts-node -P ./tsconfig.json --showConfig",
+    "dev:flow": "cross-env DEBUG=vice* RUN=1 ts-node -P ./tsconfig.json ./src/index.ts",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build.ts vice-cli",
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts vice-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/hadeshe93/hh-lib/issues"
+  },
+  "dependencies": {
+    "@hadeshe93/lib-common": "workspace:^0.6.0",
+    "@hadeshe93/lib-node": "workspace:^0.5.0",
+    "@hadeshe93/webpack-config": "workspace:^0.2.1",
+    "@types/inquirer": "^8.2.1",
+    "add-asset-html-webpack-plugin": "^5.0.2",
+    "chalk": "^4.1.1",
+    "cheerio": "1.0.0-rc.12",
+    "commander": "^9.3.0",
+    "debug": "^4.3.4",
+    "download-git-repo": "^3.0.2",
+    "enquirer": "^2.3.6",
+    "fs-extra": "^10.1.0",
+    "glob": "^8.0.3",
+    "inquirer": "^8.2.1",
+    "mem-fs": "^2.2.1",
+    "mem-fs-editor": "^9.4.0",
+    "minimist": "^1.2.5",
+    "nanoid": "^4.0.0",
+    "ora": "^5.4.1",
+    "tapable": "^2.2.1",
+    "webpack": "^5.73.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "devDependencies": {
+    "@types/mem-fs-editor": "^7.0.2",
+    "html-webpack-plugin": "^5.5.0"
+  },
+  "peerDependencies": {
+    "html-webpack-plugin": "^5.5.0"
+  }
+}

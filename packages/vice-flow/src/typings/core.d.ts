@@ -1,0 +1,24 @@
+export interface ViceCtx {
+  cwd: string;
+  templateSourceRoot: string;
+}
+
+export interface PluginDetail {
+  name: string;
+  absolutePath: string;
+  // TODO：后期加上版本管理
+  // requireVersion?: string;
+  // installedVersion?: string;
+}
+
+export interface ViceFlowConfiguration {
+  // 已安装的插件列表
+  plugins: PluginDetail[];
+}
+
+export interface ApplyPluginContext<TLogger, TCommander, TConfiguration, TInitiatorManager extends any = any> {
+  logger: TLogger;
+  commander: TCommander;
+  configuration: TConfiguration;
+  initiatorManager: TInitiatorManager;
+}
