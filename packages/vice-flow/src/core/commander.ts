@@ -16,9 +16,9 @@ type CommandArgumentItem = [
 type CommandOptionMap = Record<
   string,
   {
-    typeVal: 'boolean' | 'string';
     description: string;
     alias?: string;
+    valueName?: string;
   }
 >;
 interface CommandDetail {
@@ -86,8 +86,10 @@ export class Commander {
     if (commandDetail.optionMap) {
       Object.entries(commandDetail.optionMap).forEach(([optionName, optionInfo]) => {
         const names = [optionInfo.alias ? `-${optionInfo.alias}` : '', `--${optionName}`].filter((str) => !!str);
-        const optionDetailName = `${names.join(', ')}${optionInfo.typeVal === 'string' ? ' <string>' : ''}`;
-        console.log('optionDetailName: ', optionDetailName);
+        const getDescribedValueName = (valueName: string) => `<${valueName}>`;
+        const optionDetailName = `${names.join(', ')}${
+          optionInfo.valueName ? ' ' + getDescribedValueName(optionInfo.valueName) : ''
+        }`;
         commandDefinition.option(optionDetailName, optionInfo.description);
       });
     }
