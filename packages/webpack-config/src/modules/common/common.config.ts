@@ -24,10 +24,27 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
   const optionsForGetPath = { pageName: options.pageName, resolve };
   const templatePath = getTemplatePath(optionsForGetPath);
   if (!templatePath) {
-    throw new Error('请确保存在 index.html 模板');
+    throw new Error(`Please ensure path '${templatePath}' exists.`);
   }
 
   const proxyCreatingPlugin = options.proxyCreatingPlugin ?? defaultWebpackPluginHook;
+
+  // postcss-loader 配置
+  const postcssLoaderConfig = {
+    loader: 'postcss-loader',
+    options: {
+      postcssOptions: {
+        plugins: [
+          [
+            'postcss-preset-env',
+            {
+              autoprefixer: {},
+            },
+          ],
+        ],
+      },
+    },
+  };
 
   return {
     mode: options.mode || 'development',
@@ -72,11 +89,11 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
         },
         {
           test: /\.css$/,
-          use: [styleLoader, 'css-loader'],
+          use: [styleLoader, 'css-loader', postcssLoaderConfig],
         },
         {
           test: /\.scss$/,
-          use: [styleLoader, 'css-loader', 'sass-loader'],
+          use: [styleLoader, 'css-loader', postcssLoaderConfig, 'sass-loader'],
         },
         {
           test: /.(png|svg|jpg|jpeg|gif|eot|svg|ttf|woff|woff2)$/,

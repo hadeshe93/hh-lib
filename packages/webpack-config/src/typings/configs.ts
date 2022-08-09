@@ -1,4 +1,4 @@
-import { WebpackOptionsNormalized, Configuration, Entry, Module, Cache, Stats } from 'webpack';
+import { WebpackOptionsNormalized, Configuration, Entry, ModuleOptions, Cache, Stats } from 'webpack';
 
 // webpack 运行场景
 export type CustomedWebpackScene = 'dev' | 'build' | 'buildDll';
@@ -64,7 +64,7 @@ export interface WebpackConfigHooks {
   mode: (config: string) => Promise<string>;
   entry: (config: Entry) => Promise<Entry>;
   output: (config: Outputs) => Promise<Outputs>;
-  module: (config: Module) => Promise<Module>;
+  module: (config: ModuleOptions) => Promise<ModuleOptions>;
   resolve: (config: Resolve) => Promise<Resolve>;
   optimization: (config: Optimization) => Promise<Optimization>;
   plugins: (config: Plugins) => Promise<Plugins>;
