@@ -53,6 +53,7 @@
     "@hadeshe93/webpack-config": "workspace:^0.2.1",
     "@types/inquirer": "^8.2.1",
     "add-asset-html-webpack-plugin": "^5.0.2",
+    "axios": "^0.21.1",
     "chalk": "^4.1.1",
     "cheerio": "1.0.0-rc.12",
     "commander": "^9.3.0",

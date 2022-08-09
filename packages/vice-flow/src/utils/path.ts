@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { ViceUtilsPathCtx } from '../typings/utils';
+import { ViceUtilsPathCtx } from '../types/utils';
 
 export class ViceUtilsPath {
   private ctx: ViceUtilsPathCtx = {

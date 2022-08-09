@@ -1,7 +1,7 @@
 import { createMemFsCreator } from '../utils/memfs';
 import { VICE_FLOW_CONFIGURATION_PATH } from './constants';
 
-import { ViceFlowConfiguration } from '@/typings/core';
+import { ViceFlowConfiguration } from '@/types/core';
 
 const createMemFs = createMemFsCreator();
 export class Configuration {

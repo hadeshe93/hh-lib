@@ -2,7 +2,7 @@ import execa from 'execa';
 import { logger } from './logger';
 import { Configuration } from './configuration';
 
-import { PluginDetail } from '@/typings/core';
+import { PluginDetail } from '@/types/core';
 
 interface InstallOptions {
   absolutePath?: string;
