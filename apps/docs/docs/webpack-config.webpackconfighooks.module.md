@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-module: (config: Module) => Promise<Module>;
+module: (config: ModuleOptions) => Promise<ModuleOptions>;
 ```

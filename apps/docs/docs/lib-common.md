@@ -11,6 +11,7 @@
 |  [camelize(str)](./lib-common.camelize.md) | <p>kebab-case 转 camelCase</p> |
 |  [decodeXssCharacters(str)](./lib-common.decodexsscharacters.md) | <p>解码 xss 相关的字符</p> |
 |  [encodeXssCharacters(str)](./lib-common.encodexsscharacters.md) | <p>编码 xss 相关的字符</p> |
+|  [exportDataBlob(cols, data, excelTitle)](./lib-common.exportdatablob.md) | <p>以 blob 二进制数据形式导出数据</p> |
 |  [generateStringTpl(pattern)](./lib-common.generatestringtpl.md) | <p>生成字符串模板替换的方法</p> |
 |  [getTypeOf(variable)](./lib-common.gettypeof.md) | <p>获取变量的类型</p> |
 |  [parseCallStack(error, skipIndex)](./lib-common.parsecallstack.md) | <p>解析调用栈信息</p> |
@@ -20,6 +21,7 @@
 
 |  Interface | Description |
 |  --- | --- |
+|  [ExportExcelCol](./lib-common.exportexcelcol.md) |  |
 |  [IParsedCallStack](./lib-common.iparsedcallstack.md) |  |
 
 ## Variables
