@@ -2,11 +2,11 @@ import type { CustomedWebpackConfigHooksPlugin } from '@hadeshe93/webpack-config
 
 export interface WebpackProjectConfigs {
   // =========== 页面配置 START ===========
-  page?: {
+  page: {
     // 页面标题，用于 <title>，运行时可以用 document.title 获取
-    title?: string;
+    title: string;
     // 页面描述
-    description?: string;
+    description: string;
     // 是否注入 flexible 响应式设计稿机制
     useFlexible?: boolean;
     // 是否注入调试器机制
@@ -26,7 +26,8 @@ export interface WebpackProjectConfigs {
   };
 
   // =========== 构建配置 START ===========
-  build?: {
+  build: {
+    frameworkType: 'vue' | 'react';
     // dll 包构建入口映射，falsy 值表示不开启 dll 包
     dllEntryMap?: Record<string, string[]> | false | undefined | null | 0;
   };

@@ -3,10 +3,10 @@ import WebpackDevServer from 'webpack-dev-server';
 import { CustomedWebpackConfigs } from '@hadeshe93/webpack-config';
 
 async function excuteOrderedTask(fns: ((...args: any) => any)[], order: 'serial' | 'parallel' = 'serial') {
-  if (order === 'serial') {
-    return fns.map((fn) => fn());
-  }
   if (order === 'parallel') {
+    return await Promise.all(fns.map((fn) => fn()));
+  }
+  if (order === 'serial') {
     const result = [];
     for (const fn of fns) {
       result.push(await fn());

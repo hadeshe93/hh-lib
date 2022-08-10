@@ -1,21 +1,28 @@
-import { VueTsSpaInitiator } from './initiator';
+import { SpaInitiator } from './initiator';
 import { WorkflowManager } from './workflow-manager';
 import { definePluigin } from '../../core';
 
 export default definePluigin({
   apply(ctx) {
-    // 注册模板
+    // 注册 vue 项目模板
     ctx.initiatorManager.register({
       templateName: 'webpack5-starter-vue3-ts',
       fn: () => {
-        return new VueTsSpaInitiator();
+        return new SpaInitiator({ frameworkType: 'vue' });
+      },
+    });
+    // 注册 react 项目模板
+    ctx.initiatorManager.register({
+      templateName: 'webpack5-starter-react-ts',
+      fn: () => {
+        return new SpaInitiator({ frameworkType: 'react' });
       },
     });
 
     // 注册命令
     ctx.commander.register({
-      command: 'vs:dev',
-      description: 'Develope project of vue spa',
+      command: 'spa:dev',
+      description: 'Develope project of spa project',
       optionMap: {
         cwd: {
           description: 'Specify current working directory',
@@ -33,8 +40,8 @@ export default definePluigin({
 
     // 注册命令
     ctx.commander.register({
-      command: 'vs:build',
-      description: 'Build project of vue spa',
+      command: 'spa:build',
+      description: 'Build project of spa project',
       optionMap: {
         cwd: {
           description: 'Specify current working directory',

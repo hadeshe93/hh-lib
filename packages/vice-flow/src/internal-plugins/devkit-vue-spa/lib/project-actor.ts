@@ -1,10 +1,16 @@
 import path from 'path';
-import { VueConfig, OptionsForRunWebpackConfigHookManager, CustomedWebpackConfigs } from '@hadeshe93/webpack-config';
+import {
+  WebpackConfiguration,
+  VueConfig,
+  ReactConfig,
+  OptionsForRunWebpackConfigHookManager,
+  CustomedWebpackConfigs,
+} from '@hadeshe93/webpack-config';
 import { ProjectConfigHelper } from './project-config-helper';
 import { doDev, doBuild } from '../../../utils/webpack';
 
 interface ProjectActorCtx {
-  vueConfig: VueConfig;
+  webpackConfiguration: WebpackConfiguration | undefined;
   projectRootPath: string;
   pageName: string;
   projectConfigPath: string;
@@ -17,12 +23,13 @@ interface OptionsForProjectActor {
 
 export class ProjectActor {
   ctx: ProjectActorCtx = {
-    vueConfig: new VueConfig(),
-    projectRootPath: '',
     pageName: '',
+    projectRootPath: '',
     projectConfigPath: '',
+    webpackConfiguration: undefined,
   };
   projectConfigHelper: ProjectConfigHelper;
+  initPromise: Promise<void> | undefined;
 
   constructor(options: OptionsForProjectActor) {
     const PROJECT_CONFIG_FILE_NAME = 'project.config.js';
@@ -32,12 +39,24 @@ export class ProjectActor {
     this.projectConfigHelper = new ProjectConfigHelper({
       configFilePath: this.ctx.projectConfigPath,
     });
+    this.initPromise = this.init();
+  }
+
+  async init() {
+    const transformedConfig = await this.projectConfigHelper.getTransformedConfig();
+    const { frameworkType } = transformedConfig.build;
+    if (frameworkType === 'vue') {
+      this.ctx.webpackConfiguration = new VueConfig();
+    } else if (frameworkType === 'react') {
+      this.ctx.webpackConfiguration = new ReactConfig();
+    }
   }
 
   async doDev() {
+    await this.initPromise;
     const webpackDevConfig = await this.runProjectConfigHelper({
       scene: 'dev',
-      getDefaultConfig: this.ctx.vueConfig.getDevConfig.bind(this.ctx.vueConfig),
+      getDefaultConfig: this.ctx.webpackConfiguration.getDevConfig.bind(this.ctx.webpackConfiguration),
       options: {
         projectRootPath: this.ctx.projectRootPath,
         pageName: this.ctx.pageName,
@@ -48,18 +67,19 @@ export class ProjectActor {
   }
 
   async doBuild() {
+    await this.initPromise;
     const optionsList: OptionsForRunWebpackConfigHookManager[] = [
       {
-        scene: 'build',
-        getDefaultConfig: this.ctx.vueConfig.getProdConfig.bind(this.ctx.vueConfig),
+        scene: 'buildDll',
+        getDefaultConfig: this.ctx.webpackConfiguration.getProdDllConfig.bind(this.ctx.webpackConfiguration),
         options: {
           projectRootPath: this.ctx.projectRootPath,
           pageName: this.ctx.pageName,
         },
       },
       {
-        scene: 'buildDll',
-        getDefaultConfig: this.ctx.vueConfig.getProdDllConfig.bind(this.ctx.vueConfig),
+        scene: 'build',
+        getDefaultConfig: this.ctx.webpackConfiguration.getProdConfig.bind(this.ctx.webpackConfiguration),
         options: {
           projectRootPath: this.ctx.projectRootPath,
           pageName: this.ctx.pageName,

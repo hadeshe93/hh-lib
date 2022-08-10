@@ -28,7 +28,7 @@ export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectC
   async transform(rawProjectConfig: WebpackProjectConfigs): Promise<WebpackProjectConfigs> {
     const defaultConfig = getDefaultProjectConfig();
     const { page = {}, build = {}, plugins = {} } = rawProjectConfig || {};
-    const { dllEntryMap: rawDllEntryMap } = build || {};
+    const { dllEntryMap: rawDllEntryMap } = (build || {}) as WebpackProjectConfigs['build'];
     const dllEntryMap = formatDllEntryMap(rawDllEntryMap);
     this.projectConfig = {
       page: {
@@ -57,7 +57,8 @@ export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectC
     }
 
     // 查找用户自定义钩子
-    const { plugins } = transformedConfig;
+    const { build, plugins } = transformedConfig;
+    const { dllEntryMap } = build;
     const { webpackConfigHooks: rawWebpackConfigHooks } = plugins || {};
     const webpackHookManager = new WebpackConfigHookManager();
     const webpackConfigHooks = (
@@ -77,7 +78,18 @@ export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectC
     }
 
     // 运行钩子，获得最终 webpack 的构建配置
-    return await webpackHookManager.run(extraOptions);
+    const finalExtraOptions = { ...extraOptions };
+    if (dllEntryMap) {
+      finalExtraOptions.options = {
+        ...finalExtraOptions.options,
+        dllEntryMap,
+      };
+    }
+    return await webpackHookManager.run(finalExtraOptions);
+  }
+
+  async getTransformedConfig() {
+    return await this.transform(await this.parse());
   }
 }
 
@@ -113,6 +125,7 @@ function getDefaultProjectConfig(): WebpackProjectConfigs {
       },
     },
     build: {
+      frameworkType: 'vue',
       dllEntryMap: false,
     },
     plugins: {
