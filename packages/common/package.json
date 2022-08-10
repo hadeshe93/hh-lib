@@ -24,8 +24,7 @@
       "name": "hdsLibCommon",
       "formats": [
         "cjs",
-        "esm",
-        "iife"
+        "esm"
       ]
     },
     {
