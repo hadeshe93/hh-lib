@@ -1,5 +1,6 @@
 import assert from 'assert';
 import webpack from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { getResolve } from '../../utils/resolver';
 import { defaultWebpackPluginHook } from '../../utils/plugin';
 import { getProdDllOutputPath, getProdDllManifestOutputPath } from '../../core/index';
@@ -25,19 +26,23 @@ export async function getProdDllConfig(options: Partial<OptionsForGetWebpackConf
   const resolve = getResolve(projectRootPath);
   const OUTPUT_PATH = getProdDllOutputPath({ resolve });
   const proxyCreatingPlugin = options.proxyCreatingPlugin ?? defaultWebpackPluginHook;
-
   return await {
     mode: 'production',
+    context: process.cwd(),
     entry: {
       ...(dllEntryMap || {}),
     },
     output: {
-      clean: true,
       path: OUTPUT_PATH,
       library: '[name]_[hash:8]',
       filename: '[name]_[hash:8].js',
     },
     plugins: [
+      await proxyCreatingPlugin(CleanWebpackPlugin, [
+        {
+          verbose: true,
+        },
+      ]),
       await proxyCreatingPlugin(webpack.DllPlugin, [
         {
           name: '[name]_[hash:8]',
@@ -50,7 +55,7 @@ export async function getProdDllConfig(options: Partial<OptionsForGetWebpackConf
 
 function assertOptions(options: Partial<OptionsForGetWebpackConfigs>) {
   const { dllEntryMap, projectRootPath } = options;
-  const msgPrefix = '[dll config for weboack]';
+  const msgPrefix = '[dll config for webpack]';
   assert.ok(dllEntryMap, `${msgPrefix} dllEntryMap 无效`);
   assert.ok(projectRootPath, `${msgPrefix} projectRootPath 无效`);
 }

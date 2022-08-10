@@ -132,4 +132,5 @@ export function getDllPathMap(options: Partial<OptionsForGetWebpackConfigs>): Dl
 export abstract class WebpackConfiguration {
   public abstract getDevConfig(): Promise<CustomedWebpackConfigs>;
   public abstract getProdConfig(): Promise<CustomedWebpackConfigs>;
+  public abstract getProdDllConfig(): Promise<CustomedWebpackConfigs>;
 }

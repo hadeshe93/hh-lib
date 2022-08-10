@@ -58,4 +58,12 @@ export class ReactConfig extends WebpackConfiguration {
     const prodConfig = await new CommonConfig().getProdConfig(options);
     return this.getCustomedMergedConfig(prodConfig);
   }
+
+  public async getProdDllConfig(options?: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
+    if (!options) {
+      options = this.options;
+    }
+    const prodConfig = await new CommonConfig().getProdDllConfig(options);
+    return prodConfig;
+  }
 }

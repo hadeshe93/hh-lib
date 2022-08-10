@@ -7,7 +7,7 @@ import { getResolve } from '../../utils/resolver';
 import { checkIsEnvDevMode } from '../../utils/env';
 import { defaultWebpackPluginHook } from '../../utils/plugin';
 import { getAppEntry, getOutputPath, getTemplatePath, getDllPathMap } from '../../core/index';
-import type { Plugin, OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
+import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../typings/configs';
 
 /**
  * 获取公用配置
@@ -46,8 +46,31 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
     },
   };
 
+  let dllRelativedPlugins = [];
+  if (options.dllEntryMap) {
+    dllRelativedPlugins = await Promise.all(
+      [...getDllPathMap(options).values()].map((pathInfo) =>
+        proxyCreatingPlugin(webpack.DllReferencePlugin, [
+          {
+            manifest: pathInfo.manifestJsonPath,
+          },
+        ]),
+      ),
+    );
+    dllRelativedPlugins.push(
+      await proxyCreatingPlugin(AddAssetHtmlPlugin, [
+        [...getDllPathMap(options).values()].map((pathInfo) => ({
+          publicPath: '../common/',
+          outputPath: '../common/',
+          filepath: pathInfo.bundleJsPath,
+        })),
+      ]),
+    );
+  }
+
   return {
     mode: options.mode || 'development',
+    context: process.cwd(),
     entry: {
       app: getAppEntry(optionsForGetPath),
     },
@@ -124,24 +147,7 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
           template: templatePath,
         },
       ]),
-      ...(options.dllEntryMap
-        ? [
-            ...((await [...getDllPathMap(options).values()].map((pathInfo) =>
-              proxyCreatingPlugin(webpack.DllReferencePlugin, [
-                {
-                  manifest: pathInfo.manifestJsonPath,
-                },
-              ]),
-            )) as Plugin[]),
-            await proxyCreatingPlugin(AddAssetHtmlPlugin, [
-              [...getDllPathMap(options).values()].map((pathInfo) => ({
-                publicPath: '../common/',
-                outputPath: '../common/',
-                filepath: pathInfo.bundleJsPath,
-              })),
-            ]),
-          ]
-        : []),
+      ...dllRelativedPlugins,
     ],
   };
 }
