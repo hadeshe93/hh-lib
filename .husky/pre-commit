@@ -3,4 +3,5 @@
 
 npx lint-staged
 
-npx esno scripts/git-precommit-hook.ts
+# 如果有源文件变更，那么重新构建文档
+# npx esno scripts/git-precommit-hook.ts
