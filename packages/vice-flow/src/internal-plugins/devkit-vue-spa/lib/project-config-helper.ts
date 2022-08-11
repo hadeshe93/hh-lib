@@ -52,8 +52,13 @@ export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectC
     transformedConfig: WebpackProjectConfigs,
     extraOptions: OptionsForRunWebpackConfigHookManager,
   ): Promise<CustomedWebpackConfigs | undefined> {
+    // buildDll 状态下，如果没有 dllEntryMap 配置，那么无需生成 webpack 的配置了，反正也不会构建
     if (extraOptions.scene === 'buildDll' && !transformedConfig.build.dllEntryMap) {
       return undefined;
+    }
+    // dev 状态下不要应用 dll
+    if (extraOptions.scene === 'dev' && transformedConfig.build.dllEntryMap) {
+      transformedConfig.build.dllEntryMap = false;
     }
 
     // 查找用户自定义钩子
