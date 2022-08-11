@@ -9,7 +9,7 @@
 ```typescript
 export declare class WebpackConfigHookManager extends AsyncHooksManager 
 ```
-<b>Extends:</b> AsyncHooksManager
+<b>Extends:</b> [AsyncHooksManager](./lib-node.asynchooksmanager.md)
 
 ## Properties
 

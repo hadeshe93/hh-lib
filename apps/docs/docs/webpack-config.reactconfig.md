@@ -29,4 +29,5 @@ export declare class ReactConfig extends WebpackConfiguration
 |  --- | --- | --- |
 |  [getDevConfig(options)](./webpack-config.reactconfig.getdevconfig.md) |  |  |
 |  [getProdConfig(options)](./webpack-config.reactconfig.getprodconfig.md) |  |  |
+|  [getProdDllConfig(options)](./webpack-config.reactconfig.getproddllconfig.md) |  |  |
 

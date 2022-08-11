@@ -16,4 +16,5 @@ export declare abstract class WebpackConfiguration
 |  --- | --- | --- |
 |  [getDevConfig()](./webpack-config.webpackconfiguration.getdevconfig.md) |  |  |
 |  [getProdConfig()](./webpack-config.webpackconfiguration.getprodconfig.md) |  |  |
+|  [getProdDllConfig()](./webpack-config.webpackconfiguration.getproddllconfig.md) |  |  |
 
