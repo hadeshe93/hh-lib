@@ -138,6 +138,7 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
       alias: {
         '@': resolve(`src/`),
       },
+      extensions: ['.ts', '.tsx', '...'],
     },
     plugins: [
       ...(isEnvDevMode ? [] : [await proxyCreatingPlugin(MiniCssExtractPlugin, [])]),
