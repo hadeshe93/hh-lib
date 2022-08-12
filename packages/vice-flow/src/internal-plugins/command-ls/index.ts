@@ -6,7 +6,7 @@ export default definePluigin({
       command: 'ls',
       description: 'List all configs of vice flow',
       fn: async () => {
-        console.log(JSON.stringify(ctx.configuration.data, null, 2));
+        ctx.logger.success('Configs of Vice Flow:\r\n', JSON.stringify(ctx.configuration.data, null, 2));
       },
     });
   },
