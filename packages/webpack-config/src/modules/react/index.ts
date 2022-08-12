@@ -23,8 +23,6 @@ export class ReactConfig extends WebpackConfiguration {
     const defaultConfig = merge({}, rawDefaultConfig);
     const moduleRules = defaultConfig?.module?.rules || [];
     const scriptRule = moduleRules.find((rule) => {
-      console.log('rule: ', rule);
-      console.log('rule test result: ', rule['test']?.test?.('.jsx'));
       return rule['test']?.test?.('.jsx');
     });
     if (scriptRule) {
