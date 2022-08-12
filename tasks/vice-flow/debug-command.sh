@@ -12,6 +12,9 @@ then
 elif [[ $1 == "init" ]]
 then
   pnpm --filter @hadeshe93/vice-flow dev:flow init
+elif [[ $1 == "ls" ]]
+then
+  pnpm --filter @hadeshe93/vice-flow dev:flow ls
 else
   echo "没有符合的条件"
 fi

@@ -120,7 +120,6 @@ export function getActionArgsDisposal(commandDetail: CommandDetail) {
   const argumentNameList = (argumentList || []).map(([argumentName]) => argumentName);
   return (args: any[]) => {
     const result = minimist(args);
-    console.log('result:', result);
     const { _: argumentArgs, ...restMap } = result;
     const argumentMap = (argumentArgs || []).reduce((map, argVal, idx) => {
       map[argumentNameList[idx]] = argVal;

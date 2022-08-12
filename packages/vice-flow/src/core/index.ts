@@ -14,9 +14,9 @@ export class ViceFlow {
   loadInternalPlugins() {
     const internalPluginsPath = path.resolve(__dirname, '../internal-plugins');
     const plugins = glob.sync(path.join(internalPluginsPath, '/*'));
-    return plugins.map((partialName) => ({
-      pluginName: `internal-${partialName}`,
-      absolutePath: path.resolve(internalPluginsPath, partialName, 'index'),
+    return plugins.map((pluginPath) => ({
+      pluginName: `internal-${path.basename(pluginPath)}`,
+      absolutePath: path.resolve(pluginPath, 'index'),
     }));
   }
 
@@ -24,6 +24,11 @@ export class ViceFlow {
     // 遍历加载插件
     let { plugins } = this.configuration.data;
     plugins = this.loadInternalPlugins().concat(plugins);
+
+    // 回写数据
+    this.configuration.data.plugins = plugins;
+
+    // 开始加载插件
     for (const plugin of plugins) {
       let pluginIns = require(plugin.absolutePath);
       pluginIns = pluginIns.default ?? pluginIns;
