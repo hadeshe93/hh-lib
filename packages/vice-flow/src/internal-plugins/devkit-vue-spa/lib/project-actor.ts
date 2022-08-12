@@ -35,7 +35,13 @@ export class ProjectActor {
     const PROJECT_CONFIG_FILE_NAME = 'project.config.js';
     this.ctx.projectRootPath = options.projectRootPath;
     this.ctx.pageName = options.pageName;
-    this.ctx.projectConfigPath = path.resolve(options.projectRootPath, PROJECT_CONFIG_FILE_NAME);
+    this.ctx.projectConfigPath = path.resolve(
+      options.projectRootPath,
+      'src',
+      'pages',
+      options.pageName,
+      PROJECT_CONFIG_FILE_NAME,
+    );
     this.projectConfigHelper = new ProjectConfigHelper({
       configFilePath: this.ctx.projectConfigPath,
     });
@@ -62,7 +68,7 @@ export class ProjectActor {
         pageName: this.ctx.pageName,
       },
     });
-    console.log('webpackDevConfig: ', JSON.stringify(webpackDevConfig.module.rules));
+    // console.log('webpackDevConfig: ', JSON.stringify(webpackDevConfig.module.rules));
     return await doDev([webpackDevConfig], 'serial');
   }
 
