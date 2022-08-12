@@ -20,6 +20,15 @@
       }
     },
 		{
+      "label": "[packages/vice-flow] debug command: init",
+      "type": "shell",
+      "command": "./tasks/vice-flow/debug-command.sh init",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+		{
       "label": "[packages/vice-flow] debug command: dev",
       "type": "shell",
       "command": "./tasks/vice-flow/debug-command.sh dev",

@@ -2,20 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import minimist from 'minimist';
 
-console.log('__dirname: ', __dirname);
-const PROJECT_ROOT_PATH = path.resolve(__dirname, '../');
+const PROJECT_ROOT_PATH = path.resolve(__dirname, '../../');
 
 function resolveRoot(...args) {
+  console.log('PROJECT_ROOT_PATH: ', PROJECT_ROOT_PATH);
   return path.resolve(PROJECT_ROOT_PATH, ...args);
 }
 
 /**
- * 获取所有可以被构建的 packages
+ * 获取所有可以被构建的 packages 目标列表
  *
  * @export
  * @returns 目标列表
  */
-export function getAllTargets(): string[] {
+export function getAllPackageTargets(): string[] {
   return fs.readdirSync(resolveRoot('packages')).filter((f) => {
     if (!fs.statSync(resolveRoot(`packages/${f}`)).isDirectory()) {
       return false;

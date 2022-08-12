@@ -15,7 +15,7 @@
     "require": "./dist/index.node.cjs.js"
   },
   "types": "dist/index.d.ts",
-  "buildOptions": [
+  "noBuildOptions": [
     {
       "input": "./src/index.ts",
       "target": "node",
@@ -41,8 +41,8 @@
     "showconfig": "ts-node -P ./tsconfig.json --showConfig",
     "dev:cli": "cross-env DEBUG=vice* RUN=1 ts-node -P ./tsconfig.json ./src/cli/index.ts",
     "check": "tsc -p tsconfig.json --noEmit",
-    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build.ts vice-cli",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts vice-cli"
+    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build-packages.ts vice-cli",
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build-packages.ts vice-cli"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"

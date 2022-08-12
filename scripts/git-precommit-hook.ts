@@ -12,8 +12,8 @@ async function main() {
   const fileList = stdout.split('\n');
   const tsFileExisted = fileList.findIndex((fileName) => /(\.d)?\.ts$/.test(path.basename(fileName))) >= 0;
   if (!tsFileExisted) return;
-  await execa('turbo', ['run', 'buildDocsMeta', '--filter=!./apps/*'], { stdio: 'inherit' });
-  await execa('turbo', ['run', 'buildDocs'], { stdio: 'inherit' });
+  await execa('turbo', ['run', 'build:doc:meta', '--filter=./packages/*'], { stdio: 'inherit' });
+  await execa('turbo', ['run', 'build:docs', '--filter=./apps/docs'], { stdio: 'inherit' });
 }
 
 main();
