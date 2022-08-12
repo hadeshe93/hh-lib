@@ -2,6 +2,7 @@ import Enquirer from 'enquirer';
 import { Editor } from 'mem-fs-editor';
 
 import { logger } from './logger';
+import { configuration } from './configuration';
 import { createMemFsCreator } from '../utils/memfs';
 
 const createMemFs = createMemFsCreator();
@@ -12,6 +13,7 @@ export abstract class Interactor {
   private fs = createMemFs();
   private enquirer = Enquirer;
   protected logger = logger;
+  protected configuration = configuration;
   protected ctx: Record<string, any> = {};
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -38,18 +38,27 @@
       }
     },
 		{
-      "label": "[packages/vice-flow] debug command: dev",
+      "label": "[packages/vice-flow] debug command: spa:dev",
       "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh dev",
+      "command": "./tasks/vice-flow/debug-command.sh spa:dev",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       }
     },
 		{
-      "label": "[packages/vice-flow] debug command: build",
+      "label": "[packages/vice-flow] debug command: spa:build",
       "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh build",
+      "command": "./tasks/vice-flow/debug-command.sh spa:build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+		{
+      "label": "[packages/vice-flow] debug command: spa:deploy",
+      "type": "shell",
+      "command": "./tasks/vice-flow/debug-command.sh spa:deploy",
       "presentation": {
         "reveal": "always",
         "panel": "shared"

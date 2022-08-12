@@ -1,17 +1,18 @@
 import execa from 'execa';
 import { logger } from './logger';
-import { Configuration } from './configuration';
 
-import { PluginDetail } from '@/types/core';
+import { PluginDetail } from '../types/core';
+import { configuration } from './configuration';
 
 interface InstallOptions {
   absolutePath?: string;
+  fromLocal?: boolean;
 }
 
 export class Plugger {
   pluginsMap: Map<string, PluginDetail> = new Map();
   logger = logger;
-  configuration = new Configuration();
+  configuration = configuration;
 
   constructor() {
     // 读取配置文件进行初始化
@@ -32,7 +33,9 @@ export class Plugger {
 
   // 安装插件
   async install(rawPkgName: string, options?: InstallOptions) {
-    await this.installPkg(rawPkgName);
+    if (!options?.fromLocal) {
+      await this.installPkg(rawPkgName);
+    }
 
     let name = '';
     const tempPkgNameBuff = rawPkgName.split('@');
@@ -50,6 +53,7 @@ export class Plugger {
     pluginDetail.name = name;
     const absolutePath = options?.absolutePath || require.resolve(name);
     pluginDetail.absolutePath = absolutePath;
+    pluginDetail.config = pluginDetail.config ?? {};
 
     // 回写 pluginDetail
     this.pluginsMap.set(name, pluginDetail);
@@ -60,7 +64,7 @@ export class Plugger {
   }
 
   // 加载运行所有插件
-  loadAll(viceFlow: any) {
+  protected loadAll(viceFlow: any) {
     const entries = this.pluginsMap.entries();
     for (const entry of entries) {
       const [, pluginDetail] = entry;
@@ -68,3 +72,5 @@ export class Plugger {
     }
   }
 }
+
+export const plugger = new Plugger();

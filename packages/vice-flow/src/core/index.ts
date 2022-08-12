@@ -1,39 +1,44 @@
+import path from 'path';
 import glob from 'glob';
+
 import { logger, Logger } from './logger';
 import { commander, getSandboxCommander, Commander } from './commander';
 import { initiatorManager, getSandboxInitiatorManager, InitiatorManager } from './initiator';
 import { configuration, Configuration } from './configuration';
-import path from 'path';
+import { plugger, Plugger } from './plugger';
+import { getInternalPluginName } from '../utils/plugin';
 
 export class ViceFlow {
   logger = logger;
+  plugger = plugger;
   commander = commander;
   configuration = configuration;
   initiatorManager = initiatorManager;
 
-  loadInternalPlugins() {
+  installInternalPlugins() {
     const internalPluginsPath = path.resolve(__dirname, '../internal-plugins');
-    const plugins = glob.sync(path.join(internalPluginsPath, '/*'));
-    return plugins.map((pluginPath) => ({
-      pluginName: `internal-${path.basename(pluginPath)}`,
+    const pluginPaths = glob.sync(path.join(internalPluginsPath, '/*'));
+    const plugins = pluginPaths.map((pluginPath) => ({
+      pluginName: getInternalPluginName(pluginPath),
       absolutePath: path.resolve(pluginPath, 'index'),
     }));
+    plugins.forEach((plugin) => {
+      plugger.install(plugin.pluginName, { absolutePath: plugin.absolutePath, fromLocal: true });
+    });
   }
 
   async init() {
+    // 安装内部插件
+    this.installInternalPlugins();
+
     // 遍历加载插件
-    let { plugins } = this.configuration.data;
-    plugins = this.loadInternalPlugins().concat(plugins);
-
-    // 回写数据
-    this.configuration.data.plugins = plugins;
-
-    // 开始加载插件
+    const { plugins } = this.configuration.data;
     for (const plugin of plugins) {
       let pluginIns = require(plugin.absolutePath);
       pluginIns = pluginIns.default ?? pluginIns;
       await pluginIns.apply({
         logger: this.logger,
+        plugger: this.plugger,
         configuration: this.configuration,
         commander: getSandboxCommander(this.commander, {
           pluginName: plugin.name,
@@ -54,6 +59,7 @@ export class ViceFlow {
 
 interface UserPluginApplyContext {
   logger: Logger;
+  plugger: Plugger;
   commander: Commander;
   configuration: Configuration;
   initiatorManager: InitiatorManager;
