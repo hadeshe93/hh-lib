@@ -9,9 +9,10 @@ import {
   CustomedWebpackConfigs,
 } from '@hadeshe93/webpack-config';
 import { OSS_ROOT_DIR } from './constants';
-import { ProjectConfigHelper } from './project-config-helper';
+import { ProjectConfigHelper, OptionsForGenerate } from './project-config-helper';
 import { doDev, doBuild } from '../../../utils/webpack';
 import { getAliyunOssOper } from '../../../utils/aliyun-oss';
+import { getInternalWebpackConfigHooksPlugin } from '../webpack-config/internal-hook-plugin';
 
 import type { Logger } from '../../../core/logger';
 
@@ -160,6 +161,11 @@ export class ProjectActor {
   }
 
   async runProjectConfigHelper(options: OptionsForRunWebpackConfigHookManager): Promise<CustomedWebpackConfigs> {
-    return await this.projectConfigHelper.run<OptionsForRunWebpackConfigHookManager>(options);
+    return await this.projectConfigHelper.run({
+      ...options,
+      getInternalHookPlugins({ webpackProjectConfigs }) {
+        return [getInternalWebpackConfigHooksPlugin({ webpackProjectConfigs })];
+      },
+    } as OptionsForGenerate);
   }
 }

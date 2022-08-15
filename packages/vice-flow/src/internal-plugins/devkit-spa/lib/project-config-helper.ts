@@ -1,3 +1,13 @@
+/*
+ * @Description   : 项目配置的工具类
+ * @usage         : 与具体项目选型无关的工具类，所有与业务或者选型相关的需要提到外层去实现
+ * @Date          : 2022-08-07 11:04:08
+ * @Author        : hadeshe
+ * @LastEditors   : hadeshe
+ * @LastEditTime  : 2022-08-15 16:10:31
+ * @FilePath      : /hh-lib/packages/vice-flow/src/internal-plugins/devkit-spa/lib/project-config-helper.ts
+ */
+
 import fs from 'fs-extra';
 import { getTypeOf } from '@hadeshe93/lib-common';
 import {
@@ -7,10 +17,14 @@ import {
   WebpackConfigHookManager,
 } from '@hadeshe93/webpack-config';
 import { WebpackProjectConfigs } from '../types/config';
+import { OptionsForGetInternalPlugin } from '../types/plugin';
 import { BaseProjectConfigHelper, ProjectConfigHelperCtx } from './base-project-config-helper';
-import { getInternalWebpackConfigHooksPlugin } from '../webpack-config/internal-hook-plugin';
 
 export { ProjectConfigHelperCtx };
+
+export type OptionsForGenerate = OptionsForRunWebpackConfigHookManager & {
+  getInternalHookPlugins: (options: OptionsForGetInternalPlugin) => CustomedWebpackConfigHooksPlugin[];
+};
 
 export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectConfigs, CustomedWebpackConfigs> {
   projectConfig: WebpackProjectConfigs;
@@ -50,16 +64,17 @@ export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectC
 
   async generate(
     transformedConfig: WebpackProjectConfigs,
-    extraOptions: OptionsForRunWebpackConfigHookManager,
+    options: OptionsForGenerate,
   ): Promise<CustomedWebpackConfigs | undefined> {
     // buildDll 状态下，如果没有 dllEntryMap 配置，那么无需生成 webpack 的配置了，反正也不会构建
-    if (extraOptions.scene === 'buildDll' && !transformedConfig.build.dllEntryMap) {
+    if (options.scene === 'buildDll' && !transformedConfig.build.dllEntryMap) {
       return undefined;
     }
     // dev 状态下不要应用 dll
-    if (extraOptions.scene === 'dev' && transformedConfig.build.dllEntryMap) {
+    if (options.scene === 'dev' && transformedConfig.build.dllEntryMap) {
       transformedConfig.build.dllEntryMap = false;
     }
+    const { getInternalHookPlugins, ...extraOptions } = options;
 
     // 查找用户自定义钩子
     const { build, plugins } = transformedConfig;
@@ -70,12 +85,9 @@ export class ProjectConfigHelper extends BaseProjectConfigHelper<WebpackProjectC
       rawWebpackConfigHooks && Array.isArray(rawWebpackConfigHooks) ? rawWebpackConfigHooks : [rawWebpackConfigHooks]
     ).filter((hook) => !!hook);
 
-    // 补充 unshift 内置钩子
-    webpackConfigHooks.unshift(
-      getInternalWebpackConfigHooksPlugin({
-        webpackProjectConfigs: transformedConfig,
-      }),
-    );
+    // 补充内置钩子
+    const internalHookPlugins = getInternalHookPlugins({ webpackProjectConfigs: transformedConfig });
+    webpackConfigHooks.unshift(...internalHookPlugins);
 
     // 加载钩子插件进 manager
     for (const hook of webpackConfigHooks) {

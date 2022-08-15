@@ -1,12 +1,8 @@
 import type { RuleSetRule } from 'webpack';
 import type { CustomedWebpackConfigHooksPlugin } from '@hadeshe93/webpack-config';
 
-import { WebpackProjectConfigs } from '../types/config';
+import { OptionsForGetInternalPlugin } from '../types/plugin';
 import { HtmlInjectionPlugin } from '../webpack-plugins/html-injection-plugin';
-
-export interface OptionsForGetInternalPlugin {
-  webpackProjectConfigs: WebpackProjectConfigs;
-}
 
 export function getInternalWebpackConfigHooksPlugin(
   options: OptionsForGetInternalPlugin,

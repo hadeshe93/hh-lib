@@ -12,7 +12,7 @@ export abstract class BaseProjectConfigHelper<TProjectConfig, TBuilderConfigs> {
   }
   abstract parse(forceRefresh?: boolean): Promise<TProjectConfig>;
   abstract transform(rawProjectConfig: TProjectConfig): Promise<TProjectConfig>;
-  abstract generate(transformedConfig: TProjectConfig, extraOptions: any): Promise<TBuilderConfigs | undefined>;
+  abstract generate(transformedConfig: TProjectConfig, options: any): Promise<TBuilderConfigs | undefined>;
 
   /**
    * 定义统一运行流程
@@ -20,10 +20,10 @@ export abstract class BaseProjectConfigHelper<TProjectConfig, TBuilderConfigs> {
    * @returns 给构建工具使用的配置
    * @memberof BaseProjectConfigHelper
    */
-  async run<TExtraOptions>(extraOptions: TExtraOptions): Promise<TBuilderConfigs | undefined> {
+  async run(optionsForGenerate: any): Promise<TBuilderConfigs | undefined> {
     const rawProjectConfigs = await this.parse?.();
     const formattedProjectConfigs = await this.transform?.(rawProjectConfigs);
-    const configsForBuilder = await this.generate?.(formattedProjectConfigs, extraOptions);
+    const configsForBuilder = await this.generate?.(formattedProjectConfigs, optionsForGenerate);
     return configsForBuilder;
   }
 }
