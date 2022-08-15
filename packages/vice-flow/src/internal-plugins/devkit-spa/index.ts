@@ -87,9 +87,9 @@ export default definePluigin({
           description: 'Specify the bucket for aliyun oss',
           valueName: 'bucket',
         },
-        origin: {
-          description: 'Specify the origin for aliyun oss',
-          valueName: 'origin',
+        region: {
+          description: 'Specify the region for aliyun oss',
+          valueName: 'region',
         },
       },
       fn: (options) => {

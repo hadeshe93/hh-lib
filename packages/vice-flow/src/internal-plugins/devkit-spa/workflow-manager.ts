@@ -16,7 +16,7 @@ type OptionsForRunningWorkflow = BaseOptionsForRunningWorkflow & {
   accessKeyId?: string;
   accessKeySecret?: string;
   bucket?: string;
-  origin?: string;
+  region?: string;
 };
 
 interface WorkflowManagerCtx {
@@ -29,7 +29,7 @@ interface DeployAccessAnswer {
   accessKeyId: string;
   accessKeySecret: string;
   bucket: string;
-  origin: string;
+  region: string;
 }
 
 export class WorkflowManager extends Interactor {
@@ -91,6 +91,12 @@ export class WorkflowManager extends Interactor {
     }
     if (actType === 'deploy') {
       console.log('deploy options:', options);
+      await new ProjectActor(optionsForProjectActor).deploy({
+        accessKeyId: options.accessKeyId,
+        accessKeySecret: options.accessKeySecret,
+        bucket: options.bucket,
+        region: options.region,
+      });
       return;
     }
   }
@@ -105,12 +111,12 @@ export class WorkflowManager extends Interactor {
     let accessKeyId = '';
     let accessKeySecret = '';
     let bucket = '';
-    let origin = '';
+    let region = '';
 
     if (hasAccessInOptions) {
-      ({ accessKeyId, accessKeySecret, bucket, origin } = options);
+      ({ accessKeyId, accessKeySecret, bucket, region } = options);
     } else if (hasAccessInConfig) {
-      ({ accessKeyId, accessKeySecret, bucket, origin } = internalDeployPlugin.config);
+      ({ accessKeyId, accessKeySecret, bucket, region } = internalDeployPlugin.config);
     } else {
       this.logger.warn('You have not config aliyun oss for deploying. Please follow the instructions shown below:');
       const answers = (await enquirer.prompt([
@@ -131,24 +137,24 @@ export class WorkflowManager extends Interactor {
         },
         {
           type: 'input',
-          name: 'origin',
-          message: 'Please config origin of aliyun oss:',
+          name: 'region',
+          message: 'Please config region of aliyun oss:',
         },
       ])) as DeployAccessAnswer;
-      ({ accessKeyId, accessKeySecret, bucket, origin } = answers);
+      ({ accessKeyId, accessKeySecret, bucket, region } = answers);
       const { config } = internalDeployPlugin;
       this.configuration.data.plugins[internalDeployPluginIdx].config = {
         ...(config || {}),
         accessKeyId,
         accessKeySecret,
         bucket,
-        origin,
+        region,
       };
       this.configuration.save();
     }
     options.accessKeyId = accessKeyId;
     options.accessKeySecret = accessKeySecret;
     options.bucket = bucket;
-    options.origin = origin;
+    options.region = region;
   }
 }
