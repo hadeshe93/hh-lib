@@ -76,12 +76,20 @@ export default definePluigin({
           valueName: 'path',
         },
         accessKeyId: {
-          description: 'Specify the temporary accessKeyId for aliyun cos',
+          description: 'Specify the temporary accessKeyId for aliyun oss',
           valueName: 'id',
         },
         accessKeySecret: {
-          description: 'Specify the temporary accessKeySecret for aliyun cos',
+          description: 'Specify the temporary accessKeySecret for aliyun oss',
           valueName: 'secret',
+        },
+        bucket: {
+          description: 'Specify the bucket for aliyun oss',
+          valueName: 'bucket',
+        },
+        origin: {
+          description: 'Specify the origin for aliyun oss',
+          valueName: 'origin',
         },
       },
       fn: (options) => {
