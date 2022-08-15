@@ -27,7 +27,7 @@ export interface WebpackProjectConfigs {
 
   // =========== 构建配置 START ===========
   build: {
-    frameworkType: 'vue' | 'react';
+    frameworkType: 'vue' | 'react' | 'react-cms';
     // dll 包构建入口映射，falsy 值表示不开启 dll 包
     dllEntryMap?: Record<string, string[]> | false | undefined | null | 0;
   };
