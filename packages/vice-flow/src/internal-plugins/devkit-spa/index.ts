@@ -6,16 +6,23 @@ export default definePluigin({
   apply(ctx) {
     // 注册 vue 项目模板
     ctx.initiatorManager.register({
-      templateName: 'webpack5-starter-vue3-ts',
+      templateName: 'webpack5-vue3',
       fn: () => {
         return new SpaInitiator({ frameworkType: 'vue' });
       },
     });
     // 注册 react 项目模板
     ctx.initiatorManager.register({
-      templateName: 'webpack5-starter-react-ts',
+      templateName: 'webpack5-react',
       fn: () => {
         return new SpaInitiator({ frameworkType: 'react' });
+      },
+    });
+    // 注册 react-cms 项目模板
+    ctx.initiatorManager.register({
+      templateName: 'webpack5-react-cms',
+      fn: () => {
+        return new SpaInitiator({ frameworkType: 'react-cms' });
       },
     });
 

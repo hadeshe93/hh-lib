@@ -2,8 +2,6 @@ import path from 'path';
 import fsExtra from 'fs-extra';
 import {
   WebpackConfiguration,
-  VueConfig,
-  ReactConfig,
   PAGES_RELATIVE_PATH,
   OptionsForRunWebpackConfigHookManager,
   CustomedWebpackConfigs,
@@ -13,6 +11,7 @@ import { ProjectConfigHelper, OptionsForGenerate } from './project-config-helper
 import { doDev, doBuild } from '../../../utils/webpack';
 import { getAliyunOssOper } from '../../../utils/aliyun-oss';
 import { getInternalWebpackConfigHooksPlugin } from '../webpack-config/internal-hook-plugin';
+import { spaFrameworkConfigMap } from './configs';
 
 import type { Logger } from '../../../core/logger';
 
@@ -67,11 +66,8 @@ export class ProjectActor {
   async init() {
     const transformedConfig = await this.projectConfigHelper.getTransformedConfig();
     const { frameworkType } = transformedConfig.build;
-    if (frameworkType === 'vue') {
-      this.ctx.webpackConfiguration = new VueConfig();
-    } else if (frameworkType === 'react') {
-      this.ctx.webpackConfiguration = new ReactConfig();
-    }
+    const configClass = spaFrameworkConfigMap[frameworkType]?.configClass;
+    this.ctx.webpackConfiguration = configClass ? new configClass() : undefined;
   }
 
   /**

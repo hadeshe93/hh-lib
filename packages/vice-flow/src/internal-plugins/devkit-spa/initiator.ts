@@ -3,23 +3,14 @@ import fsExtra from 'fs-extra';
 import { downloadGitRepo } from '@hadeshe93/lib-node';
 
 import { Interactor } from '../../core/interactor';
+import { spaFrameworkConfigMap } from './lib/configs';
 
 interface SpaInitiatorOptions {
-  frameworkType: 'vue' | 'react';
+  frameworkType: 'vue' | 'react' | 'react-cms';
 }
 
 export class SpaInitiator extends Interactor {
   options: SpaInitiatorOptions;
-  conifg = {
-    vue: {
-      repoUrl: 'github:hadeshe93/webpack5-starter',
-      repoTemplatePath: 'packages/webpack5-starter-vue3-ts',
-    },
-    react: {
-      repoUrl: 'github:hadeshe93/webpack5-starter',
-      repoTemplatePath: 'packages/webpack5-starter-react-ts',
-    },
-  };
 
   constructor(options: SpaInitiatorOptions) {
     super();
@@ -39,7 +30,7 @@ export class SpaInitiator extends Interactor {
   }
 
   async act(): Promise<void> {
-    const templateConfig = this.conifg[this.options.frameworkType];
+    const templateConfig = spaFrameworkConfigMap[this.options.frameworkType];
     const destTplRepoPath = path.resolve(this.ctx.dest, `.temp_${new Date().getTime()}`);
     const destTplRealPath = path.resolve(destTplRepoPath, templateConfig.repoTemplatePath);
     this.ctx.destTplRepoPath = destTplRepoPath;
