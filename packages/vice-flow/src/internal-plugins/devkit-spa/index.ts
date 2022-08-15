@@ -18,11 +18,18 @@ export default definePluigin({
         return new SpaInitiator({ frameworkType: 'react' });
       },
     });
-    // 注册 react-cms 项目模板
+    // 注册 react-antd 项目模板
     ctx.initiatorManager.register({
-      templateName: 'webpack5-react-cms',
+      templateName: 'webpack5-vue3-element',
       fn: () => {
-        return new SpaInitiator({ frameworkType: 'react-cms' });
+        return new SpaInitiator({ frameworkType: 'vue-element' });
+      },
+    });
+    // 注册 react-antd 项目模板
+    ctx.initiatorManager.register({
+      templateName: 'webpack5-react-antd',
+      fn: () => {
+        return new SpaInitiator({ frameworkType: 'react-antd' });
       },
     });
 

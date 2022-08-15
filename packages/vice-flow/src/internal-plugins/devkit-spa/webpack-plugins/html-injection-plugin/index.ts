@@ -22,8 +22,8 @@ export class HtmlInjectionPlugin {
   useDebugger = false;
 
   constructor(options: HtmlInjectionPluginOptions) {
-    this.useFlexible = options.useFlexible || true;
-    this.useDebugger = options.useDebugger || false;
+    this.useFlexible = options.useFlexible ?? true;
+    this.useDebugger = options.useDebugger ?? false;
   }
 
   apply(compiler: Compiler) {
@@ -45,8 +45,8 @@ export class HtmlInjectionPlugin {
   }
 
   removePresetContent(scriptContent: string, optionName: string) {
-    const startComment = optionNameTpl(PARTIAL_INJECTION_START_COMMENT, optionName);
-    const endComment = optionNameTpl(PARTIAL_INJECTION_END_COMMENT, optionName);
+    const startComment = optionNameTpl(PARTIAL_INJECTION_START_COMMENT, optionName).replace(/\*/g, '\\*');
+    const endComment = optionNameTpl(PARTIAL_INJECTION_END_COMMENT, optionName).replace(/\*/g, '\\*');
     return scriptContent.replace(new RegExp(`${startComment}([\\s\\S]*?)${endComment}`, 'g'), '');
   }
 }

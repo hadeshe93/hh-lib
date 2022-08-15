@@ -6,7 +6,7 @@ import { Interactor } from '../../core/interactor';
 import { spaFrameworkConfigMap } from './lib/configs';
 
 interface SpaInitiatorOptions {
-  frameworkType: 'vue' | 'react' | 'react-cms';
+  frameworkType: 'vue' | 'react' | 'vue-element' | 'react-antd';
 }
 
 export class SpaInitiator extends Interactor {

@@ -12,9 +12,14 @@ export const spaFrameworkConfigMap = {
     repoTemplatePath: 'packages/webpack5-react',
     configClass: ReactConfig,
   },
-  'react-cms': {
+  'vue-element': {
     repoUrl: MONOREPO_URL,
-    repoTemplatePath: 'packages/webpack5-react-cms',
+    repoTemplatePath: 'packages/webpack5-vue3-element',
+    configClass: VueConfig,
+  },
+  'react-antd': {
+    repoUrl: MONOREPO_URL,
+    repoTemplatePath: 'packages/webpack5-react-antd',
     configClass: ReactConfig,
   },
 };
