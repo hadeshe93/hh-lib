@@ -17,6 +17,9 @@ import type { OptionsForGetWebpackConfigs, CustomedWebpackConfigs } from '../../
  * @returns webpack 配置
  */
 export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
+  if (typeof options.mode === 'undefined') {
+    options.mode = (process.env.NODE_ENV || 'development') as OptionsForGetWebpackConfigs['mode'];
+  }
   const resolve = getResolve(options.projectRootPath);
   const isEnvDevMode = checkIsEnvDevMode();
   const styleLoader = isEnvDevMode ? 'style-loader' : MiniCssExtractPlugin.loader;
@@ -76,6 +79,7 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
     },
     output: {
       path: getOutputPath(optionsForGetPath),
+      filename: '[name].[chunkhash:8].js',
     },
     module: {
       rules: [
@@ -141,7 +145,20 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
       extensions: ['.ts', '.tsx', '...'],
     },
     plugins: [
-      ...(isEnvDevMode ? [] : [await proxyCreatingPlugin(MiniCssExtractPlugin, [])]),
+      await proxyCreatingPlugin(webpack.DefinePlugin, [
+        {
+          'process.env.NODE_ENV': JSON.stringify(options.mode),
+        },
+      ]),
+      ...(isEnvDevMode
+        ? []
+        : [
+            await proxyCreatingPlugin(MiniCssExtractPlugin, [
+              {
+                filename: '[name].[contenthash:8].css',
+              },
+            ]),
+          ]),
       await proxyCreatingPlugin(HtmlWebpackPlugin, [
         {
           filename: 'index.html',
