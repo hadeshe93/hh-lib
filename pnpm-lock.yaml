@@ -126,6 +126,12 @@ importers:
       vitepress: 1.0.0-alpha.4_bnoix7udcyfzum3bz5llzjedt4
       vue: 3.2.37
 
+  packages/browser:
+    specifiers:
+      '@hadeshe93/lib-common': ^0.6.0
+    dependencies:
+      '@hadeshe93/lib-common': link:../common
+
   packages/common:
     specifiers:
       emoutils: ^2.0.0
@@ -155,7 +161,7 @@ importers:
       tapable: 2.2.1
       typescript: 4.7.3
 
-  packages/vice-flow:
+  packages/vflow:
     specifiers:
       '@hadeshe93/lib-common': workspace:^0.6.0
       '@hadeshe93/lib-node': workspace:^0.5.0
@@ -212,6 +218,59 @@ importers:
       webpack-dev-server: 4.9.3_debug@4.3.4+webpack@5.74.0
     devDependencies:
       '@types/mem-fs-editor': 7.0.2
+      html-webpack-plugin: 5.5.0_webpack@5.74.0
+
+  packages/vflow/example/test-commander:
+    specifiers:
+      commander: ^9.4.0
+      fs-extra: ^10.1.0
+      minimist: ^1.2.6
+    dependencies:
+      commander: 9.4.0
+      fs-extra: 10.1.0
+      minimist: 1.2.6
+
+  packages/vice-cli:
+    specifiers:
+      '@hadeshe93/lib-common': workspace:^0.6.0
+      '@hadeshe93/lib-node': workspace:^0.5.0
+      '@hadeshe93/webpack-config': workspace:^0.2.1
+      '@types/inquirer': ^8.2.1
+      add-asset-html-webpack-plugin: ^5.0.2
+      chalk: ^4.1.1
+      cheerio: 1.0.0-rc.12
+      commander: ^9.3.0
+      debug: ^4.3.4
+      download-git-repo: ^3.0.2
+      fs-extra: ^10.1.0
+      glob: ^8.0.3
+      html-webpack-plugin: ^5.5.0
+      inquirer: ^8.2.1
+      minimist: ^1.2.5
+      ora: ^5.4.1
+      tapable: ^2.2.1
+      webpack: ^5.73.0
+      webpack-dev-server: ^4.9.3
+    dependencies:
+      '@hadeshe93/lib-common': link:../common
+      '@hadeshe93/lib-node': link:../node
+      '@hadeshe93/webpack-config': link:../webpack-config
+      '@types/inquirer': 8.2.1
+      add-asset-html-webpack-plugin: 5.0.2_dseqt6curza6cwqlyc3eowsnru
+      chalk: 4.1.2
+      cheerio: 1.0.0-rc.12
+      commander: 9.4.0
+      debug: 4.3.4
+      download-git-repo: 3.0.2
+      fs-extra: 10.1.0
+      glob: 8.0.3
+      inquirer: 8.2.4
+      minimist: 1.2.6
+      ora: 5.4.1
+      tapable: 2.2.1
+      webpack: 5.74.0
+      webpack-dev-server: 4.9.3_debug@4.3.4+webpack@5.74.0
+    devDependencies:
       html-webpack-plugin: 5.5.0_webpack@5.74.0
 
   packages/webpack-config:
@@ -4805,7 +4864,7 @@ packages:
   /axios/0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@4.3.4
     transitivePeerDependencies:
       - debug
     dev: false
@@ -5098,6 +5157,7 @@ packages:
       escalade: 3.1.1
       node-releases: 2.0.5
       picocolors: 1.0.0
+    dev: true
 
   /browserslist/4.21.3:
     resolution: {integrity: sha512-898rgRXLAyRkM1GryrrBHGkqA5hlpkV5MhtZwg9QXeiyLUYs2k00Un05aX5l2/yJIOObYKOpS2JNo8nJDE7fWQ==}
@@ -5108,7 +5168,6 @@ packages:
       electron-to-chromium: 1.4.212
       node-releases: 2.0.6
       update-browserslist-db: 1.0.5_browserslist@4.21.3
-    dev: true
 
   /bs-logger/0.2.6:
     resolution: {integrity: sha512-pd8DCoxmbgc7hyPKOvxtqNcjYoOsABPQdcCUjGp3d42VR2CX1ORhk2A87oqqu5R1kk+76nsxZupkmyd+MVtCog==}
@@ -5277,10 +5336,10 @@ packages:
 
   /caniuse-lite/1.0.30001352:
     resolution: {integrity: sha512-GUgH8w6YergqPQDGWhJGt8GDRnY0L/iJVQcU3eJ46GYf52R8tk0Wxp0PymuFVZboJYXGiCqwozAYZNRjVj6IcA==}
+    dev: true
 
   /caniuse-lite/1.0.30001374:
     resolution: {integrity: sha512-mWvzatRx3w+j5wx/mpFN5v5twlPrabG8NqX2c6e45LCpymdoGqNvRkRutFUqpRTXKFQFNQJasvK0YT7suW6/Hw==}
-    dev: true
 
   /caseless/0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
@@ -6416,10 +6475,10 @@ packages:
 
   /electron-to-chromium/1.4.154:
     resolution: {integrity: sha512-GbV9djOkrnj6xmW+YYVVEI3VCQnJ0pnSTu7TW2JyjKd5cakoiSaG5R4RbEtfaD92GsY10DzbU3GYRe+IOA9kqA==}
+    dev: true
 
   /electron-to-chromium/1.4.212:
     resolution: {integrity: sha512-LjQUg1SpLj2GfyaPDVBUHdhmlDU1vDB4f0mJWSGkISoXQrn5/lH3ECPCuo2Bkvf6Y30wO+b69te+rZK/llZmjg==}
-    dev: true
 
   /emittery/0.8.1:
     resolution: {integrity: sha512-uDfvUjVrfGJJhymx/kz6prltenw1u7WrCg1oa94zYY8xxVpLLUu045LAT0dhDZdXG58/EpPL/5kA180fQ/qudg==}
@@ -7329,16 +7388,6 @@ packages:
   /flatted/3.2.5:
     resolution: {integrity: sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==}
     dev: true
-
-  /follow-redirects/1.15.1:
-    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
 
   /follow-redirects/1.15.1_debug@4.3.4:
     resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
@@ -10138,10 +10187,10 @@ packages:
 
   /node-releases/2.0.5:
     resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
+    dev: true
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
-    dev: true
 
   /nopt/4.0.3:
     resolution: {integrity: sha512-CvaGwVMztSMJLOeXPrez7fyfObdZqNUK1cPAEzLHrTybIua9pMdmmPR5YwtfNftIOMv3DPUhFaxsZMNTQO20Kg==}
@@ -13360,7 +13409,6 @@ packages:
       browserslist: 4.21.3
       escalade: 3.1.1
       picocolors: 1.0.0
-    dev: true
 
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -13764,7 +13812,7 @@ packages:
       '@webassemblyjs/wasm-parser': 1.11.1
       acorn: 8.7.1
       acorn-import-assertions: 1.8.0_acorn@8.7.1
-      browserslist: 4.20.4
+      browserslist: 4.21.3
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.10.0
       es-module-lexer: 0.9.3

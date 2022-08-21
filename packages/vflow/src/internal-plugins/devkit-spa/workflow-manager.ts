@@ -90,7 +90,7 @@ export class WorkflowManager extends Interactor {
       return;
     }
     if (actType === 'deploy') {
-      console.log('deploy options:', options);
+      // console.log('deploy options:', options);
       await new ProjectActor(optionsForProjectActor).deploy({
         accessKeyId: options.accessKeyId,
         accessKeySecret: options.accessKeySecret,
@@ -102,23 +102,27 @@ export class WorkflowManager extends Interactor {
   }
 
   private async ensureDeploymentAccess(options: OptionsForRunningWorkflow, enquirer: typeof import('enquirer')) {
+    const needResetAccess = options['reset'] || false;
     const { plugins } = this.configuration.data;
     const thisPluginName = getInternalPluginName(__dirname);
     const internalDeployPluginIdx = plugins.findIndex((plugin) => plugin.name === thisPluginName);
-    const internalDeployPlugin = plugins[internalDeployPluginIdx];
-    const hasAccessInConfig = internalDeployPlugin.config?.accessKeyId && internalDeployPlugin.config?.accessKeySecret;
+    const { config: internalDeployPluginConfig = {} } = plugins[internalDeployPluginIdx];
+    const hasAccessInConfig = internalDeployPluginConfig?.accessKeyId && internalDeployPluginConfig?.accessKeySecret;
     const hasAccessInOptions = options.accessKeyId && options.accessKeySecret;
     let accessKeyId = '';
     let accessKeySecret = '';
     let bucket = '';
     let region = '';
 
-    if (hasAccessInOptions) {
+    if (hasAccessInOptions && !needResetAccess) {
       ({ accessKeyId, accessKeySecret, bucket, region } = options);
-    } else if (hasAccessInConfig) {
-      ({ accessKeyId, accessKeySecret, bucket, region } = internalDeployPlugin.config);
+    } else if (hasAccessInConfig && !needResetAccess) {
+      ({ accessKeyId, accessKeySecret, bucket, region } = internalDeployPluginConfig);
     } else {
-      this.logger.warn('You have not config aliyun oss for deploying. Please follow the instructions shown below:');
+      const message = needResetAccess
+        ? 'Reseting aliyun oss configs for deploying. Please follow the instructions show below:'
+        : 'You have not config aliyun oss for deploying. Please follow the instructions show below:';
+      this.logger.warn(message);
       const answers = (await enquirer.prompt([
         {
           type: 'input',
@@ -142,9 +146,8 @@ export class WorkflowManager extends Interactor {
         },
       ])) as DeployAccessAnswer;
       ({ accessKeyId, accessKeySecret, bucket, region } = answers);
-      const { config } = internalDeployPlugin;
       this.configuration.data.plugins[internalDeployPluginIdx].config = {
-        ...(config || {}),
+        ...(internalDeployPluginConfig || {}),
         accessKeyId,
         accessKeySecret,
         bucket,

@@ -5,7 +5,7 @@
  * @Author        : hadeshe
  * @LastEditors   : hadeshe
  * @LastEditTime  : 2022-08-15 19:30:00
- * @FilePath      : /hh-lib/packages/vice-flow/src/internal-plugins/devkit-spa/lib/project-config-helper.ts
+ * @FilePath      : /hh-lib/packages/vflow/src/internal-plugins/devkit-spa/lib/project-config-helper.ts
  */
 
 import fs from 'fs-extra';

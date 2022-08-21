@@ -46,9 +46,10 @@ export class AliyunOssOper {
   async upload(options: OptionsForUpload): Promise<ReturnForUpload> {
     const { localDirPath, destDirPath, beforeUpload } = options;
     const files = glob.sync('**/*.*', { cwd: path.resolve(localDirPath) });
+    console.log('files: ', files);
     let baseOptionList: BaseOptionsForUpload[] = files.map((file) => {
-      const destFilePath = path.resolve(destDirPath, path.basename(file));
-      const localFilePath = path.resolve(localDirPath, path.basename(file));
+      const destFilePath = path.resolve(destDirPath, file);
+      const localFilePath = path.resolve(localDirPath, file);
       return { destFilePath, localFilePath };
     });
     baseOptionList = beforeUpload ? await beforeUpload(baseOptionList) : baseOptionList;
@@ -67,5 +68,10 @@ export class AliyunOssOper {
 
 export function getAliyunOssOper(options: OptionsForAliyunOssOper): AliyunOssOper {
   const key = JSON.stringify(options);
-  return cachedOperMap.get(key) || new AliyunOssOper(options);
+  let oper = cachedOperMap.get(key);
+  if (!oper) {
+    oper = new AliyunOssOper(options);
+    cachedOperMap.set(key, oper);
+  }
+  return oper;
 }

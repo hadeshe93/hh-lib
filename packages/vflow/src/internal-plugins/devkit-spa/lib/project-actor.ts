@@ -124,7 +124,7 @@ export class ProjectActor {
 
   async deploy(options: OptionsForDeploy) {
     await this.initPromise;
-    const destDirPath = path.resolve(OSS_ROOT_DIR, path.basename(this.ctx.projectRootPath), this.ctx.pageName);
+    const destDirPath = path.resolve(OSS_ROOT_DIR, path.basename(this.ctx.projectRootPath));
     const localDirPath = path.resolve(this.ctx.projectRootPath, 'dist');
     if (!(await fsExtra.pathExists(localDirPath))) throw new Error(`Path '${localDirPath}' does not exist.`);
 

@@ -1,7 +1,7 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-		{
+    {
       "label": "[packages/vice-cli] debug command: dev",
       "type": "shell",
       "command": "./tasks/vice-cli/debug-command.sh dev",
@@ -10,7 +10,7 @@
         "panel": "shared"
       }
     },
-		{
+    {
       "label": "[packages/vice-cli] debug command: build",
       "type": "shell",
       "command": "./tasks/vice-cli/debug-command.sh build",
@@ -19,50 +19,51 @@
         "panel": "shared"
       }
     },
-		{
-      "label": "[packages/vice-flow] debug command: ls",
+    {
+      "label": "[packages/vflow] debug command: ls",
       "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh ls",
+      "command": "./tasks/vflow/debug-command.sh ls",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       }
     },
-		{
-      "label": "[packages/vice-flow] debug command: init",
+    {
+      "label": "[packages/vflow] debug command: init",
       "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh init",
+      "command": "./tasks/vflow/debug-command.sh init",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       }
     },
-		{
-      "label": "[packages/vice-flow] debug command: spa:dev",
+    {
+      "label": "[packages/vflow] debug command: spa:dev",
       "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh spa:dev",
+      "command": "./tasks/vflow/debug-command.sh spa:dev",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "[packages/vflow] debug command: spa:build",
+      "type": "shell",
+      "command": "./tasks/vflow/debug-command.sh spa:build",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       }
     },
-		{
-      "label": "[packages/vice-flow] debug command: spa:build",
+    {
+      "label": "[packages/vflow] debug command: spa:deploy",
       "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh spa:build",
+      "command": "./tasks/vflow/debug-command.sh spa:deploy",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       }
-    },
-		{
-      "label": "[packages/vice-flow] debug command: spa:deploy",
-      "type": "shell",
-      "command": "./tasks/vice-flow/debug-command.sh spa:deploy",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
-	]
+    }
+  ]
 }

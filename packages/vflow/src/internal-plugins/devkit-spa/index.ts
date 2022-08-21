@@ -44,8 +44,8 @@ export default definePluigin({
         },
       },
       fn: (options) => {
-        const devManager = new WorkflowManager();
-        devManager.run({
+        const wfManager = new WorkflowManager();
+        wfManager.run({
           actType: 'dev',
           ...options,
         });
@@ -63,8 +63,8 @@ export default definePluigin({
         },
       },
       fn: (options) => {
-        const devManager = new WorkflowManager();
-        devManager.run({
+        const wfManager = new WorkflowManager();
+        wfManager.run({
           actType: 'build',
           ...options,
         });
@@ -85,6 +85,9 @@ export default definePluigin({
         ],
       ],
       optionMap: {
+        reset: {
+          description: 'Reset configs of aliyun oss',
+        },
         cwd: {
           description: 'Specify current working directory',
           valueName: 'path',
@@ -107,8 +110,8 @@ export default definePluigin({
         },
       },
       fn: (options) => {
-        const devManager = new WorkflowManager();
-        devManager.run({
+        const wfManager = new WorkflowManager();
+        wfManager.run({
           actType: 'deploy',
           ...options,
         });
