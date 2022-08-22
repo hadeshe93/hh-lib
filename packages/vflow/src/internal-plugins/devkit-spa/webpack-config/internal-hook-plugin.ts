@@ -1,6 +1,7 @@
 import type { RuleSetRule } from 'webpack';
 import type { CustomedWebpackConfigHooksPlugin } from '@hadeshe93/webpack-config';
 
+import webpackBundleAnalyzer, { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { OptionsForGetInternalPlugin } from '../types/plugin';
 import { HtmlInjectionPlugin } from '../webpack-plugins/html-injection-plugin';
 
@@ -74,12 +75,21 @@ export function getInternalWebpackConfigHooksPlugin(
       },
       async plugins(plugins) {
         if (scene !== 'buildDll') {
+          const { useDebugger, useFlexible } = webpackProjectConfigs.page;
           plugins.push(
             new HtmlInjectionPlugin({
-              useDebugger: webpackProjectConfigs.page.useDebugger,
-              useFlexible: webpackProjectConfigs.page.useFlexible,
+              useDebugger,
+              useFlexible,
             }),
           );
+        }
+
+        const { useBundleAnalyzer } = webpackProjectConfigs.build;
+        if (scene === 'build' && useBundleAnalyzer) {
+          const options = (
+            Object.prototype.toString.call(useBundleAnalyzer) === '[object Object]' ? useBundleAnalyzer : {}
+          ) as BundleAnalyzerPlugin.Options;
+          plugins.push(new webpackBundleAnalyzer.BundleAnalyzerPlugin(options));
         }
         return plugins;
       },
