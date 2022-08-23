@@ -33,7 +33,12 @@ export function getInternalWebpackConfigHooksPlugin(
 
         // 给 postcss-loader 添加进 postcss-pxtorem 插件
         const { rules = [] } = module;
-        const styleFileExtensions = ['.css', '.less', '.sass', '.scss'];
+        const styleFileExtensions = ['.css', '.less', '.sass', '.scss'].concat([
+          '.module.css',
+          '.module.less',
+          '.module.sass',
+          '.module.scss',
+        ]);
         const targetRules = rules.filter(
           (rule: RuleSetRule) => !!styleFileExtensions.find((ext) => (rule.test as RegExp)?.test?.(ext)),
         );

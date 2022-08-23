@@ -1,47 +1,34 @@
 import { SpaInitiator } from './initiator';
 import { WorkflowManager } from './workflow-manager';
+import { spaFrameworkConfigMap } from './lib/configs';
+import { SpaFrameworkType } from './types/config';
 import { definePluigin } from '../../core';
 
 export default definePluigin({
   apply(ctx) {
-    // 注册 vue 项目模板
-    ctx.initiatorManager.register({
-      templateName: 'webpack5-vue3',
-      fn: () => {
-        return new SpaInitiator({ frameworkType: 'vue' });
-      },
+    // 注册项目模板
+    Object.entries(spaFrameworkConfigMap).forEach(([frameworkType, info]) => {
+      ctx.initiatorManager.register({
+        templateName: info.templateName,
+        fn: () => {
+          return new SpaInitiator({ frameworkType: frameworkType as SpaFrameworkType });
+        },
+      });
     });
-    // 注册 react 项目模板
-    ctx.initiatorManager.register({
-      templateName: 'webpack5-react',
-      fn: () => {
-        return new SpaInitiator({ frameworkType: 'react' });
+
+    const COMMON_OPTION_MAP = {
+      cwd: {
+        description: 'Specify current working directory',
+        valueName: 'path',
       },
-    });
-    // 注册 react-antd 项目模板
-    ctx.initiatorManager.register({
-      templateName: 'webpack5-vue3-element',
-      fn: () => {
-        return new SpaInitiator({ frameworkType: 'vue-element' });
-      },
-    });
-    // 注册 react-antd 项目模板
-    ctx.initiatorManager.register({
-      templateName: 'webpack5-react-antd',
-      fn: () => {
-        return new SpaInitiator({ frameworkType: 'react-antd' });
-      },
-    });
+    };
 
     // 注册开发调试命令
     ctx.commander.register({
       command: 'spa:dev',
       description: 'Develope page of spa project',
       optionMap: {
-        cwd: {
-          description: 'Specify current working directory',
-          valueName: 'path',
-        },
+        ...COMMON_OPTION_MAP,
       },
       fn: (options) => {
         const wfManager = new WorkflowManager();
@@ -57,10 +44,7 @@ export default definePluigin({
       command: 'spa:build',
       description: 'Build page of spa project',
       optionMap: {
-        cwd: {
-          description: 'Specify current working directory',
-          valueName: 'path',
-        },
+        ...COMMON_OPTION_MAP,
       },
       fn: (options) => {
         const wfManager = new WorkflowManager();
@@ -85,12 +69,9 @@ export default definePluigin({
         ],
       ],
       optionMap: {
+        ...COMMON_OPTION_MAP,
         reset: {
           description: 'Reset configs of aliyun oss',
-        },
-        cwd: {
-          description: 'Specify current working directory',
-          valueName: 'path',
         },
         accessKeyId: {
           description: 'Specify the temporary accessKeyId for aliyun oss',

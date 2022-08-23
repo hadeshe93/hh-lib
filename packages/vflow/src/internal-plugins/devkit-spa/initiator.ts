@@ -3,10 +3,11 @@ import fsExtra from 'fs-extra';
 import { downloadGitRepo } from '@hadeshe93/lib-node';
 
 import { Interactor } from '../../core/interactor';
+import { SpaFrameworkType } from './types/config';
 import { spaFrameworkConfigMap } from './lib/configs';
 
 interface SpaInitiatorOptions {
-  frameworkType: 'vue' | 'react' | 'vue-element' | 'react-antd';
+  frameworkType: SpaFrameworkType;
 }
 
 export class SpaInitiator extends Interactor {

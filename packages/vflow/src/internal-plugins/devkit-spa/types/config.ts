@@ -1,6 +1,8 @@
 import type { CustomedWebpackConfigHooksPlugin } from '@hadeshe93/webpack-config';
 import type { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
+export type SpaFrameworkType = 'vue' | 'react' | 'vue-element' | 'react-antd';
+
 export interface WebpackProjectConfigs {
   // =========== 页面配置 START ===========
   page: {
@@ -28,7 +30,7 @@ export interface WebpackProjectConfigs {
 
   // =========== 构建配置 START ===========
   build: {
-    frameworkType: 'vue' | 'react' | 'vue-element' | 'react-antd';
+    frameworkType: SpaFrameworkType;
     useBundleAnalyzer?: boolean | BundleAnalyzerPlugin.Options;
     // dll 包构建入口映射，falsy 值表示不开启 dll 包
     dllEntryMap?: Record<string, string[]> | false | undefined | null | 0;
