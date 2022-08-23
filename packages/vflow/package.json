@@ -48,10 +48,9 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "workspace:^0.6.0",
-    "@hadeshe93/lib-node": "workspace:^0.5.0",
-    "@hadeshe93/webpack-config": "workspace:^0.2.1",
-    "@types/ali-oss": "^6.16.4",
+    "@hadeshe93/lib-common": "workspace:^0.7.0",
+    "@hadeshe93/lib-node": "workspace:^0.6.0",
+    "@hadeshe93/webpack-config": "workspace:^0.3.0",
     "@types/inquirer": "^8.2.1",
     "ali-oss": "^6.17.1",
     "axios": "^0.21.1",

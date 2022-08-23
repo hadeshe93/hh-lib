@@ -128,7 +128,7 @@ importers:
 
   packages/browser:
     specifiers:
-      '@hadeshe93/lib-common': ^0.6.0
+      '@hadeshe93/lib-common': ^0.7.0
     dependencies:
       '@hadeshe93/lib-common': link:../common
 
@@ -144,8 +144,8 @@ importers:
 
   packages/node:
     specifiers:
-      '@hadeshe93/lib-common': ^0.6.0
-      axios: ^0.21.4
+      '@hadeshe93/lib-common': ^0.7.0
+      axios: ^0.21.1
       download-git-repo: ^3.0.2
       fs-extra: ^10.1.0
       ora: ^5.4.1
@@ -163,10 +163,9 @@ importers:
 
   packages/vflow:
     specifiers:
-      '@hadeshe93/lib-common': workspace:^0.6.0
-      '@hadeshe93/lib-node': workspace:^0.5.0
-      '@hadeshe93/webpack-config': workspace:^0.2.1
-      '@types/ali-oss': ^6.16.4
+      '@hadeshe93/lib-common': workspace:^0.7.0
+      '@hadeshe93/lib-node': workspace:^0.6.0
+      '@hadeshe93/webpack-config': workspace:^0.3.0
       '@types/inquirer': ^8.2.1
       '@types/mem-fs-editor': ^7.0.2
       '@types/webpack-bundle-analyzer': ^4.4.2
@@ -195,7 +194,6 @@ importers:
       '@hadeshe93/lib-common': link:../common
       '@hadeshe93/lib-node': link:../node
       '@hadeshe93/webpack-config': link:../webpack-config
-      '@types/ali-oss': 6.16.4
       '@types/inquirer': 8.2.1
       ali-oss: 6.17.1
       axios: 0.21.4_debug@4.3.4
@@ -222,59 +220,6 @@ importers:
       html-webpack-plugin: 5.5.0_webpack@5.74.0
       webpack-bundle-analyzer: 4.6.1
 
-  packages/vflow/example/test-commander:
-    specifiers:
-      commander: ^9.4.0
-      fs-extra: ^10.1.0
-      minimist: ^1.2.6
-    dependencies:
-      commander: 9.4.0
-      fs-extra: 10.1.0
-      minimist: 1.2.6
-
-  packages/vice-cli:
-    specifiers:
-      '@hadeshe93/lib-common': workspace:^0.6.0
-      '@hadeshe93/lib-node': workspace:^0.5.0
-      '@hadeshe93/webpack-config': workspace:^0.2.1
-      '@types/inquirer': ^8.2.1
-      add-asset-html-webpack-plugin: ^5.0.2
-      chalk: ^4.1.1
-      cheerio: 1.0.0-rc.12
-      commander: ^9.3.0
-      debug: ^4.3.4
-      download-git-repo: ^3.0.2
-      fs-extra: ^10.1.0
-      glob: ^8.0.3
-      html-webpack-plugin: ^5.5.0
-      inquirer: ^8.2.1
-      minimist: ^1.2.5
-      ora: ^5.4.1
-      tapable: ^2.2.1
-      webpack: ^5.73.0
-      webpack-dev-server: ^4.9.3
-    dependencies:
-      '@hadeshe93/lib-common': link:../common
-      '@hadeshe93/lib-node': link:../node
-      '@hadeshe93/webpack-config': link:../webpack-config
-      '@types/inquirer': 8.2.1
-      add-asset-html-webpack-plugin: 5.0.2_dseqt6curza6cwqlyc3eowsnru
-      chalk: 4.1.2
-      cheerio: 1.0.0-rc.12
-      commander: 9.4.0
-      debug: 4.3.4
-      download-git-repo: 3.0.2
-      fs-extra: 10.1.0
-      glob: 8.0.3
-      inquirer: 8.2.4
-      minimist: 1.2.6
-      ora: 5.4.1
-      tapable: 2.2.1
-      webpack: 5.74.0
-      webpack-dev-server: 4.9.3_debug@4.3.4+webpack@5.74.0
-    devDependencies:
-      html-webpack-plugin: 5.5.0_webpack@5.74.0
-
   packages/webpack-config:
     specifiers:
       '@babel/core': ^7.14.5
@@ -283,7 +228,7 @@ importers:
       '@babel/preset-react': ^7.18.6
       '@babel/preset-typescript': ^7.16.7
       '@babel/runtime-corejs3': ^7.18.3
-      '@hadeshe93/lib-node': workspace:^0.5.0
+      '@hadeshe93/lib-node': workspace:^0.6.0
       '@pmmmwh/react-refresh-webpack-plugin': ^0.5.7
       add-asset-html-webpack-plugin: ^5.0.2
       babel-loader: ^8.2.5
@@ -2268,14 +2213,14 @@ packages:
       postcss-selector-parser: 6.0.10
     dev: true
 
-  /@docsearch/css/3.2.0:
-    resolution: {integrity: sha512-jnNrO2JVYYhj2pP2FomlHIy6220n6mrLn2t9v2/qc+rM7M/fbIcKMgk9ky4RN+L/maUEmteckzg6/PIYoAAXJg==}
+  /@docsearch/css/3.1.1:
+    resolution: {integrity: sha512-utLgg7E1agqQeqCJn05DWC7XXMk4tMUUnL7MZupcknRu2OzGN13qwey2qA/0NAKkVBGugiWtON0+rlU0QIPojg==}
     dev: true
 
-  /@docsearch/js/3.2.0_bnoix7udcyfzum3bz5llzjedt4:
-    resolution: {integrity: sha512-FEgXW8a+ZKBjSDteFPsKQ7Hlzk6+18A2Y7NffjV+VTsE7P3uTvHPKHKDCeYMnAgXTatRCGHWCfP7YImTSwEFQA==}
+  /@docsearch/js/3.1.1_bnoix7udcyfzum3bz5llzjedt4:
+    resolution: {integrity: sha512-bt7l2aKRoSnLUuX+s4LVQ1a7AF2c9myiZNv5uvQCePG5tpvVGpwrnMwqVXOUJn9q6FwVVhOrQMO/t+QmnnAEUw==}
     dependencies:
-      '@docsearch/react': 3.2.0_bnoix7udcyfzum3bz5llzjedt4
+      '@docsearch/react': 3.1.1_bnoix7udcyfzum3bz5llzjedt4
       preact: 10.10.1
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -2284,8 +2229,8 @@ packages:
       - react-dom
     dev: true
 
-  /@docsearch/react/3.2.0_bnoix7udcyfzum3bz5llzjedt4:
-    resolution: {integrity: sha512-ATS3w5JBgQGQF0kHn5iOAPfnCCaoLouZQMmI7oENV//QMFrYbjhUZxBU9lIwAT7Rzybud+Jtb4nG5IEjBk3Ixw==}
+  /@docsearch/react/3.1.1_bnoix7udcyfzum3bz5llzjedt4:
+    resolution: {integrity: sha512-cfoql4qvtsVRqBMYxhlGNpvyy/KlCoPqjIsJSZYqYf9AplZncKjLBTcwBu6RXFMVCe30cIFljniI4OjqAU67pQ==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
       react: '>= 16.8.0 < 19.0.0'
@@ -2293,7 +2238,7 @@ packages:
     dependencies:
       '@algolia/autocomplete-core': 1.7.1
       '@algolia/autocomplete-preset-algolia': 1.7.1_qs6lk5nhygj2o3hj4sf6xnr724
-      '@docsearch/css': 3.2.0
+      '@docsearch/css': 3.1.1
       '@types/react': 18.0.17
       algoliasearch: 4.14.2
       react: 18.2.0
@@ -3768,10 +3713,6 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@types/ali-oss/6.16.4:
-    resolution: {integrity: sha512-jcPp0qugBVcuFtewnlCVnpVDFqkNiGIklXHzq8kftFVXlBBYmVdAUYasyz1UGPMtF4qkbbAVToUxJnee+ky+NQ==}
-    dev: false
-
   /@types/argparse/1.0.38:
     resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
     dev: true
@@ -4528,6 +4469,7 @@ packages:
       html-webpack-plugin: 5.5.0_webpack@5.74.0
       micromatch: 4.0.5
       webpack: 5.74.0
+    dev: true
 
   /add-stream/1.0.0:
     resolution: {integrity: sha512-qQLMr+8o0WC4FZGQTcJiKBVC59JylcPSrTtk6usvmIDFUOCKegapy1VHQwRbFMOFyb/inzUVqHs+eMYKDM1YeQ==}
@@ -13652,8 +13594,8 @@ packages:
     engines: {node: '>=14.6.0'}
     hasBin: true
     dependencies:
-      '@docsearch/css': 3.2.0
-      '@docsearch/js': 3.2.0_bnoix7udcyfzum3bz5llzjedt4
+      '@docsearch/css': 3.1.1
+      '@docsearch/js': 3.1.1_bnoix7udcyfzum3bz5llzjedt4
       '@vitejs/plugin-vue': 2.3.3_vite@2.9.14+vue@3.2.37
       '@vue/devtools-api': 6.2.1
       '@vueuse/core': 8.9.4_vue@3.2.37

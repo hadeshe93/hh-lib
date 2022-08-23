@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/lib-node",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "> TODO: description",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
@@ -41,8 +41,8 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-common": "^0.6.0",
-    "axios": "^0.21.4",
+    "@hadeshe93/lib-common": "^0.7.0",
+    "axios": "^0.21.1",
     "download-git-repo": "^3.0.2",
     "fs-extra": "^10.1.0",
     "ora": "^5.4.1"
