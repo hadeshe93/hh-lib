@@ -13,7 +13,7 @@ async function main() {
   if (!tsFileExisted) return;
   await execa('turbo', ['run', 'build:doc:meta', '--filter=./packages/*'], { stdio: 'inherit' });
   await execa('turbo', ['run', 'build:docs', '--filter=./apps/docs'], { stdio: 'inherit' });
-  await execa('git', ['add'], { stdio: 'inherit' });
+  await execa('git', ['add', '.'], { stdio: 'inherit' });
 }
 
 main();

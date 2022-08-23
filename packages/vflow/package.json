@@ -41,8 +41,8 @@
     "showconfig": "ts-node -P ./tsconfig.json --showConfig",
     "dev:flow": "cross-env DEBUG=vice* RUN=1 ts-node -P ./tsconfig.json ./src/index.ts",
     "check": "tsc -p tsconfig.json --noEmit",
-    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build-packages.ts vice-cli",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build-packages.ts vice-cli"
+    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build-packages.ts vflow",
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build-packages.ts vflow"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"

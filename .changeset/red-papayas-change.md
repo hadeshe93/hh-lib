@@ -3,7 +3,6 @@
 '@hadeshe93/lib-browser': minor
 '@hadeshe93/lib-common': minor
 '@hadeshe93/lib-node': minor
-'@hadeshe93/vice-cli': minor
 '@hadeshe93/webpack-config': minor
 ---
 

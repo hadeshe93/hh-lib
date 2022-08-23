@@ -3,7 +3,7 @@ A convenient scaffold named vice.
 ## Installation
 
 ```sh
-$ npm install @hadeshe93/vice-cli -g
+$ npm install @hadeshe93/vflow -g
 ```
 
 ## Usage
@@ -28,8 +28,8 @@ For example:
 
 ```sh
 # start to development dev command
-$ pnpm --filter @hadeshe93/vice-cli dev dev --cwd /cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts
+$ pnpm --filter @hadeshe93/vflow dev spa:dev --cwd /cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts
 
 # start to development build command
-$ pnpm --filter @hadeshe93/vice-cli dev build --cwd /cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts
+$ pnpm --filter @hadeshe93/vflow dev spa:build --cwd /cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts
 ```

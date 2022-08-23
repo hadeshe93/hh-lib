@@ -21,38 +21,6 @@
       "runtimeArgs": ["packages/webpack-config/example/demo-project-1/index.cjs.js"]
     },
     {
-      "name": "[vice-cli] Debug Create",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": [
-        "--filter",
-        "@hadeshe93/vice-cli",
-        "run",
-        "dev",
-        "create",
-        "app-pages"
-      ]
-    },
-    {
-      "name": "[vice-cli] Debug Dev",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "/cbs/xcode/hh-lib/node_modules/ts-node/dist/bin.js",
-      "runtimeArgs": [
-        "-P",
-        "/cbs/xcode/hh-lib/packages/vice-cli/tsconfig.json",
-        "/cbs/xcode/hh-lib/packages/vice-cli/src/index.ts",
-        "dev",
-        "--cwd",
-        "/cbs"
-      ],
-      "env": {
-        "DEBUG": "vice*"
-      }
-    },
-    {
       "name": "[vflow] Debug",
       "type": "node",
       "request": "launch",

@@ -1,4 +1,4 @@
-# @hadeshe93/vice-cli
+# @hadeshe93/vflow
 
 ## 0.3.4
 
