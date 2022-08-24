@@ -1,6 +1,6 @@
 {
   "name": "@hadeshe93/webpack-config",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "> TODO: description",
   "author": "hadeshe93 <hadeshe93@gmail.com>",
   "homepage": "https://github.com/hadeshe93/hh-lib#readme",
@@ -41,7 +41,7 @@
     "url": "https://github.com/hadeshe93/hh-lib/issues"
   },
   "dependencies": {
-    "@hadeshe93/lib-node": "workspace:^0.6.0",
+    "@hadeshe93/lib-node": "workspace:^0.7.0",
     "fs-extra": "^10.1.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",

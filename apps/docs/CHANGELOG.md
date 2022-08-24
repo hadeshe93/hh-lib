@@ -1,5 +1,15 @@
 # @hadeshe93/lib-docs
 
+## 0.6.0
+
+### Minor Changes
+
+- [#51](https://github.com/hadeshe93/hh-lib/pull/51) [`43edeee`](https://github.com/hadeshe93/hh-lib/commit/43edeee8f0d0eb3c698f9c687cfff1f421811772) Thanks [@hadeshe93](https://github.com/hadeshe93)! - changeset
+
+* [#51](https://github.com/hadeshe93/hh-lib/pull/51) [`49fa251`](https://github.com/hadeshe93/hh-lib/commit/49fa251488767097e4c690b83caa17decab34563) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 提升版本
+
+- [#49](https://github.com/hadeshe93/hh-lib/pull/49) [`8188a58`](https://github.com/hadeshe93/hh-lib/commit/8188a5807b794d45b525813068ec15ac2259b3ac) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 更新 minor 版本
+
 ## 0.5.0
 
 ### Minor Changes
