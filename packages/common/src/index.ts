@@ -1,5 +1,6 @@
 export * from './misc';
 export * from './stack';
+export * from './excel';
 export * from './string';
 export * from './promise';
 

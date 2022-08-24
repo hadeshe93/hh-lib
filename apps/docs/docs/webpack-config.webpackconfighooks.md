@@ -24,7 +24,7 @@ export interface WebpackConfigHooks
 |  [entry](./webpack-config.webpackconfighooks.entry.md) |  | (config: Entry) =&gt; Promise&lt;Entry&gt; |  |
 |  [externals](./webpack-config.webpackconfighooks.externals.md) |  | (config: [Externals](./webpack-config.externals.md)<!-- -->) =&gt; Promise&lt;[Externals](./webpack-config.externals.md)<!-- -->&gt; |  |
 |  [mode](./webpack-config.webpackconfighooks.mode.md) |  | (config: string) =&gt; Promise&lt;string&gt; |  |
-|  [module](./webpack-config.webpackconfighooks.module.md) |  | (config: Module) =&gt; Promise&lt;Module&gt; |  |
+|  [module](./webpack-config.webpackconfighooks.module.md) |  | (config: ModuleOptions) =&gt; Promise&lt;ModuleOptions&gt; |  |
 |  [node](./webpack-config.webpackconfighooks.node.md) |  | (config: Node) =&gt; Promise&lt;Node&gt; |  |
 |  [optimization](./webpack-config.webpackconfighooks.optimization.md) |  | (config: [Optimization](./webpack-config.optimization.md)<!-- -->) =&gt; Promise&lt;[Optimization](./webpack-config.optimization.md)<!-- -->&gt; |  |
 |  [output](./webpack-config.webpackconfighooks.output.md) |  | (config: [Outputs](./webpack-config.outputs.md)<!-- -->) =&gt; Promise&lt;[Outputs](./webpack-config.outputs.md)<!-- -->&gt; |  |

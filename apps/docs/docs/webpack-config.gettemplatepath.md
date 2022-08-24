@@ -10,14 +10,14 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getTemplatePath(options: OptionsForGetPath): string;
+export declare function getTemplatePath(options: Required<OptionsForGetPath>): string;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | [OptionsForGetPath](./webpack-config.optionsforgetpath.md) |  |
+|  options | Required&lt;[OptionsForGetPath](./webpack-config.optionsforgetpath.md)<!-- -->&gt; |  |
 
 <b>Returns:</b>
 

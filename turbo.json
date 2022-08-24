@@ -6,12 +6,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "buildDocsMeta": {
+    "build:doc:meta": {
       "dependsOn": ["build"],
       "outputs": ["dist-api-report/**", "dist-temp-api-report/**"]
     },
-    "@hadeshe93/lib-docs#buildDocs": {
-      "dependsOn": ["buildDocsMeta"],
+    "@hadeshe93/lib-docs#build:docs": {
+      "dependsOn": ["build:doc:meta"],
       "outputs": ["apps/docs/docs/**"]
     }
   }

@@ -39,8 +39,8 @@
   },
   "scripts": {
     "check": "tsc -p tsconfig.json --noEmit",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts browser",
-    "buildDocsMeta": "cross-env NODE_ENV=production esno ../../scripts/build-docs-meta.ts browser"
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build-packages.ts browser",
+    "build:doc:meta": "cross-env NODE_ENV=production esno ../../scripts/build-packages-doc-meta.ts browser"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"

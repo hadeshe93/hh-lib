@@ -13,9 +13,9 @@
   },
   "scripts": {
     "dev": "vitepress dev docs",
-    "buildDocs": "cross-env NODE_ENV=production esno ../../scripts/build-docs.ts && vitepress build docs",
-    "build:docs": "vitepress build docs",
-    "serve:docs": "vitepress serve docs"
+    "build": "vitepress build docs",
+    "serve": "vitepress serve docs",
+    "build:docs": "cross-env NODE_ENV=production esno ../../scripts/build-app-docs.ts && vitepress build docs"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"

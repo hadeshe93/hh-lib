@@ -34,8 +34,8 @@
   },
   "scripts": {
     "check": "tsc -p tsconfig.json --noEmit",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build.ts webpack-config",
-    "buildDocsMeta": "cross-env NODE_ENV=production esno ../../scripts/build-docs-meta.ts webpack-config"
+    "build": "cross-env NODE_ENV=production esno ../../scripts/build-packages.ts webpack-config",
+    "build:doc:meta": "cross-env NODE_ENV=production esno ../../scripts/build-packages-doc-meta.ts webpack-config"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"
@@ -46,17 +46,25 @@
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
     "tapable": "^2.2.1",
-    "webpack": "^5.73.0",
+    "webpack": "^5.74.0",
     "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/plugin-transform-runtime": "^7.18.2",
     "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime-corejs3": "^7.18.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "add-asset-html-webpack-plugin": "^5.0.2",
     "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3",
+    "postcss": "^8.4.16",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.7.2",
+    "react-refresh": "^0.14.0",
     "vue": "^3.2.37",
     "vue-loader": "^17.0.0"
   },
@@ -64,10 +72,18 @@
     "@babel/core": "^7.14.5",
     "@babel/plugin-transform-runtime": "^7.18.2",
     "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime-corejs3": "^7.18.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "add-asset-html-webpack-plugin": "^5.0.2",
     "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3",
+    "postcss": "^8.4.16",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.7.2",
+    "react-refresh": "^0.14.0",
     "vue": "^3.2.37",
     "vue-loader": "^17.0.0"
   }

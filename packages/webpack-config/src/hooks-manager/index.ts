@@ -7,7 +7,7 @@ import {
   OptionsForGetWebpackConfigs,
   GetWebpackConfigs,
   WebpackManagerHookStartInfo,
-} from '../types/configs';
+} from '../typings/configs';
 import type {
   CustomedWebpackConfigs,
   Outputs,
@@ -23,7 +23,7 @@ import type {
   Performance,
   Node,
   CustomedWebpackConfigHooksPlugin,
-} from '../types/configs';
+} from '../typings/configs';
 
 const logger = console;
 const INNER_PLUGIN_NAME = 'WebpackConfigHookManager';
