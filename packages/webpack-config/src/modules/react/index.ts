@@ -52,13 +52,14 @@ export class ReactConfig extends WebpackConfiguration {
       babelLoaderOptions.plugins = [...(babelLoaderOptions.plugins || []), require.resolve('react-refresh/babel')];
     }
 
-    if (defaultConfig?.plugins) {
-      defaultConfig.plugins.push(
-        new ReactRefreshWebpackPlugin({
-          overlay: false,
-        }),
-      );
+    if (!defaultConfig?.plugins) {
+      defaultConfig.plugins = [];
     }
+    defaultConfig.plugins.push(
+      new ReactRefreshWebpackPlugin({
+        overlay: false,
+      }),
+    );
     return defaultConfig;
   }
 

@@ -80,6 +80,7 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
     output: {
       path: getOutputPath(optionsForGetPath),
       filename: '[name].[chunkhash:8].js',
+      publicPath: '/',
     },
     module: {
       rules: [
