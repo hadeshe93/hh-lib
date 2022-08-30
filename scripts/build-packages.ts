@@ -4,7 +4,7 @@
  * @Date          : 2022-02-23 10:48:24
  * @Author        : hadeshe93<hadeshe93@gmail.com>
  * @LastEditors   : hadeshe
- * @LastEditTime  : 2022-08-12 11:10:27
+ * @LastEditTime  : 2022-08-26 15:58:13
  * @FilePath      : /hh-lib/scripts/build-packages.ts
  */
 import path from 'path';
@@ -34,6 +34,10 @@ class PackagesBuilder extends BaseBuilder {
   async build(target: string) {
     const env = ENV_NODE_ENV;
     const pkgDir = resolve(`packages/${target}`);
+    if (!fs.pathExistsSync(pkgDir)) {
+      console.error(`target "${target}" 的路径 "${pkgDir}" 不存在，请检查`);
+      process.exit(1);
+    }
     const pkg = require(`${pkgDir}/package.json`);
     const pkgCachePath = resolve(pkgDir, '.cache');
     const isExisted = await fs.pathExists(pkgCachePath);

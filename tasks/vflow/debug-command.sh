@@ -2,9 +2,9 @@
 
 # 开发项目的路径
 # dev_project_path="/cbs/xcode/webpack5-starter/packages/webpack5-react-antd"
-# dev_project_path="/cbs/xcode/webpack5-starter/packages/webpack5-vue3-element"
+dev_project_path="/cbs/xcode/webpack5-starter/packages/webpack5-vue3-element"
 # dev_project_path="/cbs/xcode/webpack5-starter/packages/webpack5-vue3"
-dev_project_path="/cbs/xcode/webpack5-starter/packages/webpack5-react"
+# dev_project_path="/cbs/xcode/webpack5-starter/packages/webpack5-react"
 
 if [[ $1 == "ls" ]]
 then
