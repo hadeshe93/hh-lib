@@ -57,7 +57,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Build lib docs to dist if a publish happens
         if: steps.changesets.outputs.published == 'true'
-        run: pnpm --filter @hadeshe93/lib-docs build:docs
+        run: pnpm --filter @hadeshe93/lib-docs build
       - name: Publish api reference docs if a publish happens
         if: steps.changesets.outputs.published == 'true'
         id: deploy
