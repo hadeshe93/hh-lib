@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.10.0
+
+### Minor Changes
+
+- [#53](https://github.com/hadeshe93/hh-lib/pull/53) [`4b5f180`](https://github.com/hadeshe93/hh-lib/commit/4b5f180557e3fcffc7c84dd4531b91e879471492) Thanks [@hadeshe93](https://github.com/hadeshe93)! - changeset
+
 ## 0.9.0
 
 ### Minor Changes
