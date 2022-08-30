@@ -165,7 +165,7 @@ importers:
     specifiers:
       '@hadeshe93/lib-common': workspace:^0.8.0
       '@hadeshe93/lib-node': workspace:^0.7.0
-      '@hadeshe93/webpack-config': workspace:^0.4.0
+      '@hadeshe93/webpack-config': workspace:^0.5.0
       '@types/inquirer': ^8.2.1
       '@types/mem-fs-editor': ^7.0.2
       '@types/webpack-bundle-analyzer': ^4.4.2

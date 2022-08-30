@@ -1,5 +1,12 @@
 # @hadeshe93/vflow
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`35a648f`](https://github.com/hadeshe93/hh-lib/commit/35a648f25f04e3cdb3237f14ff2a1375e9b32031)]:
+  - @hadeshe93/webpack-config@0.5.0
+
 ## 0.1.0
 
 ### Minor Changes
