@@ -166,6 +166,7 @@ importers:
       '@babel/core': ^7.14.5
       '@babel/plugin-transform-runtime': ^7.18.2
       '@babel/preset-env': ^7.14.5
+      '@babel/runtime-corejs3': ^7.18.3
       '@hadeshe93/lib-common': workspace:^0.8.0
       '@hadeshe93/lib-node': workspace:^0.7.0
       '@hadeshe93/webpack-config': workspace:^0.5.0
@@ -221,6 +222,7 @@ importers:
       '@babel/core': 7.18.5
       '@babel/plugin-transform-runtime': 7.18.5_@babel+core@7.18.5
       '@babel/preset-env': 7.18.2_@babel+core@7.18.5
+      '@babel/runtime-corejs3': 7.18.3
       '@types/mem-fs-editor': 7.0.2
       '@types/webpack-bundle-analyzer': 4.4.2
       html-webpack-plugin: 5.5.0_webpack@5.74.0
