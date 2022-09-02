@@ -1,5 +1,11 @@
 # @hadeshe93/vflow
 
+## 0.2.0
+
+### Minor Changes
+
+- [#57](https://github.com/hadeshe93/hh-lib/pull/57) [`7a67b3a`](https://github.com/hadeshe93/hh-lib/commit/7a67b3a8b43cba1ccb37b99af285b847bd0d2493) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 修复构建问题 & 命令名字
+
 ## 0.1.1
 
 ### Patch Changes
