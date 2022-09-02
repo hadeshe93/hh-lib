@@ -1,5 +1,11 @@
 # @hadeshe93/vflow
 
+## 0.2.2
+
+### Patch Changes
+
+- [#61](https://github.com/hadeshe93/hh-lib/pull/61) [`89dc7f4`](https://github.com/hadeshe93/hh-lib/commit/89dc7f411e5271eac3375ad75d08dadadd07adaf) Thanks [@hadeshe93](https://github.com/hadeshe93)! - [vflow] 添加缺少的依赖
+
 ## 0.2.1
 
 ### Patch Changes
