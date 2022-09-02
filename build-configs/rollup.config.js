@@ -94,9 +94,9 @@ function createConfig(options = {}) {
           useBuiltIns: 'usage',
           corejs: 3,
           targets: (() => {
-            if (target === 'node') return ['node 12.0'];
-            if (target === 'browser') return ['defaults', 'ie 11', 'iOS 10'];
-            return ['defaults', 'ie 11', 'iOS 10', 'node 12.0'];
+            if (target === 'node') return ['node >= 12.0'];
+            if (target === 'browser') return ['defaults', 'ie 11', 'iOS >= 10'];
+            return ['defaults', 'ie 11', 'iOS >= 10', 'node >= 12.0'];
           })(),
         },
       ],
