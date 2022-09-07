@@ -15,16 +15,6 @@
     "require": "./dist/index.node.cjs.js"
   },
   "types": "dist/index.d.ts",
-  "buildOptions": [
-    {
-      "input": "./src/index.ts",
-      "target": "node",
-      "formats": [
-        "cjs",
-        "esm"
-      ]
-    }
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -41,9 +31,7 @@
     "showconfig": "ts-node -P ./tsconfig.json --showConfig",
     "dev:flow": "cross-env DEBUG=vice* RUN=1 ts-node -P ./tsconfig.json ./src/index.ts",
     "check": "tsc -p tsconfig.json --noEmit",
-    "build:dev": "cross-env NODE_ENV=development esno ../../scripts/build-packages.ts vflow",
-    "build": "cross-env NODE_ENV=production esno ../../scripts/build-packages.ts vflow",
-    "tsc": "cross-env NODE_ENV=production tsc -p tsconfig.json"
+    "build": "cross-env NODE_ENV=production tsc -p tsconfig.json"
   },
   "bugs": {
     "url": "https://github.com/hadeshe93/hh-lib/issues"
