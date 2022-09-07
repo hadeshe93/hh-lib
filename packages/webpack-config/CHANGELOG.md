@@ -1,5 +1,11 @@
 # @hadeshe93/webpack-config
 
+## 0.6.0
+
+### Minor Changes
+
+- [#63](https://github.com/hadeshe93/hh-lib/pull/63) [`0f40cd5`](https://github.com/hadeshe93/hh-lib/commit/0f40cd5dd74779dcf30a114f08aeed5655a16b96) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 修复并完善构建方式
+
 ## 0.5.0
 
 ### Minor Changes
