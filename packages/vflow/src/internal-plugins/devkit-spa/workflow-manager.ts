@@ -45,6 +45,7 @@ export class WorkflowManager extends Interactor {
     if (projectRootPath !== processCwd) {
       process.chdir(projectRootPath);
     }
+    console.log('===> process.cwd():', process.cwd());
     this.ctx.projectRootPath = projectRootPath;
     this.ctx.projectPagesPath = path.resolve(projectRootPath, PAGES_RELATIVE_PATH);
     this.ctx.options = options;

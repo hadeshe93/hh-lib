@@ -71,6 +71,7 @@ export async function getCommonConfig(options: OptionsForGetWebpackConfigs): Pro
     );
   }
 
+  console.log('=====> [webpack-config] process.cwd():', process.cwd());
   return {
     mode: options.mode || 'development',
     context: process.cwd(),

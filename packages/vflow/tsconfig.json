@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./",
+    "rootDir": "./src",
+    "target": "ES6",
+    "module": "CommonJS"
   },
   "include": ["./src", "./__tests__"],
   "exclude": ["node_modules/"],

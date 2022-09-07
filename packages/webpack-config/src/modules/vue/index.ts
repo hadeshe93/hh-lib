@@ -1,5 +1,4 @@
 import merge from 'webpack-merge';
-import { VueLoaderPlugin } from 'vue-loader';
 import { defaultWebpackPluginHook } from '../../utils/plugin';
 
 import { WebpackConfiguration } from '../../core/index';
@@ -20,10 +19,12 @@ export class VueConfig extends WebpackConfiguration {
   }
 
   private async getVueExtraConfig(options?: OptionsForGetWebpackConfigs): Promise<CustomedWebpackConfigs> {
+    const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
+    console.log('====> VueLoaderPlugin:', VueLoaderPlugin);
     const proxyCreatingPlugin = options.proxyCreatingPlugin ?? defaultWebpackPluginHook;
     return {
       module: {
-        rules: [{ test: /\.vue$/, loader: 'vue-loader' }],
+        rules: [{ test: /\.vue$/, loader: require.resolve('vue-loader') }],
       },
       plugins: [await proxyCreatingPlugin(VueLoaderPlugin, [])],
     };
