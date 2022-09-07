@@ -66,7 +66,7 @@ export class ProjectActor {
   async init() {
     const transformedConfig = await this.projectConfigHelper.getTransformedConfig();
     const { frameworkType } = transformedConfig.build;
-    const configClass = spaFrameworkConfigMap[frameworkType]?.configClass;
+    const configClass = spaFrameworkConfigMap[frameworkType].getConfigClass();
     this.ctx.webpackConfiguration = configClass ? new configClass() : undefined;
   }
 

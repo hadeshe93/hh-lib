@@ -1,5 +1,5 @@
 import merge from 'webpack-merge';
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+// import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 import { WebpackConfiguration } from '../../core/index';
 import { findPresetConfigIndex } from '../../utils/babel';
@@ -55,6 +55,7 @@ export class ReactConfig extends WebpackConfiguration {
     if (!defaultConfig?.plugins) {
       defaultConfig.plugins = [];
     }
+    const ReactRefreshWebpackPlugin = (await import('@pmmmwh/react-refresh-webpack-plugin')).default;
     defaultConfig.plugins.push(
       new ReactRefreshWebpackPlugin({
         overlay: false,

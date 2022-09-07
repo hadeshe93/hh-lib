@@ -245,7 +245,7 @@ importers:
       react-refresh: ^0.14.0
       tapable: ^2.2.1
       vue: ^3.2.37
-      vue-loader: ^17.0.0
+      vue-loader: ^16.8.3
       webpack: ^5.74.0
       webpack-merge: ^5.8.0
     dependencies:
@@ -273,7 +273,7 @@ importers:
       postcss-preset-env: 7.7.2_postcss@8.4.16
       react-refresh: 0.14.0
       vue: 3.2.37
-      vue-loader: 17.0.0_webpack@5.74.0
+      vue-loader: 16.8.3_vue@3.2.37+webpack@5.74.0
 
 packages:
 
@@ -13624,14 +13624,22 @@ packages:
       vue: 3.2.37
     dev: true
 
-  /vue-loader/17.0.0_webpack@5.74.0:
-    resolution: {integrity: sha512-OWSXjrzIvbF2LtOUmxT3HYgwwubbfFelN8PAP9R9dwpIkj48TVioHhWWSx7W7fk+iF5cgg3CBJRxwTdtLU4Ecg==}
+  /vue-loader/16.8.3_vue@3.2.37+webpack@5.74.0:
+    resolution: {integrity: sha512-7vKN45IxsKxe5GcVCbc2qFU5aWzyiLrYJyUuMz4BQLKctCj/fmCa0w6fGiiQ2cLFetNcek1ppGJQDCup0c1hpA==}
     peerDependencies:
+      '@vue/compiler-sfc': ^3.0.8
+      vue: ^3.2.13
       webpack: ^4.1.0 || ^5.0.0-0
+    peerDependenciesMeta:
+      '@vue/compiler-sfc':
+        optional: true
+      vue:
+        optional: true
     dependencies:
       chalk: 4.1.2
       hash-sum: 2.0.0
       loader-utils: 2.0.2
+      vue: 3.2.37
       webpack: 5.74.0
     dev: true
 

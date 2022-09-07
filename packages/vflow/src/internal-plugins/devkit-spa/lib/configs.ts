@@ -1,4 +1,4 @@
-import { VueConfig, ReactConfig } from '@hadeshe93/webpack-config';
+// import type { VueConfig, ReactConfig } from '@hadeshe93/webpack-config';
 import type { SpaFrameworkType } from '../types/config';
 
 const MONOREPO_URL = 'github:hadeshe93/webpack5-starter';
@@ -8,7 +8,7 @@ type SpaFrameworkConfigMap = {
     templateName: string;
     repoUrl: string;
     repoTemplatePath: string;
-    configClass: typeof VueConfig | typeof ReactConfig;
+    getConfigClass: () => any;
   };
 };
 
@@ -17,24 +17,24 @@ export const spaFrameworkConfigMap: SpaFrameworkConfigMap = {
     templateName: 'webpack5-vue3',
     repoUrl: MONOREPO_URL,
     repoTemplatePath: 'packages/webpack5-vue3',
-    configClass: VueConfig,
+    getConfigClass: () => require('@hadeshe93/webpack-config').VueConfig,
   },
   react: {
     templateName: 'webpack5-react',
     repoUrl: MONOREPO_URL,
     repoTemplatePath: 'packages/webpack5-react',
-    configClass: ReactConfig,
+    getConfigClass: () => require('@hadeshe93/webpack-config').ReactConfig,
   },
   'vue-element': {
     templateName: 'webpack5-vue3-element',
     repoUrl: MONOREPO_URL,
     repoTemplatePath: 'packages/webpack5-vue3-element',
-    configClass: VueConfig,
+    getConfigClass: () => require('@hadeshe93/webpack-config').VueConfig,
   },
   'react-antd': {
     templateName: 'webpack5-react-antd',
     repoUrl: MONOREPO_URL,
     repoTemplatePath: 'packages/webpack5-react-antd',
-    configClass: ReactConfig,
+    getConfigClass: () => require('@hadeshe93/webpack-config').ReactConfig,
   },
 };
