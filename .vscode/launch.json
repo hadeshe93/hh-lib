@@ -21,23 +21,6 @@
       "runtimeArgs": ["packages/webpack-config/example/demo-project-1/index.cjs.js"]
     },
     {
-      "name": "[vflow] Debug",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "/cbs/xcode/hh-lib/node_modules/ts-node/dist/bin.js",
-      "runtimeArgs": [
-        "-P",
-        "/cbs/xcode/hh-lib/packages/vflow/tsconfig.json",
-        "/cbs/xcode/hh-lib/packages/vflow/src/index.ts",
-        "vs:dev",
-        "--cwd",
-        "/cbs/xcode/webpack5-starter/packages/webpack5-starter-vue3-ts"
-      ],
-      "env": {
-        "DEBUG": "vice*"
-      }
-    },
-    {
       "name": "[lib-docs] Debug Docs",
       "type": "node",
       "request": "launch",
