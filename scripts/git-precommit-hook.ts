@@ -11,7 +11,9 @@ async function main() {
   const fileList = stdout.split('\n');
   const tsFileExisted = fileList.findIndex((fileName) => /^\.changeset\/[\s\S]+\.md$/.test(fileName)) >= 0;
   if (!tsFileExisted) return;
+  // 先构建文档元数据
   await execa('turbo', ['run', 'build:doc:meta', '--filter=./packages/*'], { stdio: 'inherit' });
+  // 再构建文档
   await execa('turbo', ['run', 'build:docs', '--filter=./apps/docs'], { stdio: 'inherit' });
   await execa('git', ['add', '.'], { stdio: 'inherit' });
 }
