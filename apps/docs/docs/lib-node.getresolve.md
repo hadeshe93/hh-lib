@@ -10,18 +10,18 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getResolve(projectRootPath: string): (pathname: string) => string;
+export declare function getResolve(projectPath: string): (...pathnameList: string[]) => string;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  projectRootPath | string |  |
+|  projectPath | string |  |
 
 <b>Returns:</b>
 
-(pathname: string) =&gt; string
+(...pathnameList: string\[\]) =&gt; string
 
 定制化的 resolve 方法
 
