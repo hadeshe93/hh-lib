@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.10.2
+
+### Patch Changes
+
+- Updated dependencies [[`376fbe0`](https://github.com/hadeshe93/hh-lib/commit/376fbe0ec9aba23646c3bbea034180a1bb4e6884)]:
+  - @hadeshe93/lib-common@0.9.0
+
 ## 0.10.1
 
 ### Patch Changes

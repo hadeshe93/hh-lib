@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.9.0
+
+### Minor Changes
+
+- [#67](https://github.com/hadeshe93/hh-lib/pull/67) [`376fbe0`](https://github.com/hadeshe93/hh-lib/commit/376fbe0ec9aba23646c3bbea034180a1bb4e6884) Thanks [@hadeshe93](https://github.com/hadeshe93)! - common 包新增 mime 相关工具函数
+
 ## 0.8.1
 
 ### Patch Changes
