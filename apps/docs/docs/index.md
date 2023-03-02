@@ -11,4 +11,5 @@
 |  [@hadeshe93/lib-browser](./lib-browser.md) |  |
 |  [@hadeshe93/lib-common](./lib-common.md) |  |
 |  [@hadeshe93/lib-node](./lib-node.md) |  |
+|  [@hadeshe93/webpack-config](./webpack-config.md) |  |
 
