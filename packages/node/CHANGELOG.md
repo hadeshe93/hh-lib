@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.8.0
+
+### Minor Changes
+
+- [#68](https://github.com/hadeshe93/hh-lib/pull/68) [`0f2cb9b`](https://github.com/hadeshe93/hh-lib/commit/0f2cb9b0b6fa256f42e8170065c183cc534ad3f1) Thanks [@hadeshe93](https://github.com/hadeshe93)! - 完善 resolver 文件内的工具函数
+
+### Patch Changes
+
+- Updated dependencies [[`376fbe0`](https://github.com/hadeshe93/hh-lib/commit/376fbe0ec9aba23646c3bbea034180a1bb4e6884)]:
+  - @hadeshe93/lib-common@0.9.0
+
 ## 0.7.0
 
 ### Minor Changes
